@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livraison Super U Drive — Nozay</title>
+  <meta name="description" content="Service local à Nozay (44) : récupération de vos courses Super U Drive et livraison à domicile en deux roues." />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Icons (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation fixe -->
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="logo" href="#hero">Kehops Livraisons</a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu"><i class="fa fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#how">Comment ça marche</a></li>
+        <li><a href="#advantages">Avantages</a></li>
+        <li><a href="#info">Important</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Vos courses Super U Drive livrées à domicile à Nozay</h1>
+        <p class="lead">Un service local pratique pour récupérer vos courses déjà payées en ligne et vous les livrer directement chez vous.</p>
+        <p class="lead">Appelez maintenant ou remplissez le formulaire ci-dessous pour une demande de livraison mobile facile et rapide.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="tel:0602019088"><i class="fa fa-phone"></i>Appel rapide</a>
+        </div>
+        <ul class="hero-features">
+          <li><i class="fa fa-map-marker-alt"></i> Service uniquement sur Nozay</li>
+          <li><i class="fa fa-users"></i> Idéal pour personnes âgées et sans véhicule</li>
+        </ul>
+      </div>
+      <div class="hero-image" aria-hidden="true">
+        <!-- Image moderne via Unsplash -->
+        <img loading="lazy" src="https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?q=80&w=760&auto=format&fit=crop&ixlib=rb-4.0.3&s=1"
+             srcset="https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?q=80&w=480&auto=format&fit=crop&ixlib=rb-4.0.3&s=1 480w,
+                     https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?q=80&w=760&auto=format&fit=crop&ixlib=rb-4.0.3&s=1 760w,
+                     https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&s=1 1024w"
+             sizes="(max-width: 700px) 100vw, 420px"
+             alt="Livraison de courses locales"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE DE CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="container form-grid">
+      <div class="contact-intro">
+        <h2>Contact & demande de livraison</h2>
+        <p class="muted">Remplissez directement le formulaire pour demander votre livraison.</p>
+        <ul class="contact-info">
+          <li><i class="fa fa-phone"></i> <a href="tel:0602019088">06 02 01 90 88</a></li>
+          <li><i class="fa fa-envelope"></i> <a href="mailto:kehops44sa@gmail.com">kehops44sa@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="form-column">
+        <div class="contact-highlight">
+          <p>Remplissez ce formulaire pour une demande de livraison</p>
+        </div>
+        <form id="delivery-form" enctype="multipart/form-data" novalidate>
+        <label for="name">Nom</label>
+        <input id="name" name="name" type="text" required />
+
+        <label for="phone">Téléphone</label>
+        <input id="phone" name="phone" type="tel" pattern="[0-9\s+\-()]{6,}" required />
+
+        <label for="address">Adresse de livraison</label>
+        <input id="address" name="address" type="text" required />
+
+        <label for="shopping_list">Contenu réel de votre commande</label>
+        <textarea id="shopping_list" name="shopping_list" rows="5" placeholder="Indiquez ici la liste détaillée de vos courses et le nombre d’articles commandés." required></textarea>
+        <p class="field-note">Les petites et moyennes commandes sont privilégiées afin de garantir une livraison en deux roues dans de bonnes conditions.</p>
+
+        <label for="message">Message (détails, créneaux)</label>
+        <textarea id="message" name="message" rows="4" required placeholder="À quelle heure et quelle date vos courses seront prêtes à être récupérées au Super U ?"></textarea>
+
+        <div class="upload-guidance">
+          <div class="upload-note">
+            <div class="upload-icon"><i class="fa fa-camera"></i></div>
+            <div>
+              <p class="upload-title">Merci de photographier le dos de votre carte Super U avec le code-barres bien visible et lisible.</p>
+              <p class="upload-warning">Les photos floues ou incomplètes peuvent empêcher le retrait des courses.</p>
+            </div>
+          </div>
+          <div class="card-example">
+            <div class="card-example__illustration">
+              <span class="card-chip"></span>
+              <div class="barcode-zone"></div>
+              <p>Zone code-barres</p>
+            </div>
+          </div>
+        </div>
+
+        <label for="cardPhoto">Photo nette de la carte Super U (obligatoire)</label>
+        <input id="cardPhoto" name="attachment" type="file" accept="image/*" capture="environment" required />
+        <div class="photo-preview" id="photoPreview" aria-live="polite"></div>
+
+        <label class="checkbox"><input type="checkbox" id="paidConfirm" required /> J'ai déjà payé ma commande sur Super U Drive</label>
+
+        <div class="form-actions">
+          <button id="submitBtn" type="submit" class="btn primary">
+            <span class="btn-text">Envoyer la demande</span>
+            <span class="loader" aria-hidden="true"></span>
+          </button>
+          <button type="reset" class="btn outline">Réinitialiser</button>
+        </div>
+
+        <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- COMMENT CA MARCHE -->
+  <section id="how" class="section">
+    <div class="container">
+      <h2>Comment ça marche</h2>
+      <p class="muted">Simple, rapide et adapté aux besoins locaux.</p>
+      <div class="steps-grid">
+        <article class="step">
+          <div class="icon"><i class="fa fa-cart-shopping"></i></div>
+          <h3>1. Vous commandez</h3>
+          <p>Vous passez votre commande et la payez sur Super U Drive Nozay.</p>
+        </article>
+        <article class="step">
+          <div class="icon"><i class="fa fa-camera"></i></div>
+          <h3>2. Vous envoyez votre carte</h3>
+          <p>Envoyez une photo nette et lisible de votre carte Super U.</p>
+        </article>
+        <article class="step">
+          <div class="icon"><i class="fa fa-hand-holding-box"></i></div>
+          <h3>3. Je récupère vos courses</h3>
+          <p>Je scanne la carte et récupère vos courses au Drive.</p>
+        </article>
+        <article class="step">
+          <div class="icon"><i class="fa fa-motorcycle"></i></div>
+          <h3>4. Livraison</h3>
+          <p>Livraison à domicile réalisée en deux roues, rapidement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section id="advantages" class="section alt-bg">
+    <div class="container">
+      <h2>Avantages</h2>
+      <div class="cards-grid">
+        <div class="card"><i class="fa fa-home"></i><h4>Service local</h4><p>Proximité et connaissance de Nozay.</p></div>
+        <div class="card"><i class="fa fa-bicycle"></i><h4>Livraison en deux roues</h4><p>Rapide et maniable pour Nozay.</p></div>
+        <div class="card"><i class="fa fa-heart"></i><h4>Idéal pour personnes âgées</h4><p>Soutien pour ceux qui ont des difficultés à se déplacer.</p></div>
+        <div class="card"><i class="fa fa-bolt"></i><h4>Rapide et pratique</h4><p>Gain de temps important.</p></div>
+        <div class="card"><i class="fa fa-box-open"></i><h4>Petites et moyennes courses</h4><p>Adapté aux commandes compactes et moyennes.</p></div>
+        <div class="card"><i class="fa fa-user-friends"></i><h4>Contact humain</h4><p>Service personnalisé et de confiance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMATIONS IMPORTANTES -->
+  <section id="info" class="section">
+    <div class="container">
+      <h2>Informations importantes</h2>
+      <div class="info-box">
+        <ul>
+          <li><strong>Courses déjà payées obligatoirement.</strong></li>
+          <li><strong>Livraison uniquement sur la commune de Nozay (Loire-Atlantique).</strong></li>
+          <li><strong>Carte Super U nette et lisible obligatoire.</strong></li>
+          <li><strong>Seules les petites et moyennes commandes sont acceptées.</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI CHOISIR -->
+  <section id="why" class="section alt-bg">
+    <div class="container">
+      <h2>Pourquoi choisir ce service ?</h2>
+      <div class="why-grid">
+        <div>
+          <h3>Confiance et proximité</h3>
+          <p>Service indépendant, humain et basé localement à Nozay.</p>
+        </div>
+        <div>
+          <h3>Simplicité</h3>
+          <p>Vous ne changez rien à votre commande Super U Drive.</p>
+        </div>
+        <div>
+          <h3>Sécurité</h3>
+          <p>La photo de la carte permet un retrait fiable au Drive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS CLIENTS -->
+  <section id="reviews" class="section">
+    <div class="container">
+      <h2>Avis clients</h2>
+      <div class="reviews-grid">
+        <blockquote class="review">« Un service au top, très rassurant pour ma mère. » <cite>— Marie L., Nozay</cite></blockquote>
+        <blockquote class="review">« Rapide et professionnel, je recommande. » <cite>— Thomas R., Nozay</cite></blockquote>
+        <blockquote class="review">« Pratique quand on n'a pas de véhicule. » <cite>— Sylvie M., Nozay</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section alt-bg">
+    <div class="container">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Dois-je avoir déjà payé ma commande sur Super U Drive ?</summary>
+        <p>Oui, le service récupère uniquement des commandes déjà payées.</p>
+      </details>
+      <details>
+        <summary>Quelles tailles de commandes sont acceptées ?</summary>
+        <p>Petites et moyennes commandes — pour des raisons de logistique et sécurité.</p>
+      </details>
+      <details>
+        <summary>La livraison est-elle disponible hors de Nozay ?</summary>
+        <p>Non, le service est limité à la commune de Nozay (44).</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CARTE -->
+  <section id="map" class="section">
+    <div class="container">
+      <h2>Nous sommes à Nozay</h2>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps?q=Nozay,+Loire-Atlantique&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOUTONS FLOTTANTS -->
+  <a class="fab call" href="tel:0602019088" aria-label="Appel rapide"><i class="fa fa-phone"></i></a>
+  <a class="fab whatsapp" href="https://wa.me/33602019088" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Service local indépendant de livraison à domicile sur Nozay.</p>
+      <small>© <span id="year"></span> Kehops Livraisons — Nozay (44)</small>
+    </div>
+  </footer>
+
+  <!-- EmailJS SDK (nécessaire pour l'envoi d'email côté client) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

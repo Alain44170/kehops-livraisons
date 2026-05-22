@@ -206,3 +206,19 @@ input[type=file]{min-height:44px}
 .hero-image img{display:block;width:100%;height:auto;max-width:100%;object-fit:cover}
 input[type=file]{padding:12px 10px}
 html, body{overflow-x:hidden}
+
+/* === Ajouts spécifiques : badges commerces === */
+.commerce-types{margin-top:22px}
+.commerce-types h3{font-size:1rem;margin-bottom:10px;color:var(--primary)}
+.commerce-chips{display:flex;flex-wrap:wrap;gap:8px}
+.commerce-chips span{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(11,110,104,0.10);
+  color:var(--primary);
+  border:1px solid rgba(11,110,104,0.18);
+  border-radius:20px;
+  padding:6px 12px;
+  font-size:0.88rem;
+  font-weight:600;
+}
+.commerce-chips span i{font-size:0.85rem}

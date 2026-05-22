@@ -38,8 +38,14 @@ body{
   text-decoration: none;
 }
 
-.partner-logo {
-  width: 80px;
+.logo-3marchands{
+  width: 100px;
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+ .logo-casabella{
+  width: 150px;
   transition: transform 0.25s ease;
   cursor: pointer;
 }

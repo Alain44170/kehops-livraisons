@@ -58,14 +58,13 @@
     <div class="container form-grid">
       <div class="contact-intro">
         <h2>Contact & demande de livraison</h2>
-        <p class="muted">Remplissez le formulaire pour demander votre livraison depuis n'importe quel commerce de Nozay.
-        </p>
+        <p class="muted">Vous commandez vos plats au restaurant de votre choix ou vos courses au Super U drive ou toutes autres alimentions qui accepte le paiemment en ligne,puis vous remplissez ce formulaire pour votre demande de livraison avec le nom et de préférence adresse - téléphone du commerce ou je dois retirer votre commande en précisant la date et heure du retrait
        <!--<ul class="contact-info">
           <li><i class="fa fa-phone"></i> <a href="tel:0602019088">06 02 01 90 88</a></li>
           <li><i class="fa fa-envelope"></i> <a href="mailto:kehops44sa@gmail.com">kehops44sa@gmail.com</a></li>
         </ul>--> 
 
-        <div class="commerce-types">
+        <!--<div class="commerce-types">
           <h2>Commerces acceptés</h2>
           <div class="commerce-chips">
             <span><i class="fa fa-pizza-slice"></i> Pizzerias</span>
@@ -75,8 +74,51 @@
             <span><i class="fa fa-cart-shopping"></i> Supermarchés</span>
             <span><i class="fa fa-store"></i> Et plus encore…</span>
           </div>
+        </div>-->
+<div class="form-column">
+        <div class="contact-highlight">
+          <h3>Remplissez ce formulaire pour votre demande de livraison</h3>
         </div>
+        <form id="delivery-form" novalidate>
+          <label for="name">Nom</label>
+          <input id="name" name="name" type="text" required />
 
+          <label for="phone">Téléphone</label>
+          <input id="phone" name="phone" type="tel" pattern="[0-9\s+\-()]{6,}" required />
+
+          <label for="address">Adresse de livraison</label>
+          <input id="address" name="address" type="text" required />
+
+          <label for="shop_name">Nom et adresse du commerce ou se trouve vos articles à récupérer</label>
+          <input id="shop_name" name="shop_name" type="text" required
+            placeholder="Ex : Pizzeria Le Napoli, Pharmacie du Centre, Super U…" />
+          <p class="field-note">Indiquez le nom et l'adresse du commerce où vous avez passé votre commande ou où je dois
+            récupérer vos articles.</p>
+
+          <label for="shopping_list">Ce que je dois récupérer</label>
+          <textarea id="shopping_list" name="shopping_list" rows="5"
+            placeholder="Liste de vos articles, plats ou courses à récupérer. Indiquez les quantités et précisions utiles."
+            required></textarea>
+          <p class="field-note">Volume maximum transportable : l'équivalent de 2 grands sacs en toile.</p>
+
+          <label for="message">Message (détails, créneaux, horaires de retrait)</label>
+          <textarea id="message" name="message" rows="4" required
+            placeholder="Indiquez à quelle heure et quelle date votre commande sera prête, ainsi que tout autre détail utile."></textarea>
+
+          <label class="checkbox"><input type="checkbox" id="paidConfirm" required /> J'ai déjà payé ma commande. Je
+            règle 5 euros pour le service de livraison au livreur</label>
+
+          <div class="form-actions">
+            <button id="submitBtn" type="submit" class="btn primary">
+              <span class="btn-text">Envoyer la demande</span>
+              <span class="loader" aria-hidden="true"></span>
+            </button>
+            <button type="reset" class="btn outline">Réinitialiser</button>
+          </div>
+
+          <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
        <br>
         <h2>Nos commerces partenaires</h2>
         <h3>Cliquez sur les logos pour en savoir plus</h3>
@@ -106,50 +148,7 @@
         </div>
       </div>
 
-      <div class="form-column">
-        <div class="contact-highlight">
-          <h2>Remplissez ce formulaire pour votre demande de livraison</h2>
-        </div>
-        <form id="delivery-form" novalidate>
-          <label for="name">Nom</label>
-          <input id="name" name="name" type="text" required />
-
-          <label for="phone">Téléphone</label>
-          <input id="phone" name="phone" type="tel" pattern="[0-9\s+\-()]{6,}" required />
-
-          <label for="address">Adresse de livraison</label>
-          <input id="address" name="address" type="text" required />
-
-          <label for="shop_name">Nom et adresse du commerce ou se trouve vos articles à récupérer</label>
-          <input id="shop_name" name="shop_name" type="text" required
-            placeholder="Ex : Pizzeria Le Napoli, Pharmacie du Centre, Super U…" />
-          <p class="field-note">Indiquez le nom et l'adresse du commerce où vous avez passé votre commande ou où je dois
-            récupérer vos articles.</p>
-
-          <label for="shopping_list">Ce que je dois récupérer</label>
-          <textarea id="shopping_list" name="shopping_list" rows="5"
-            placeholder="Liste détaillée de vos articles, plats ou courses à récupérer. Indiquez les quantités et précisions utiles."
-            required></textarea>
-          <p class="field-note">Volume maximum transportable : l'équivalent de 2 grands sacs en toile.</p>
-
-          <label for="message">Message (détails, créneaux, horaires de retrait)</label>
-          <textarea id="message" name="message" rows="4" required
-            placeholder="Indiquez à quelle heure et quelle date votre commande sera prête, ainsi que tout autre détail utile."></textarea>
-
-          <label class="checkbox"><input type="checkbox" id="paidConfirm" required /> J'ai déjà payé ma commande. Je
-            règle 5 euros pour le service de livraison au livreur</label>
-
-          <div class="form-actions">
-            <button id="submitBtn" type="submit" class="btn primary">
-              <span class="btn-text">Envoyer la demande</span>
-              <span class="loader" aria-hidden="true"></span>
-            </button>
-            <button type="reset" class="btn outline">Réinitialiser</button>
-          </div>
-
-          <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
-        </form>
-      </div>
+      
     </div>
   </section>
 

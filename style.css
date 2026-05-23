@@ -32,6 +32,12 @@ body{
   align-items: center;
 }
 
+.muted {
+  color: var(--muted);
+  font-size: 1.2rem;
+  margin-top: 6px;
+}
+
 .partner-link {
   position: relative;
   display: inline-block;

@@ -557,8 +557,8 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(4px);
   transition: border-color 0.2s, background 0.2s;
 }
-.partner-logo:hover { border-color: rgba(201,162,39,0.5); background: rgba(201,162,39,0.1); }
-.logo-3marchands { height: 52px; }
+.partner-logo:hover { border-color: rgba(201,162,39,0.5); background: rgba(209, 110, 255, 0.705); }
+.logo-3marchands { height: 52px; background: rgba(99, 247, 0, 0.514); border-color: rgba(255,255,255,0.2); }
 .logo-casabella { height: 52px; }
 
 .tooltip {

@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if(entry.isIntersecting) entry.target.classList.add('visible');
     });
   },{threshold:0.12});
-  document.querySelectorAll('.step, .card, .review, .map-wrap, .hero-content, form, .info-box').forEach(el=>{
+  document.querySelectorAll('.step, .card, .review, .map-wrap, .hero-content, .info-box, .why-card').forEach(el=>{
     el.classList.add('reveal'); observer.observe(el);
   });
 

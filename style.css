@@ -649,16 +649,35 @@ textarea { min-height: 100px; resize: vertical; }
   box-shadow: 0 4px 18px rgba(11,61,46,0.12), 0 1px 3px rgba(11,61,46,0.08);
 }
 .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.info-box li {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: 0.95rem; color: var(--text);
-}
-.info-box li::before {
-  content: '✓';
-  color: var(--green-mid); font-weight: 700; flex-shrink: 0;
-  margin-top: 1px;
-}
+@media (max-width: 768px) {
 
+  .info-box li {
+    display: block !important;
+
+    text-align: left !important;
+    word-break: normal;
+    overflow-wrap: break-word;
+
+    line-height: 1.7;
+    font-size: 0.95rem;
+
+    margin-bottom: 18px;
+
+    position: relative;
+    padding-left: 26px;
+  }
+
+  .info-box li::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    content: "✓";
+    color: var(--green-mid);
+    font-weight: bold;
+  }
+
+}
 /* ========= WHY ========= */
 .why-grid {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
@@ -833,4 +852,17 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 @media (max-width: 480px) {
   .hero-grid { grid-template-columns: 1fr !important; }
   .form-card { padding: 20px 16px !important; }
+}
+
+@media (max-width: 480px) {
+
+  .info-box {
+    padding: 22px 18px;
+  }
+
+  .info-box li {
+    font-size: 0.90rem;
+    line-height: 1.6;
+  }
+
 }

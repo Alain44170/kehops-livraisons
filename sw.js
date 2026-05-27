@@ -1,6 +1,7 @@
 /* Service Worker — Khéops Livraisons PWA */
-const CACHE_NAME = 'kheops-v1';
+const CACHE_NAME = 'kheops-v2';
 const ASSETS = [
+  './index.html',
   './app.html',
   './logo.png',
   './hero-village.jpg',

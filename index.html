@@ -199,6 +199,8 @@
   <!-- Favicon (à remplacer par votre vrai favicon) -->
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
 
   <!-- Theme color (barre du navigateur sur mobile) -->
   <meta name="theme-color" content="#0b3d2e" />
@@ -681,5 +683,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
+  <!-- Enregistrement Service Worker PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>

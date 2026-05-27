@@ -110,4 +110,52 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Fermer menu mobile sur ESC
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') links.classList.remove('open'); });
+
+  // ═══════════════════════════════════════════
+  // PWA — Bouton "Installer l'app"
+  // ═══════════════════════════════════════════
+  let deferredPrompt = null;
+  const navAppLink = document.getElementById('nav-app-link');
+
+  // Chrome déclenche cet événement quand l'app est installable
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Empêche la bannière automatique
+    deferredPrompt = e; // On garde l'événement en mémoire
+    // Affiche le bouton si présent
+    if (navAppLink) navAppLink.parentElement.style.display = 'list-item';
+  });
+
+  // Au clic sur le bouton — déclenche la vraie boîte de dialogue Chrome
+  if (navAppLink) {
+    navAppLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (deferredPrompt) {
+        // Affiche la boîte de dialogue d'installation officielle
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('PWA install outcome:', outcome);
+        deferredPrompt = null;
+        // Cache le bouton après installation
+        navAppLink.parentElement.style.display = 'none';
+      } else {
+        // Si déjà installée ou navigateur non compatible — ouvre app.html
+        window.location.href = 'app.html';
+      }
+    });
+  }
+
+  // Cache le bouton si l'app est déjà installée (mode standalone)
+  if (navAppLink) {
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true) {
+      navAppLink.parentElement.style.display = 'none';
+    }
+  }
+
+  // L'app vient d'être installée
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA installée avec succès');
+    deferredPrompt = null;
+    if (navAppLink) navAppLink.parentElement.style.display = 'none';
+  });
 });

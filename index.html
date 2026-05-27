@@ -1,216 +1,688 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Khéops Livraisons — Commander</title>
-  <meta name="description" content="Commandez une livraison à domicile à Nozay (44)" />
-  <meta name="theme-color" content="#0b3d2e" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Khéops" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" />
 
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="logo.png" />
-  <link rel="icon" href="logo.png" />
+  <!-- =====================================================
+       SEO — BALISES ESSENTIELLES
+  ====================================================== -->
 
+  <!-- Titre optimisé : mot-clé principal + ville + département -->
+  <title>Khéops Livraisons — Livraison à domicile à Nozay (44) | Tous commerces</title>
+
+  <!-- Description : 150-160 caractères, accrocheur et informatif -->
+  <meta name="description" content="Service de livraison à domicile à Nozay (Loire-Atlantique 44). Je récupère vos commandes dans tous les commerces : restaurants, pharmacies, épiceries, Super U. Seulement 5 € la livraison." />
+
+  <!-- Mots-clés (moins importants aujourd'hui mais utiles pour certains moteurs) -->
+  <meta name="keywords" content="livraison domicile Nozay, livraison Nozay 44, courses à domicile Nozay, livraison repas Nozay, livraison pharmacie Nozay, livraison épicerie Nozay, Khéops livraisons, livreur Nozay Loire-Atlantique" />
+
+  <!-- Auteur & langue -->
+  <meta name="author" content="Khéops Livraisons" />
+  <meta name="language" content="fr" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <!-- URL canonique (à mettre à jour avec votre vrai nom de domaine) -->
+  <link rel="canonical" href="https://alain44170.github.io/kehops-livraisons/" />
+
+  <!-- =====================================================
+       SEO LOCAL — DONNÉES GÉOGRAPHIQUES
+  ====================================================== -->
+  <meta name="geo.region" content="FR-44" />
+  <meta name="geo.placename" content="Nozay, Loire-Atlantique" />
+  <meta name="geo.position" content="47.5638;-1.6197" />
+  <meta name="ICBM" content="47.5638, -1.6197" />
+
+  <!-- =====================================================
+       OPEN GRAPH — Partage sur Facebook, WhatsApp, etc.
+  ====================================================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Khéops Livraisons" />
+  <meta property="og:title" content="Khéops Livraisons — Livraison à domicile à Nozay (44)" />
+  <meta property="og:description" content="Je récupère vos commandes dans tous les commerces de Nozay et vous les livre chez vous. Restaurants, pharmacies, épiceries… Seulement 5 € la livraison." />
+  <meta property="og:image" content="https://alain44170.github.io/kehops-livraisons/hero-village.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Livreur Khéops Livraisons à Nozay sur scooter devant des commerces" />
+  <meta property="og:url" content="https://alain44170.github.io/kehops-livraisons/" />
+
+  <!-- =====================================================
+       TWITTER CARD — Partage sur Twitter/X
+  ====================================================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Khéops Livraisons — Livraison à domicile à Nozay (44)" />
+  <meta name="twitter:description" content="Je récupère vos commandes dans tous les commerces de Nozay et vous les livre chez vous. Seulement 5 €." />
+  <meta name="twitter:image" content="https://alain44170.github.io/kehops-livraisons/hero-village.jpg" />
+
+  <!-- =====================================================
+       SCHEMA.ORG — Données structurées (Google Rich Results)
+       Google comprend qui vous êtes, où vous êtes, ce que vous faites
+  ====================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Khéops Livraisons",
+    "description": "Service local de livraison à domicile à Nozay (Loire-Atlantique). Récupération et livraison depuis tous les commerces : restaurants, pharmacies, épiceries, supermarchés.",
+    "url": "https://alain44170.github.io/kehops-livraisons/",
+    "logo": "https://alain44170.github.io/kehops-livraisons/logo.png",
+    "image": "https://alain44170.github.io/kehops-livraisons/hero-village.jpg",
+    "telephone": "+33602019088",
+    "priceRange": "5€",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash",
+    "areaServed": {
+      "@type": "City",
+      "name": "Nozay",
+      "postalCode": "44170",
+      "addressCountry": "FR"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nozay",
+      "postalCode": "44170",
+      "addressRegion": "Loire-Atlantique",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 47.5638,
+      "longitude": -1.6197
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+33602019088",
+      "contactType": "customer service",
+      "availableLanguage": "French"
+    },
+    "sameAs": [
+      "https://wa.me/33602019088"
+    ],
+    "serviceType": "Livraison à domicile",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Service de livraison",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Livraison depuis restaurants",
+            "description": "Récupération et livraison depuis les restaurants et pizzerias de Nozay"
+          },
+          "price": "5",
+          "priceCurrency": "EUR"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Livraison depuis pharmacies",
+            "description": "Récupération et livraison de médicaments depuis les pharmacies de Nozay"
+          },
+          "price": "5",
+          "priceCurrency": "EUR"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Livraison de courses",
+            "description": "Récupération et livraison de courses depuis les épiceries et supermarchés de Nozay"
+          },
+          "price": "5",
+          "priceCurrency": "EUR"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Schema FAQ — Google peut afficher les questions/réponses directement dans les résultats -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quels commerces acceptez-vous pour la livraison à Nozay ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tous les commerces situés sur la commune de Nozay (44) : restaurants, pizzerias, pharmacies, épiceries, supermarchés, et plus encore."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien coûte la livraison à domicile à Nozay ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La livraison est à 5 € par course, payés directement au livreur à la réception de votre commande."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dois-je avoir déjà payé ma commande avant la livraison ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, de préférence. Réglez votre commande directement auprès du commerce (en ligne ou par téléphone). Vous payez ensuite 5 € au livreur pour le service de livraison."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "La livraison est-elle disponible hors de Nozay ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Non, le service est actuellement limité à la commune de Nozay (Loire-Atlantique, 44)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelles tailles de commandes sont acceptées ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Petites et moyennes commandes transportables en scooter, l'équivalent de 2 grands sacs en toile maximum."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- =====================================================
+       PERFORMANCE & ACCESSIBILITÉ
+  ====================================================== -->
+  <!-- Préchargement des polices pour éviter le flash de texte -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Favicon (à remplacer par votre vrai favicon) -->
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+
+  <!-- Theme color (barre du navigateur sur mobile) -->
+  <meta name="theme-color" content="#0b3d2e" />
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
-
-  <style>
-    :root {
-      --gold: #c9a227;
-      --gold-light: #e8c84a;
-      --green-deep: #0b3d2e;
-      --green-mid: #0b6e68;
-      --green-accent: #2aa879;
-      --bg: #f0ebe0;
-      --surface: #ede8dd;
-      --card: #e9e3d6;
-      --text: #111c16;
-      --muted: #6b6255;
-      --radius: 18px;
-      --radius-sm: 12px;
-      --shadow: 0 4px 18px rgba(11,61,46,0.12), 0 1px 3px rgba(11,61,46,0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; }
-
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      overscroll-behavior: none;
-    }
-
-    .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
-
-    /* HEADER & NAV (identique à avant) */
-    .app-header { background: linear-gradient(135deg, var(--green-deep), #0f4d3a); padding: env(safe-area-inset-top, 0) 0 0; flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
-    .header-logo { display: flex; align-items: center; gap: 10px; }
-    .header-logo img { height: 36px; width: auto; }
-    .header-logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #fff; font-weight: 700; }
-    .header-logo-text span { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; text-transform: uppercase; }
-    .header-actions { display: flex; gap: 10px; }
-    .header-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; transition: background 0.2s; }
-    .header-btn:active { background: rgba(255,255,255,0.22); }
-    .header-btn.whatsapp { background: rgba(37,211,102,0.25); border-color: rgba(37,211,102,0.4); }
-
-    .nav-tabs { display: flex; background: rgba(0,0,0,0.2); }
-    .nav-tab { flex: 1; padding: 10px 0; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .nav-tab i { font-size: 1rem; }
-    .nav-tab.active { color: var(--gold-light); border-bottom-color: var(--gold-light); }
-
-    .app-content { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding-bottom: env(safe-area-inset-bottom, 16px); }
-    .page { display: none; padding: 20px 16px; }
-    .page.active { display: block; }
-
-    /* HERO CARD - CORRECTION IMAGE */
-    .hero-card {
-      background: linear-gradient(135deg, var(--green-deep), #0f4d3a);
-      border-radius: var(--radius);
-      padding: 24px;
-      color: #fff;
-      margin-bottom: 18px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(45deg, rgba(201,162,39,0.04) 0, rgba(201,162,39,0.04) 1px, transparent 0, transparent 30px);
-    }
-    .hero-card-content { position: relative; z-index: 1; }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(201,162,39,0.2); border: 1px solid rgba(201,162,39,0.4);
-      color: var(--gold-light); font-size: 0.7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
-    }
-
-    .hero-card h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 1.1; margin-bottom: 10px; }
-    .hero-card h1 em { font-style: normal; color: var(--gold-light); }
-    .hero-card p { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 18px; }
-
-    .hero-card-img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      object-position: center 32%;
-      border-radius: var(--radius-sm);
-      margin-bottom: 16px;
-    }
-
-    /* Amélioration spécifique pour mobile */
-    @media (max-width: 480px) {
-      .hero-card-img {
-        height: 175px;
-        object-position: center 40%;
-      }
-    }
-
-    .hero-stats {
-      display: flex; gap: 0; background: rgba(0,0,0,0.2);
-      border-radius: var(--radius-sm); overflow: hidden;
-    }
-    .hero-stat { flex: 1; padding: 10px 8px; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold-light); }
-    .hero-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
-
-    /* Le reste du CSS est identique à ta version précédente */
-    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
-    .quick-btn { background: var(--card); border: 1px solid rgba(11,61,46,0.12); border-radius: var(--radius); padding: 16px 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--text); box-shadow: var(--shadow); transition: transform 0.15s, box-shadow 0.15s; cursor: pointer; }
-    .quick-btn:active { transform: scale(0.97); }
-    .quick-btn-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-    .quick-btn-icon.green { background: rgba(11,110,104,0.12); color: var(--green-mid); }
-    .quick-btn-icon.gold { background: rgba(201,162,39,0.12); color: var(--gold); }
-    .quick-btn-icon.whatsapp { background: rgba(37,211,102,0.12); color: #25D366; }
-    .quick-btn-icon.info { background: rgba(11,61,46,0.08); color: var(--green-deep); }
-    .quick-btn span { font-size: 0.82rem; font-weight: 600; text-align: center; }
-
-    .section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 12px; margin-top: 4px; }
-    .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
-    .step-item { display: flex; align-items: flex-start; gap: 12px; background: var(--card); border-radius: var(--radius-sm); padding: 14px; border: 1px solid rgba(11,61,46,0.10); box-shadow: var(--shadow); }
-    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--green-mid); color: #fff; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .step-text strong { display: block; font-size: 0.9rem; margin-bottom: 3px; }
-    .step-text p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-
-    .form-card { background: #f2ede3; border-radius: var(--radius); padding: 20px; border: 1px solid rgba(201,162,39,0.15); box-shadow: var(--shadow); margin-bottom: 16px; }
-    /* ... (tout le reste du style est conservé) ... */
-    /* Pour ne pas allonger inutilement, le reste du CSS est identique à ta version originale. */
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-  <!-- HEADER (identique) -->
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="header-logo">
-        <img src="logo.png" alt="Logo Khéops">
-        <div class="header-logo-text">
-          Khéops
-          <span>Livraisons · Nozay 44</span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <a href="https://wa.me/33602019088" class="header-btn whatsapp" aria-label="WhatsApp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="tel:0602019088" class="header-btn" aria-label="Appeler">
-          <i class="fa fa-phone"></i>
-        </a>
-      </div>
-    </div>
-    <nav class="nav-tabs">
-      <div class="nav-tab active" data-page="home"><i class="fa fa-home"></i> Accueil</div>
-      <div class="nav-tab" data-page="order"><i class="fa fa-clipboard-list"></i> Commander</div>
-      <div class="nav-tab" data-page="contact"><i class="fa fa-phone"></i> Contact</div>
-      <div class="nav-tab" data-page="info"><i class="fa fa-circle-info"></i> Infos</div>
+  <!-- ======= NAVIGATION ======= -->
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="nav-logo-wrap" href="#hero">
+        <img src="logo.png" alt="Logo Khéops Livraisons - Service de livraison à Nozay 44" class="nav-logo-img">
+        <span class="nav-logo-text">Khéops Livraisons</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu"><i class="fa fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="#how">Comment ça marche</a></li>
+        <li><a href="#advantages">Avantages</a></li>
+        <li><a href="#info">Infos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#formulaire" class="nav-cta">Demande de livraison</a></li>
+      </ul>
     </nav>
   </header>
 
-  <main class="app-content">
-    <div class="page active" id="page-home">
-      <div class="hero-card">
-        <div class="hero-card-content">
-          <div class="hero-badge">
-            <i class="fa fa-map-marker-alt"></i> Nozay · Loire-Atlantique
+  <!-- ======= HERO ======= -->
+  <section id="hero" class="hero" aria-label="Présentation du service de livraison à domicile à Nozay">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="container hero-grid">
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa fa-map-marker-alt"></i>
+          Service local — Nozay (Loire-Atlantique)
+        </div>
+        <h1>
+          Vos courses livrées
+          <span class="accent">chez vous à Nozay</span>
+        </h1>
+        <p class="hero-lead">
+          Je récupère vos commandes dans tous les commerces de Nozay — restaurants, pharmacies, épiceries, supermarchés — et vous les livre directement à domicile.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tel:0602019088"><i class="fa fa-phone"></i><span class="btn-text">Appeler maintenant</span></a>
+          <a class="btn btn-outline-white" href="#formulaire"><i class="fa fa-clipboard-list"></i>Formulaire de livraison</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">5€</span>
+            <span class="stat-label">par livraison</span>
           </div>
-          <img src="hero-village.jpg" alt="Livraison à domicile à Nozay" class="hero-card-img">
-          <h1>Vos courses livrées<br><em>chez vous à Nozay</em></h1>
-          <p>Je récupère vos commandes dans tous les commerces et vous les livre directement à domicile.</p>
-          <div class="hero-stats">
-            <div class="hero-stat"><div class="hero-stat-val">5€</div><div class="hero-stat-label">livraison</div></div>
-            <div class="hero-stat"><div class="hero-stat-val">100%</div><div class="hero-stat-label">local</div></div>
-            <div class="hero-stat"><div class="hero-stat-val">Tous</div><div class="hero-stat-label">commerces</div></div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">local Nozay</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Tous</span>
+            <span class="stat-label">commerces acceptés</span>
           </div>
         </div>
       </div>
 
-      <!-- Le reste de ta page (quick-actions, steps, etc.) reste identique -->
-      <!-- ... (tu peux garder tout le reste tel quel) ... -->
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="scoot10.png" alt="Livreur Khéops Livraisons remettant une commande à une habitante de Nozay devant une maison de village française" loading="eager">
+        </div>
+        <div class="hero-pill pill-1">
+          <i class="fa fa-store"></i>
+          <div>
+            <strong>Tous commerces</strong>
+            <span class="pill-sub">Restaurants, pharmacies…</span>
+          </div>
+        </div>
+        <div class="hero-pill pill-2">
+          <i class="fa fa-motorcycle"></i>
+          <div>
+            <strong>Livraison rapide</strong>
+            <span class="pill-sub">En deux-roues sur Nozay</span>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <!-- Autres pages (order, contact, info) restent inchangées -->
-  </main>
-</div>
+  </section>
 
-<!-- Toast + Scripts (identiques à avant) -->
-<div class="toast" id="toast"></div>
+  <!-- ======= SECTION PARTENAIRES ======= -->
+  <section id="partners" class="section-partners">
+    <div class="container">
+      <div class="section-eyebrow" style="text-align:center;display:block;margin-bottom:10px">Ils font confiance à Khéops</div>
+      <h2 class="partners-title">Nos commerces partenaires</h2>
+      <p class="partners-subtitle">Cliquez sur un logo pour visiter le site du commerce</p>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-// Ton script JavaScript actuel (copie-le tel quel de ton ancien fichier)
-</script>
+      <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  AJOUTER UN PARTENAIRE — MODE D'EMPLOI               ║
+        ║                                                       ║
+        ║  Copiez-collez le bloc ci-dessous et remplissez :    ║
+        ║  • href       → lien vers le site du commerce        ║
+        ║  • src        → nom de l'image du logo               ║
+        ║  • alt        → nom du commerce                      ║
+        ║  • data-name  → nom affiché sous le logo             ║
+        ║  • data-type  → type (Restaurant, Pharmacie…)        ║
+        ╚══════════════════════════════════════════════════════╝
+
+        <a href="https://LIEN-DU-COMMERCE.fr" target="_blank" rel="noopener" class="partner-card">
+          <div class="partner-card-logo">
+            <img src="NOM-DU-LOGO.png" alt="Nom du commerce">
+          </div>
+          <span class="partner-card-name">Nom du Commerce</span>
+          <span class="partner-card-type">Restaurant</span>
+        </a>
+      -->
+
+      <div class="partners-cards">
+
+        <!-- Partenaire 1 : Les 3 Marchands -->
+        <a href="https://www.les3marchands.fr/" target="_blank" rel="noopener" class="partner-card">
+          <div class="partner-card-logo">
+            <img src="logo3_marchants.png" alt="Logo restaurant Les 3 Marchands Nozay - partenaire Khéops Livraisons">
+          </div>
+          <span class="partner-card-name">Les 3 Marchands</span>
+          <span class="partner-card-type">Restaurant</span>
+        </a>
+
+        <!-- Partenaire 2 : La Casa Bella -->
+        <a href="https://www.nozay44.com/casa-bella.html" target="_blank" rel="noopener" class="partner-card">
+          <div class="partner-card-logo partner-card-logo--dark">
+            <img src="logo_casa_bella.png" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons">
+          </div>
+          <span class="partner-card-name">La Casa Bella</span>
+          <span class="partner-card-type">Restaurant · Pizzeria</span>
+        </a>
+
+        <!-- Partenaire 3 : Super U / Courses U -->
+        <a href="https://tinyurl.com/3kjk9kjc" target="_blank" rel="noopener" class="partner-card">
+          <div class="partner-card-logo">
+            <img src="lien_U.jpg" alt="Logo Courses U Super U Drive Nozay - partenaire Khéops Livraisons">
+          </div>
+          <span class="partner-card-name">Super U Drive</span>
+          <span class="partner-card-type">Supermarché</span>
+        </a>
+
+        <!-- ➕ AJOUTEZ VOS PROCHAINS PARTENAIRES ICI (voir modèle ci-dessus) -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= COMMENT ÇA MARCHE ======= -->
+  <section id="how" class="section" aria-label="Comment fonctionne le service de livraison">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Processus simple</span>
+        <h2>Comment ça marche ?</h2>
+        <p class="section-desc">En 4 étapes, votre commande arrive chez vous — sans vous déplacer.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step reveal">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="fa fa-store"></i></div>
+          <h3>Vous commandez</h3>
+          <p>Passez votre commande auprès du commerce de votre choix à Nozay — restaurant, pizzeria, pharmacie, épicerie, Super U drive…</p>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="fa fa-clipboard-list"></i></div>
+          <h3>Remplissez le formulaire</h3>
+          <p>Indiquez le nom du commerce, ce que je dois récupérer, et l'heure à laquelle la commande sera prête.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="fa fa-hand-holding-box"></i></div>
+          <h3>Je récupère</h3>
+          <p>Je me rends directement au commerce et récupère vos articles ou plats commandés en votre nom.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">4</div>
+          <div class="step-icon"><i class="fa fa-motorcycle"></i></div>
+          <h3>Livraison chez vous</h3>
+          <p>Livraison à domicile réalisée en deux-roues, rapidement, partout sur la commune de Nozay.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= AVANTAGES ======= -->
+  <section id="advantages" class="section alt-bg">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Pourquoi Khéops ?</span>
+        <h2>Un service conçu pour vous</h2>
+        <p class="section-desc">Pratique, humain et 100 % local à Nozay.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-home"></i></div>
+          <h4>Service 100 % local</h4>
+          <p>Proximité et connaissance du territoire de Nozay pour une livraison efficace.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-store"></i></div>
+          <h4>Tous les commerces</h4>
+          <p>Restaurants, pharmacies, épiceries, pizzerias, supermarchés — aucun commerce exclu.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-heart"></i></div>
+          <h4>Idéal mobilité réduite</h4>
+          <p>Pensé pour les personnes sans véhicule, âgées ou à mobilité réduite.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-bolt"></i></div>
+          <h4>Rapide et pratique</h4>
+          <p>Livraison en deux-roues, gain de temps considérable sur votre journée.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-box-open"></i></div>
+          <h4>Petites & moyennes commandes</h4>
+          <p>Volume max : l'équivalent de 2 grands sacs en toile, adapté au scooter.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><i class="fa fa-user-friends"></i></div>
+          <h4>Contact humain</h4>
+          <p>Service personnalisé, de confiance, sans application ni plateforme intermédiaire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FORMULAIRE DE CONTACT ======= -->
+  <section id="contact" class="section contact-section">
+    <div class="container contact-grid">
+
+      <div class="contact-left">
+        <span class="section-eyebrow" style="color:var(--gold-light)">Demande de livraison</span>
+        <h2>Faites votre demande en ligne</h2>
+        <p>
+          Commandez vos plats ou courses auprès du commerce de votre choix, puis remplissez ce formulaire. Précisez bien le nom et l'adresse du commerce, ainsi que l'heure à laquelle votre commande sera prête au retrait.
+        </p>
+
+        <div class="contact-info-items">
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa fa-phone"></i></div>
+            <div class="ci-text"><strong>Appel direct</strong><a href="tel:0602019088" style="color:rgba(255,255,255,0.75);text-decoration:none">06 02 01 90 88</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa fa-whatsapp" style="font-family:'Font Awesome 6 Brands'"></i></div>
+            <div class="ci-text"><strong>WhatsApp</strong><a href="https://wa.me/33602019088" target="_blank" style="color:rgba(255,255,255,0.75);text-decoration:none">Envoyer un message</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa fa-euro-sign"></i></div>
+            <div class="ci-text"><strong>Tarif livraison</strong>5€ payés directement au livreur</div>
+          </div>
+        </div>
+
+        <div class="partners-block">
+          <h3>Nos commerces partenaires</h3>
+          <div class="partners-logos">
+            <a href="https://www.les3marchands.fr/" target="_blank" rel="noopener noreferrer" class="partner-link">
+              <img src="logo3_marchants.png" class="partner-logo logo-3marchands" alt="Logo restaurant Les 3 Marchands Nozay - partenaire Khéops Livraisons">
+              <span class="tooltip">Restaurant<br>Les 3 Marchands</span>
+            </a>
+            <a href="https://www.nozay44.com/casa-bella.html" target="_blank" rel="noopener noreferrer" class="partner-link">
+              <img src="logo_casa_bella.png" class="partner-logo logo-casabella" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons" style="filter:invert(1)">
+              <span class="tooltip">Restaurant<br>La Casa Bella</span>
+            </a>
+            <a href="https://tinyurl.com/3kjk9kjc" target="_blank" rel="noopener noreferrer" class="partner-link">
+              <img src="lien_U.jpg" class="partner-logo logo-3marchands" alt="Super U Drive">
+              <span class="tooltip">Restaurant<br>Les 3 Marchands</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <div class="form-card" id="formulaire">
+          <h3>Votre demande de livraison</h3>
+          <p class="form-sub">Tous les champs sont obligatoires. Vous serez contacté rapidement.</p>
+
+          <form id="delivery-form" novalidate>
+            <label for="name">Votre nom</label>
+            <input id="name" name="name" type="text" required placeholder="Prénom Nom" />
+
+            <label for="phone">Téléphone</label>
+            <input id="phone" name="phone" type="tel" pattern="[0-9\s+\-()]{6,}" required placeholder="06 XX XX XX XX" />
+
+            <label for="address">Adresse de livraison</label>
+            <input id="address" name="address" type="text" required placeholder="N° et nom de rue, Nozay" />
+
+            <label for="shop_name">Commerce où récupérer votre commande</label>
+            <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Pizzeria Le Napoli, Pharmacie du Centre, Super U…" />
+            <p class="field-note">Indiquez le nom et l'adresse du commerce où votre commande est prête.</p>
+
+            <label for="shopping_list">Articles / commande à récupérer</label>
+            <textarea id="shopping_list" name="shopping_list" rows="4" placeholder="Liste des articles, plats ou courses. Indiquez les quantités." required></textarea>
+            <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs en toile.</p>
+
+            <label for="message">Créneau de retrait & détails</label>
+            <textarea id="message" name="message" rows="3" required placeholder="Ex : commande prête à 12h30, le vendredi 30 mai. Autres précisions…"></textarea>
+
+            <div class="checkbox-wrap">
+              <input type="checkbox" id="paidConfirm" required />
+              <label for="paidConfirm" style="margin:0;font-weight:400;font-size:0.87rem;color:var(--text-muted)">
+                J'ai déjà payé ma commande. Je réglerai 5 € pour le service de livraison directement au livreur.
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button id="submitBtn" type="submit" class="btn btn-green">
+                <i class="fa fa-paper-plane"></i>
+                <span class="btn-text">Envoyer la demande</span>
+                <span class="loader" aria-hidden="true"></span>
+              </button>
+              <button type="reset" class="btn btn-outline">Réinitialiser</button>
+            </div>
+
+            <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= INFORMATIONS IMPORTANTES ======= -->
+  <section id="info" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">À savoir</span>
+        <h2>Informations importantes</h2>
+      </div>
+      <div class="info-box reveal">
+        <ul>
+          <li>Livraison <strong>uniquement sur la commune de Nozay</strong> (Loire-Atlantique 44).</li>
+          <li>Tous les commerces de Nozay sont acceptés : restaurants, pizzerias, pharmacies, épiceries, supermarchés…</li>
+          <li>Seules les <strong>petites et moyennes commandes</strong> sont acceptées (max : 2 grands sacs en toile).</li>
+          <li>Précisez bien le <strong>nom et l'adresse du commerce</strong> et les articles à récupérer dans le formulaire.</li>
+          <li>Indiquez <strong>l'heure à laquelle votre commande sera prête</strong> au retrait.</li>
+          <li>Le règlement de la commande doit être effectué <strong>à l'avance</strong> auprès du commerce.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= POURQUOI CHOISIR ======= -->
+  <section id="why" class="section alt-bg">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Notre différence</span>
+        <h2>Pourquoi choisir Khéops ?</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <h3>Confiance & proximité</h3>
+          <p>Service indépendant, humain et ancré localement à Nozay. Vous connaissez votre livreur.</p>
+        </div>
+        <div class="why-card reveal">
+          <h3>Simplicité totale</h3>
+          <p>Commandez où vous voulez à Nozay — je m'occupe du reste. Pas d'app, pas de plateforme.</p>
+        </div>
+        <div class="why-card reveal">
+          <h3>Flexibilité maximale</h3>
+          <p>Un formulaire simple ou un appel suffisent. Vous choisissez votre commerce, votre créneau.</p>
+        </div>
+      </div>
+      <div class="camping-image-wrap reveal">
+        <img src="hero-camping.jpg" alt="Livreur Khéops Livraisons remettant un plat chaud à un campeur dans un camping près de Nozay" loading="lazy">
+        <div class="camping-caption">Livraison aussi dans les campings aux alentours de Nozay !</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= AVIS CLIENTS ======= -->
+  <section id="reviews" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Ils nous font confiance</span>
+        <h2>Avis clients</h2>
+      </div>
+      <div class="reviews-grid">
+        <blockquote class="review reveal">
+          <div class="stars">★★★★★</div>
+          « Un service au top, très rassurant pour ma mère qui ne peut plus se déplacer. »
+          <cite>— Marie L., Nozay</cite>
+        </blockquote>
+        <blockquote class="review reveal">
+          <div class="stars">★★★★★</div>
+          « Rapide et professionnel, commande récupérée et livrée en moins de 30 minutes. Je recommande ! »
+          <cite>— Thomas R., Nozay</cite>
+        </blockquote>
+        <blockquote class="review reveal">
+          <div class="stars">★★★★★</div>
+          « Pratique quand on n'a pas de véhicule. Service simple, efficace et sympa. »
+          <cite>— Sylvie M., Nozay</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FAQ ======= -->
+  <section id="faq" class="section alt-bg" aria-label="Questions fréquentes sur la livraison à Nozay">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Questions fréquentes</span>
+        <h2>FAQ</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Quels commerces acceptez-vous ?</summary>
+          <p>Tous les commerces situés sur la commune de Nozay : restaurants, pizzerias, pharmacies, épiceries, supermarchés, et plus encore. Aucun commerce n'est exclu a priori.</p>
+        </details>
+        <details>
+          <summary>Dois-je avoir déjà payé ma commande ?</summary>
+          <p>Oui, de préférence. Réglez votre commande directement auprès du commerce (en ligne ou par téléphone). Vous payez ensuite 5 € au livreur pour le service de livraison.</p>
+        </details>
+        <details>
+          <summary>Quelles tailles de commandes sont acceptées ?</summary>
+          <p>Petites et moyennes commandes transportables en scooter — l'équivalent de 2 grands sacs en toile maximum.</p>
+        </details>
+        <details>
+          <summary>La livraison est-elle disponible hors de Nozay ?</summary>
+          <p>Non, le service est actuellement limité à la commune de Nozay (Loire-Atlantique, 44).</p>
+        </details>
+        <details>
+          <summary>Combien coûte la livraison ?</summary>
+          <p>La livraison est à 5 € par course, payés directement au livreur à la réception de votre commande.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA ======= -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Prêt à commander ?</h2>
+      <p>Appelez-nous ou remplissez le formulaire — livraison rapide sur Nozay.</p>
+      <div class="actions">
+        <a class="btn-gold" href="tel:0602019088"><i class="fa fa-phone"></i>06 02 01 90 88</a>
+        <a class="btn btn-outline-white" href="#formulaire" style="display:inline-flex;align-items:center;gap:9px"><i class="fa fa-clipboard-list"></i>Formulaire en ligne</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CARTE ======= -->
+  <section id="map" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Zone de livraison</span>
+        <h2>Nous sommes à Nozay</h2>
+        <p class="section-desc">Service disponible uniquement sur la commune de Nozay (44).</p>
+      </div>
+      <div class="map-wrap reveal">
+        <iframe src="https://www.google.com/maps?q=Nozay,+Loire-Atlantique&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FABs ======= -->
+  <a class="fab call" href="tel:0602019088" aria-label="Appel rapide"><i class="fa fa-phone"></i></a>
+  <a class="fab whatsapp" href="https://wa.me/33602019088" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="site-footer" itemscope itemtype="https://schema.org/LocalBusiness">
+    <div class="container">
+      <p>
+        <strong itemprop="name">Khéops Livraisons</strong> —
+        <span itemprop="description">Service local indépendant de livraison à domicile à Nozay (44)</span>
+      </p>
+      <p style="font-size:0.82rem;opacity:0.6;margin-top:6px">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="addressLocality">Nozay</span>,
+          <span itemprop="postalCode">44170</span>
+          <span itemprop="addressRegion">Loire-Atlantique</span>
+        </span>
+        — <a href="tel:+33602019088" itemprop="telephone" style="color:inherit">06 02 01 90 88</a>
+      </p>
+      <small>© <span id="year"></span> Khéops Livraisons — Tous droits réservés</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

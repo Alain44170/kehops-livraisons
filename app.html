@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Khéops Livraisons — Commander</title>
+  <meta name="description" content="Commandez une livraison à domicile à Nozay (44)" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Khéops" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="icon" href="logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+
+  <style>
+    :root {
+      --gold: #c9a227;
+      --gold-light: #e8c84a;
+      --green-deep: #0b3d2e;
+      --green-mid: #0b6e68;
+      --green-accent: #2aa879;
+      --bg: #f0ebe0;
+      --surface: #ede8dd;
+      --card: #e9e3d6;
+      --text: #111c16;
+      --muted: #6b6255;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --shadow: 0 4px 18px rgba(11,61,46,0.12), 0 1px 3px rgba(11,61,46,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+    }
+
+    /* ===== APP SHELL ===== */
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      background: linear-gradient(135deg, var(--green-deep), #0f4d3a);
+      padding: env(safe-area-inset-top, 0) 0 0;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+    }
+    .header-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .header-logo img {
+      height: 36px; width: auto;
+    }
+    .header-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 700;
+    }
+    .header-logo-text span {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .header-actions {
+      display: flex; gap: 10px;
+    }
+    .header-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .header-btn:active { background: rgba(255,255,255,0.22); }
+    .header-btn.whatsapp { background: rgba(37,211,102,0.25); border-color: rgba(37,211,102,0.4); }
+
+    /* ===== NAV TABS ===== */
+    .nav-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.2);
+    }
+    .nav-tab {
+      flex: 1;
+      padding: 10px 0;
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .nav-tab i { font-size: 1rem; }
+    .nav-tab.active {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold-light);
+    }
+
+    /* ===== CONTENT ===== */
+    .app-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+
+    /* Pages */
+    .page { display: none; padding: 20px 16px; }
+    .page.active { display: block; }
+
+    /* ===== PAGE ACCUEIL ===== */
+    .hero-card {
+      background: linear-gradient(135deg, var(--green-deep), #0f4d3a);
+      border-radius: var(--radius);
+      padding: 24px;
+      color: #fff;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(201,162,39,0.04) 0, rgba(201,162,39,0.04) 1px, transparent 0, transparent 30px);
+    }
+    .hero-card-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,162,39,0.2);
+      border: 1px solid rgba(201,162,39,0.4);
+      color: var(--gold-light);
+      font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 10px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .hero-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .hero-card h1 em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+    .hero-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .hero-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: center 20%;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+    }
+    .hero-stats {
+      display: flex; gap: 0;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .hero-stat {
+      flex: 1; padding: 10px 8px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--gold-light);
+    }
+    .hero-stat-label {
+      font-size: 0.65rem; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    /* Actions rapides */
+    .quick-actions {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 18px;
+    }
+    .quick-btn {
+      background: var(--card);
+      border: 1px solid rgba(11,61,46,0.12);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      text-decoration: none; color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .quick-btn:active { transform: scale(0.97); }
+    .quick-btn-icon {
+      width: 46px; height: 46px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .quick-btn-icon.green { background: rgba(11,110,104,0.12); color: var(--green-mid); }
+    .quick-btn-icon.gold { background: rgba(201,162,39,0.12); color: var(--gold); }
+    .quick-btn-icon.whatsapp { background: rgba(37,211,102,0.12); color: #25D366; }
+    .quick-btn-icon.info { background: rgba(11,61,46,0.08); color: var(--green-deep); }
+    .quick-btn span { font-size: 0.82rem; font-weight: 600; text-align: center; }
+
+    /* Section titre */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--text);
+      margin-bottom: 12px; margin-top: 4px;
+    }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--card);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border: 1px solid rgba(11,61,46,0.10);
+      box-shadow: var(--shadow);
+    }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--green-mid); color: #fff;
+      font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text strong { display: block; font-size: 0.9rem; margin-bottom: 3px; }
+    .step-text p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ===== PAGE COMMANDE ===== */
+    .form-card {
+      background: #f2ede3;
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid rgba(201,162,39,0.15);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .form-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 4px;
+    }
+    .form-card p { font-size: 0.82rem; color: var(--muted); margin-bottom: 18px; }
+
+    label {
+      display: block; font-weight: 600; font-size: 0.83rem;
+      color: var(--text); margin-bottom: 5px; margin-top: 14px;
+    }
+    label:first-of-type { margin-top: 0; }
+
+    input[type=text], input[type=tel], textarea {
+      width: 100%; padding: 11px 13px;
+      border: 1.5px solid rgba(11,61,46,0.13);
+      border-radius: var(--radius-sm);
+      background: #faf7f0;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(11,61,46,0.07), inset 0 1px 3px rgba(11,61,46,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--green-mid);
+      background: #fffdf7;
+      box-shadow: 0 4px 12px rgba(11,110,104,0.12), 0 0 0 3px rgba(11,110,104,0.08);
+    }
+    textarea { min-height: 90px; resize: vertical; }
+
+    .field-note { font-size: 0.76rem; color: #9a8f80; margin-top: 4px; }
+
+    .checkbox-wrap {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-top: 14px; font-size: 0.82rem; color: var(--muted); line-height: 1.5;
+    }
+    .checkbox-wrap input { flex-shrink: 0; margin-top: 3px; width:16px; height:16px; accent-color: var(--green-mid); }
+
+    .btn-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+      color: #fff; border: none; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem;
+      margin-top: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      box-shadow: 0 4px 16px rgba(11,61,46,0.25);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit.loading { opacity: 0.8; pointer-events: none; }
+
+    .loader {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      display: none;
+      animation: spin 0.9s linear infinite;
+    }
+    .btn-submit.loading .loader { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-msg {
+      margin-top: 12px; font-size: 0.88rem; font-weight: 600;
+      text-align: center; min-height: 20px;
+    }
+    .form-msg.success { color: var(--green-accent); }
+    .form-msg.error { color: #c0392b; }
+
+    .btn-reset {
+      width: 100%; padding: 11px;
+      background: transparent;
+      color: var(--muted); border: 1.5px solid rgba(11,61,46,0.2);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem;
+      margin-top: 10px; cursor: pointer;
+    }
+
+    /* ===== PAGE APPEL/CONTACT ===== */
+    .contact-hero {
+      background: linear-gradient(135deg, var(--green-deep), #0f4d3a);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 16px;
+      position: relative; overflow: hidden;
+    }
+    .contact-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(201,162,39,0.04) 0, rgba(201,162,39,0.04) 1px, transparent 0, transparent 30px);
+    }
+    .contact-hero > * { position: relative; z-index: 1; }
+    .contact-hero-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(201,162,39,0.2);
+      border: 2px solid rgba(201,162,39,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; color: var(--gold-light);
+      margin: 0 auto 14px;
+    }
+    .contact-hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; margin-bottom: 6px;
+    }
+    .contact-hero p { font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-bottom: 18px; }
+    .btn-call-big {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--green-deep);
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(201,162,39,0.4);
+      margin: 0 auto;
+      width: fit-content;
+    }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .contact-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex; align-items: center; gap: 14px;
+      border: 1px solid rgba(11,61,46,0.10);
+      box-shadow: var(--shadow);
+      text-decoration: none; color: var(--text);
+      transition: transform 0.15s;
+    }
+    .contact-card:active { transform: scale(0.98); }
+    .contact-card-icon {
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .contact-card-icon.phone { background: rgba(11,110,104,0.12); color: var(--green-mid); }
+    .contact-card-icon.wa { background: rgba(37,211,102,0.15); color: #25D366; }
+    .contact-card-icon.web { background: rgba(201,162,39,0.12); color: var(--gold); }
+    .contact-card-title { font-weight: 700; font-size: 0.92rem; }
+    .contact-card-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ===== PAGE INFO ===== */
+    .info-block {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      border: 1px solid rgba(11,61,46,0.10);
+      border-left: 4px solid var(--gold);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+    .info-block h3 {
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--green-deep); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .info-block ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .info-block li {
+      font-size: 0.83rem; color: var(--text); line-height: 1.55;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .info-block li::before { content: '✓'; color: var(--green-mid); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* Partenaires */
+    .partners-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .partner-item {
+      background: var(--card);
+      border-radius: var(--radius-sm);
+      padding: 12px 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      border: 1px solid rgba(11,61,46,0.10);
+      box-shadow: var(--shadow);
+      text-decoration: none; color: var(--text);
+    }
+    .partner-logo-wrap {
+      width: 56px; height: 56px; border-radius: 10px;
+      background: #f5f0e6; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 6px;
+      border: 1px solid rgba(11,61,46,0.08);
+    }
+    .partner-logo-wrap.dark { background: #111; }
+    .partner-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .partner-name { font-size: 0.7rem; font-weight: 600; text-align: center; line-height: 1.3; }
+    .partner-type {
+      font-size: 0.62rem; color: var(--green-mid); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      background: var(--green-deep); color: #fff;
+      padding: 12px 20px; border-radius: 30px;
+      font-size: 0.88rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      z-index: 999; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+
+    /* Bannière install */
+    .install-banner {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(201,162,39,0.3);
+    }
+    .install-banner i { font-size: 1.3rem; color: var(--green-deep); flex-shrink: 0; }
+    .install-banner-text strong { display: block; font-size: 0.88rem; color: var(--green-deep); font-weight: 700; }
+    .install-banner-text span { font-size: 0.76rem; color: rgba(11,61,46,0.7); }
+    .install-banner-close {
+      margin-left: auto; background: rgba(11,61,46,0.15);
+      border: none; border-radius: 50%; width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: var(--green-deep); cursor: pointer; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <img src="logo.png" alt="Logo Khéops">
+        <div class="header-logo-text">
+          Khéops
+          <span>Livraisons · Nozay 44</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="https://wa.me/33602019088" class="header-btn whatsapp" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:0602019088" class="header-btn" aria-label="Appeler">
+          <i class="fa fa-phone"></i>
+        </a>
+      </div>
+    </div>
+    <nav class="nav-tabs">
+      <div class="nav-tab active" data-page="home">
+        <i class="fa fa-home"></i> Accueil
+      </div>
+      <div class="nav-tab" data-page="order">
+        <i class="fa fa-clipboard-list"></i> Commander
+      </div>
+      <div class="nav-tab" data-page="contact">
+        <i class="fa fa-phone"></i> Contact
+      </div>
+      <div class="nav-tab" data-page="info">
+        <i class="fa fa-circle-info"></i> Infos
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENU -->
+  <main class="app-content">
+
+    <!-- ===== PAGE ACCUEIL ===== -->
+    <div class="page active" id="page-home">
+
+      <div id="install-banner" class="install-banner" style="display:none">
+        <i class="fa fa-download"></i>
+        <div class="install-banner-text">
+          <strong>Installer l'appli</strong>
+          <span>Ajoutez Khéops sur votre écran d'accueil</span>
+        </div>
+        <button class="install-banner-close" id="close-install">✕</button>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-content">
+          <div class="hero-badge">
+            <i class="fa fa-map-marker-alt"></i> Nozay · Loire-Atlantique
+          </div>
+          <img src="hero-village.jpg" alt="Livraison à domicile à Nozay" class="hero-card-img" onerror="this.style.display='none'">
+          <h1>Vos courses livrées<br><em>chez vous à Nozay</em></h1>
+          <p>Je récupère vos commandes dans tous les commerces et vous les livre directement à domicile.</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-val">5€</div>
+              <div class="hero-stat-label">livraison</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">100%</div>
+              <div class="hero-stat-label">local</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">Tous</div>
+              <div class="hero-stat-label">commerces</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="quick-btn" onclick="switchPage('order')">
+          <div class="quick-btn-icon green"><i class="fa fa-clipboard-list"></i></div>
+          <span>Passer commande</span>
+        </div>
+        <a href="tel:0602019088" class="quick-btn">
+          <div class="quick-btn-icon gold"><i class="fa fa-phone"></i></div>
+          <span>Appel rapide</span>
+        </a>
+        <a href="https://wa.me/33602019088" class="quick-btn">
+          <div class="quick-btn-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+          <span>WhatsApp</span>
+        </a>
+        <div class="quick-btn" onclick="switchPage('info')">
+          <div class="quick-btn-icon info"><i class="fa fa-circle-info"></i></div>
+          <span>Infos & tarifs</span>
+        </div>
+      </div>
+
+      <p class="section-title">Comment ça marche ?</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Vous commandez</strong>
+            <p>Passez votre commande auprès du commerce de votre choix à Nozay.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Vous remplissez le formulaire</strong>
+            <p>Indiquez le commerce, ce que je dois récupérer et l'heure de retrait.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Je récupère votre commande</strong>
+            <p>Je me rends directement au commerce chercher vos articles.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <strong>Livraison chez vous</strong>
+            <p>En deux-roues, rapidement, partout sur Nozay. Vous payez 5 € au livreur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE COMMANDER ===== -->
+    <div class="page" id="page-order">
+      <div class="form-card">
+        <h2>Demande de livraison</h2>
+        <p>Remplissez tous les champs. Je vous contacte rapidement pour confirmer.</p>
+
+        <form id="delivery-form" novalidate>
+          <label for="name">Votre nom</label>
+          <input id="name" name="name" type="text" required placeholder="Prénom Nom" />
+
+          <label for="phone">Téléphone</label>
+          <input id="phone" name="phone" type="tel" required placeholder="06 XX XX XX XX" />
+
+          <label for="address">Adresse de livraison</label>
+          <input id="address" name="address" type="text" required placeholder="N° et nom de rue, Nozay" />
+
+          <label for="shop_name">Commerce à contacter</label>
+          <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Pizzeria Le Napoli, Pharmacie du Centre…" />
+          <p class="field-note">Nom et adresse du commerce où récupérer votre commande.</p>
+
+          <label for="shopping_list">Articles à récupérer</label>
+          <textarea id="shopping_list" name="shopping_list" rows="4" required placeholder="Liste des articles, plats ou courses avec quantités…"></textarea>
+          <p class="field-note">Volume max : l'équivalent de 2 grands sacs en toile.</p>
+
+          <label for="message">Créneau de retrait & détails</label>
+          <textarea id="message" name="message" rows="3" required placeholder="Ex : commande prête à 12h30, le vendredi 30 mai…"></textarea>
+
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="paidConfirm" required />
+            <label for="paidConfirm" style="margin:0;font-weight:400;font-size:0.82rem;color:var(--muted)">
+              J'ai déjà payé ma commande. Je réglerai 5 € de frais de livraison au livreur.
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fa fa-paper-plane"></i>
+            <span class="btn-text">Envoyer ma demande</span>
+            <span class="loader"></span>
+          </button>
+          <button type="reset" class="btn-reset">Réinitialiser le formulaire</button>
+
+          <p id="formMsg" class="form-msg" role="status"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== PAGE CONTACT ===== -->
+    <div class="page" id="page-contact">
+      <div class="contact-hero">
+        <div class="contact-hero-icon"><i class="fa fa-phone"></i></div>
+        <h2>Contactez-nous</h2>
+        <p>Disponible tous les jours de 10h à 22h pour vos livraisons à Nozay.</p>
+        <a href="tel:0602019088" class="btn-call-big">
+          <i class="fa fa-phone"></i> 06 02 01 90 88
+        </a>
+      </div>
+
+      <div class="contact-cards">
+        <a href="tel:0602019088" class="contact-card">
+          <div class="contact-card-icon phone"><i class="fa fa-phone"></i></div>
+          <div>
+            <div class="contact-card-title">Appel téléphonique</div>
+            <div class="contact-card-sub">06 02 01 90 88 — Réponse immédiate</div>
+          </div>
+          <i class="fa fa-chevron-right" style="margin-left:auto;color:var(--muted);font-size:0.8rem"></i>
+        </a>
+        <a href="https://wa.me/33602019088" class="contact-card">
+          <div class="contact-card-icon wa"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <div class="contact-card-title">WhatsApp</div>
+            <div class="contact-card-sub">Envoyez un message — Réponse rapide</div>
+          </div>
+          <i class="fa fa-chevron-right" style="margin-left:auto;color:var(--muted);font-size:0.8rem"></i>
+        </a>
+        <a href="https://alain44170.github.io/kehops-livraisons/" class="contact-card">
+          <div class="contact-card-icon web"><i class="fa fa-globe"></i></div>
+          <div>
+            <div class="contact-card-title">Site internet</div>
+            <div class="contact-card-sub">alain44170.github.io/kehops-livraisons</div>
+          </div>
+          <i class="fa fa-chevron-right" style="margin-left:auto;color:var(--muted);font-size:0.8rem"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== PAGE INFOS ===== -->
+    <div class="page" id="page-info">
+
+      <p class="section-title">Informations importantes</p>
+
+      <div class="info-block">
+        <h3><i class="fa fa-map-marker-alt" style="color:var(--gold)"></i> Zone de livraison</h3>
+        <ul>
+          <li>Livraison uniquement sur la commune de <strong>Nozay (44170)</strong></li>
+          <li>Service disponible tous les jours de <strong>10h à 22h</strong></li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fa fa-euro-sign" style="color:var(--gold)"></i> Tarifs</h3>
+        <ul>
+          <li><strong>5 € par livraison</strong>, payés directement au livreur</li>
+          <li>Votre commande doit être <strong>réglée à l'avance</strong> auprès du commerce</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fa fa-store" style="color:var(--gold)"></i> Commerces acceptés</h3>
+        <ul>
+          <li>Restaurants, pizzerias, kebabs</li>
+          <li>Pharmacies, parapharmacies</li>
+          <li>Épiceries, supermarchés, Super U Drive</li>
+          <li>Tous commerces de Nozay sans exception</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fa fa-box-open" style="color:var(--gold)"></i> Volume accepté</h3>
+        <ul>
+          <li>Petites et moyennes commandes uniquement</li>
+          <li>Maximum : <strong>l'équivalent de 2 grands sacs en toile</strong></li>
+        </ul>
+      </div>
+
+      <p class="section-title" style="margin-top:8px">Nos commerces partenaires</p>
+      <div class="partners-grid">
+        <a href="https://www.les3marchands.fr/" target="_blank" class="partner-item">
+          <div class="partner-logo-wrap dark">
+            <img src="logo3_marchants.png" alt="Les 3 Marchands">
+          </div>
+          <div class="partner-name">Les 3 Marchands</div>
+          <div class="partner-type">Restaurant</div>
+        </a>
+        <a href="https://www.nozay44.com/casa-bella.html" target="_blank" class="partner-item">
+          <div class="partner-logo-wrap dark">
+            <img src="logo_casa_bella.png" alt="La Casa Bella">
+          </div>
+          <div class="partner-name">La Casa Bella</div>
+          <div class="partner-type">Pizzeria</div>
+        </a>
+        <a href="https://www.coursesu.com/" target="_blank" class="partner-item">
+          <div class="partner-logo-wrap">
+            <img src="lien_U.jpg" alt="Super U">
+          </div>
+          <div class="partner-name">Super U Drive</div>
+          <div class="partner-type">Supermarché</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+// ===== CONFIG =====
+const SERVICE_ID  = 'service_sxo3uwm';
+const TEMPLATE_ID = 'template_6w6vi39';
+const PUBLIC_KEY  = 'NuHxu96_U_IxWB1TO';
+
+// ===== EMAILJS =====
+try {
+  if (typeof emailjs !== 'undefined') emailjs.init(PUBLIC_KEY);
+} catch(e) {}
+
+// ===== NAVIGATION =====
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelector('[data-page="' + name + '"]').classList.add('active');
+  document.querySelector('.app-content').scrollTop = 0;
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchPage(tab.dataset.page));
+});
+
+// ===== FORMULAIRE =====
+const form      = document.getElementById('delivery-form');
+const formMsg   = document.getElementById('formMsg');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('reset', () => {
+  formMsg.textContent = '';
+  formMsg.className = 'form-msg';
+});
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  formMsg.textContent = '';
+
+  const name         = form.name.value.trim();
+  const phone        = form.phone.value.trim();
+  const address      = form.address.value.trim();
+  const shopName     = form.shop_name.value.trim();
+  const shoppingList = form.shopping_list.value.trim();
+  const message      = form.message.value.trim();
+  const paid         = document.getElementById('paidConfirm').checked;
+
+  if (!name || !phone || !address || !shopName || !shoppingList || !message || !paid) {
+    formMsg.textContent = 'Veuillez compléter tous les champs requis.';
+    formMsg.className = 'form-msg error';
+    return;
+  }
+
+  submitBtn.classList.add('loading');
+  submitBtn.setAttribute('disabled', 'true');
+
+  try {
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      name, phone, address,
+      shop_name: shopName,
+      shopping_list: shoppingList,
+      message
+    }, PUBLIC_KEY);
+
+    formMsg.textContent = 'Demande envoyée ! Je vous contacte sous peu.';
+    formMsg.className = 'form-msg success';
+    form.reset();
+    showToast('✅ Demande envoyée avec succès !');
+    setTimeout(() => switchPage('home'), 2500);
+  } catch(err) {
+    formMsg.textContent = "Erreur d'envoi. Appelez directement le 06 02 01 90 88.";
+    formMsg.className = 'form-msg error';
+  } finally {
+    submitBtn.classList.remove('loading');
+    submitBtn.removeAttribute('disabled');
+  }
+});
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== PWA INSTALL =====
+let deferredPrompt;
+const banner = document.getElementById('install-banner');
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  banner.style.display = 'flex';
+});
+
+banner.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') showToast('🎉 Application installée !');
+    deferredPrompt = null;
+    banner.style.display = 'none';
+  }
+});
+
+document.getElementById('close-install').addEventListener('click', e => {
+  e.stopPropagation();
+  banner.style.display = 'none';
+});
+
+// ===== SERVICE WORKER =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

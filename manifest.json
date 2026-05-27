@@ -1,0 +1,26 @@
+{
+  "name": "Khéops Livraisons",
+  "short_name": "Khéops",
+  "description": "Commandez une livraison à domicile à Nozay (44) — restaurants, pharmacies, épiceries.",
+  "start_url": "./app.html",
+  "display": "standalone",
+  "background_color": "#0b3d2e",
+  "theme_color": "#0b3d2e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "lifestyle", "shopping"],
+  "lang": "fr"
+}

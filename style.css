@@ -93,6 +93,20 @@ img { max-width: 100%; display: block; }
 }
 .nav-cta:hover { background: var(--green-deep) !important; }
 
+/* Bouton installer l'app */
+.nav-app {
+  background: var(--gold) !important;
+  color: var(--green-deep) !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap;
+}
+.nav-app:hover { background: var(--gold-dark, #8a6c10) !important; color: #fff !important; }
+
 .nav-toggle {
   display: none; background: none; border: none;
   font-size: 1.4rem; color: var(--green-deep); cursor: pointer;

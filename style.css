@@ -98,6 +98,31 @@ img { max-width: 100%; display: block; }
   font-size: 1.4rem; color: var(--green-deep); cursor: pointer;
 }
 
+/*========== Lien vers l'application dans la nav ========= */
+
+.nav-download-app{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:linear-gradient(135deg,#f4c542,#d4a017);
+  color:#111;
+  padding:12px 18px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(212,160,23,0.35);
+  transition:all .25s ease;
+}
+
+.nav-download-app:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(212,160,23,0.45);
+}
+
+.nav-download-app i{
+  font-size:.95rem;
+}
+
 /* ========= HERO ========= */
 .hero {
   position: relative;

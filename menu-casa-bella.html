@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>La Casa Bella — Commander via Khéops Livraisons</title>
+  <meta name="description" content="Commandez vos pizzas et plats La Casa Bella à Nozay — livraison à domicile par Khéops Livraisons"/>
+  <link rel="icon" href="logo.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    :root {
+      --gold:#c9a227; --gold-light:#e8c84a;
+      --green-deep:#0b3d2e; --green-mid:#0b6e68; --green-accent:#2aa879;
+      --bg:#f0ebe0; --card:#e9e3d6; --surface:#ede8dd;
+      --text:#111c16; --muted:#6b6255;
+      --radius:16px; --radius-sm:10px;
+      --shadow:0 4px 18px rgba(11,61,46,0.10);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+
+    /* NAV */
+    .topbar{background:var(--green-deep);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
+    .topbar-back{color:rgba(255,255,255,0.7);font-size:0.9rem;display:flex;align-items:center;gap:6px;transition:color .2s;}
+    .topbar-back:hover{color:#fff;}
+    .topbar-logo{display:flex;align-items:center;gap:8px;margin-right:auto;}
+    .topbar-logo img{height:32px;}
+    .topbar-logo span{font-family:'Playfair Display',serif;color:#fff;font-size:1rem;}
+    .cart-btn{background:rgba(201,162,39,0.2);border:1px solid rgba(201,162,39,0.4);color:var(--gold-light);padding:8px 14px;border-radius:20px;display:flex;align-items:center;gap:7px;font-weight:600;font-size:0.85rem;cursor:pointer;transition:background .2s;}
+    .cart-btn:hover{background:rgba(201,162,39,0.3);}
+    .cart-count{background:var(--gold-light);color:var(--green-deep);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;}
+
+    /* HERO RESTAURANT */
+    .resto-hero{background:linear-gradient(135deg,#1a0a0a,#2d1515);padding:28px 16px 24px;text-align:center;border-bottom:1px solid rgba(201,162,39,0.15);}
+    .resto-logo-wrap{width:80px;height:80px;border-radius:50%;background:#111;border:2px solid rgba(201,162,39,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 auto 12px;padding:8px;}
+    .resto-logo-wrap img{width:100%;height:100%;object-fit:contain;}
+    .resto-hero h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:4px;}
+    .resto-hero p{font-size:0.82rem;color:rgba(255,255,255,0.55);}
+    .resto-badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+    .badge{background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.3);color:var(--gold-light);padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;}
+
+    /* CONTAINER */
+    .container{max-width:760px;margin:0 auto;padding:0 16px 120px;}
+
+    /* CATÉGORIE */
+    .cat-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--green-deep);padding:20px 0 10px;border-bottom:2px solid var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .cat-title i{color:var(--gold);font-size:1rem;}
+
+    /* ITEM */
+    .menu-item{background:var(--card);border-radius:var(--radius);border:1px solid rgba(11,61,46,0.10);box-shadow:var(--shadow);padding:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;transition:transform .2s,box-shadow .2s;}
+    .menu-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,61,46,0.14);}
+    .item-info{flex:1;}
+    .item-name{font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:4px;}
+    .item-desc{font-size:0.78rem;color:var(--muted);line-height:1.55;}
+    .item-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+    .item-price{font-weight:700;font-size:1rem;color:var(--green-mid);}
+    .item-price-small{font-size:0.75rem;color:var(--muted);}
+    .add-btn{background:var(--green-mid);color:#fff;border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s,transform .15s;}
+    .add-btn:hover{background:var(--green-deep);}
+    .add-btn:active{transform:scale(0.92);}
+
+    /* SIZES SELECTOR */
+    .sizes{display:flex;gap:6px;margin-top:6px;}
+    .size-opt{font-size:0.72rem;background:rgba(11,110,104,0.08);border:1px solid rgba(11,110,104,0.15);border-radius:6px;padding:3px 8px;color:var(--green-mid);font-weight:600;cursor:pointer;transition:background .15s,border-color .15s;}
+    .size-opt.selected{background:var(--green-mid);color:#fff;border-color:var(--green-mid);}
+
+    /* PANIER OVERLAY */
+    .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .cart-overlay.open{opacity:1;pointer-events:auto;}
+    .cart-panel{position:fixed;bottom:0;left:0;right:0;max-width:760px;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:24px 20px;max-height:80vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease;z-index:201;}
+    .cart-overlay.open .cart-panel{transform:translateY(0);}
+    .cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .cart-header h2{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);}
+    .cart-close{background:var(--card);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--muted);}
+    .cart-empty{text-align:center;padding:32px 0;color:var(--muted);font-size:0.9rem;}
+    .cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+    .cart-item{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:var(--radius-sm);padding:12px;}
+    .cart-item-info{flex:1;}
+    .cart-item-name{font-weight:600;font-size:0.88rem;}
+    .cart-item-price{font-size:0.8rem;color:var(--muted);}
+    .cart-item-qty{display:flex;align-items:center;gap:8px;}
+    .qty-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(11,61,46,0.2);background:transparent;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;color:var(--green-mid);}
+    .qty-val{font-weight:700;font-size:0.9rem;min-width:20px;text-align:center;}
+    .cart-total-box{background:var(--surface);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;}
+    .cart-total-line{display:flex;justify-content:space-between;font-size:0.88rem;color:var(--muted);margin-bottom:6px;}
+    .cart-total-line.total{font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0;}
+    .cart-order-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--green-mid),var(--green-deep));color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;}
+    .cart-note{font-size:0.75rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5;}
+
+    /* BOTTOM BAR */
+    .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--green-deep);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:90;display:none;}
+    .bottom-bar.visible{display:flex;}
+    .bottom-bar-info{color:#fff;}
+    .bottom-bar-info strong{display:block;font-size:0.9rem;}
+    .bottom-bar-info span{font-size:0.75rem;color:rgba(255,255,255,0.6);}
+    .bottom-bar-btn{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--green-deep);border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;gap:7px;}
+
+    /* TOAST */
+    .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-10px);background:var(--green-deep);color:#fff;padding:10px 18px;border-radius:20px;font-size:0.82rem;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:300;white-space:nowrap;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back"><i class="fa fa-arrow-left"></i> Retour</a>
+  <div class="topbar-logo">
+    <img src="logo.png" alt="Khéops">
+    <span>Khéops</span>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    <i class="fa fa-basket-shopping"></i>
+    <span id="cart-total-btn">Panier</span>
+    <span class="cart-count" id="cart-count">0</span>
+  </button>
+</div>
+
+<!-- HERO RESTAURANT -->
+<div class="resto-hero">
+  <div class="resto-logo-wrap">
+    <img src="logo_casa_bella.png" alt="La Casa Bella">
+  </div>
+  <h1>La Casa Bella</h1>
+  <p>Restaurant · Pizzeria · Nozay (44)</p>
+  <div class="resto-badges">
+    <span class="badge"><i class="fa fa-clock"></i> Midi 12h-14h · Soir 19h-22h</span>
+    <span class="badge"><i class="fa fa-motorcycle"></i> Livraison 5€ par Khéops</span>
+    <span class="badge"><i class="fa fa-circle-check"></i> Commande prépayée requise</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PIZZAS -->
+  <div class="cat-title"><i class="fa fa-pizza-slice"></i> Pizzas (pâte fine)</div>
+
+  <!-- Tailles sélectionnables globalement -->
+  <div style="margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="font-size:0.82rem;font-weight:600;color:var(--muted)">Choisir la taille :</span>
+    <span class="size-opt selected" onclick="setGlobalSize(this,'pizzetta','22cm — Pizzetta')" data-size="pizzetta">22 cm — Pizzetta</span>
+    <span class="size-opt" onclick="setGlobalSize(this,'pizza','31cm — Pizza')" data-size="pizza">31 cm — Pizza</span>
+  </div>
+
+  <div id="pizza-list"></div>
+
+  <!-- LINGUINES -->
+  <div class="cat-title"><i class="fa fa-utensils"></i> Linguines maison</div>
+  <div id="linguines-list"></div>
+
+  <!-- SALADES -->
+  <div class="cat-title"><i class="fa fa-leaf"></i> Salades</div>
+  <div id="salades-list"></div>
+
+  <!-- FOCACCIAS -->
+  <div class="cat-title"><i class="fa fa-bread-slice"></i> Focaccias</div>
+  <div id="focaccias-list"></div>
+
+  <!-- HAMBURGERS -->
+  <div class="cat-title"><i class="fa fa-burger"></i> Hamburgers (avec frites)</div>
+  <div id="hamburgers-list"></div>
+
+</div>
+
+<!-- PANIER OVERLAY -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCartOutside(event)">
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h2><i class="fa fa-basket-shopping"></i> Mon panier</h2>
+      <button class="cart-close" onclick="toggleCart()"><i class="fa fa-xmark"></i></button>
+    </div>
+    <div id="cart-content"></div>
+  </div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar" id="bottom-bar">
+  <div class="bottom-bar-info">
+    <strong id="bb-total">0,00 €</strong>
+    <span id="bb-items">0 article(s) + 5€ livraison</span>
+  </div>
+  <button class="bottom-bar-btn" onclick="toggleCart()">
+    <i class="fa fa-basket-shopping"></i> Voir le panier
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DONNÉES MENUS =====
+const PIZZAS = [
+  {id:'p1', name:'Spirou (enfant)', desc:'Sauce tomate, jambon, mozzarella', p:7.20, pizza:9.90},
+  {id:'p2', name:'Parisienne', desc:'Tomate, jambon, mozzarella', p:7.90, pizza:11.60},
+  {id:'p3', name:'Tarentella', desc:'Tomate, mozzarella, jambon, champignons, œuf', p:9.60, pizza:13.50},
+  {id:'p4', name:'Capricia', desc:'Tomate, mozzarella, lardons, champignons, oignons, chèvre', p:9.60, pizza:13.50},
+  {id:'p5', name:'Bretonne', desc:'Tomate, mozzarella, saucisses au Muscadet', p:9.60, pizza:13.50},
+  {id:'p6', name:'Calzone', desc:'Tomate, mozzarella, jambon blanc, champignons, œuf (chausson 2 pâtes)', p:11.50, pizza:14.20},
+  {id:'p7', name:'Raclette', desc:'Tomate, mozzarella, pommes de terre, lardons, oignons, fromage à raclette', p:11.50, pizza:14.20},
+  {id:'p8', name:'Pizza du Chef', desc:'Tomate, mozzarella, andouillette, oignons, chèvre', p:11.50, pizza:14.20},
+  {id:'p9', name:'Campagnarde', desc:'Tomate, mozzarella, lardons, gésiers confits, chèvre, roquette, magret fumé', p:12.20, pizza:15.50},
+  {id:'p10', name:'Corsica', desc:'Tomate, mozzarella, champignons, œuf, coppa', p:11.50, pizza:14.20},
+  {id:'p11', name:'Américaine', desc:'Tomate, mozzarella, viande hachée, oignons, œuf, crème fraîche', p:10.90, pizza:12.90},
+  {id:'p12', name:'Vénitienne', desc:'Tomate, mozzarella, champignons, chorizo, olives', p:10.90, pizza:12.90},
+  {id:'p13', name:'Tex-Mex', desc:'Tomate, mozzarella, poulet épicé, poivrons, tomates fraîches', p:12.20, pizza:14.20},
+  {id:'p14', name:'Savoyarde', desc:'Tomate, mozzarella, lardons, oignons, pommes de terre, reblochon', p:12.20, pizza:14.20},
+  {id:'p15', name:'Tournesol', desc:'Tomate, mozzarella, champignons, oignons, poivrons, tomates, olives', p:11.90, pizza:13.90},
+  {id:'p16', name:'4 Fromages', desc:'Tomate, mozzarella, reblochon, chèvre, gorgonzola', p:12.20, pizza:14.20},
+  {id:'p17', name:'Saumon', desc:'Tomate, mozzarella, champignons, saumon fumé, crème citronnée', p:12.20, pizza:14.20},
+  {id:'p18', name:'Casa Bella', desc:'Tomate, mozzarella, fondue de poireaux, champignons, Saint-Jacques, crème citron', p:12.70, pizza:14.70},
+  {id:'p19', name:'Hawaïenne', desc:'Tomate, mozzarella, poulet épicé, ananas', p:11.10, pizza:13.10},
+  {id:'p20', name:'Au Camembert', desc:'Tomate, mozzarella, poulet épicé, quartiers de tomates, camembert', p:11.90, pizza:13.90},
+  {id:'p21', name:'Sachauf', desc:'Tomate, mozzarella, chorizo, poivrons, merguez', p:11.70, pizza:13.70},
+  {id:'p22', name:'Royale Kébab', desc:'Tomate, mozzarella, viande à kebab, poivrons, oignons, olives', p:12.20, pizza:14.20},
+  {id:'p23', name:'Gros Mangeur', desc:'Tomate, mozzarella, pommes de terre, jambon, chorizo, poivrons, oignons, œuf', p:12.90, pizza:14.90},
+  {id:'p24', name:'Niçoise', desc:'Tomate, mozzarella, thon, anchois, poivrons, olives', p:11.90, pizza:13.90},
+  {id:'p25', name:'Norvégienne', desc:'Crème fraîche, mozzarella, champignons, saumon fumé', p:12.20, pizza:14.20},
+  {id:'p26', name:'Alsacienne', desc:'Crème fraîche, mozzarella, lardons, champignons, oignons, olives, œuf', p:12.20, pizza:14.20},
+  {id:'p27', name:'Fromagère', desc:'Crème fraîche, mozzarella, reblochon, chèvre, roquefort', p:12.20, pizza:14.20},
+  {id:'p28', name:'Tyrolienne', desc:'Crème fraîche, mozzarella, pommes de terre, lardons, oignons, reblochon', p:11.90, pizza:13.90},
+  {id:'p29', name:'Délire de Maya', desc:'Crème fraîche, mozzarella, pommes golden, tomates, chèvre, miel', p:12.20, pizza:14.20},
+  {id:'p30', name:'Indienne', desc:'Crème au curry, mozzarella, poulet épicé, poivrons, merguez', p:11.60, pizza:13.60},
+  {id:'p31', name:'Dijonnaise', desc:'Crème moutarde, mozzarella, viande hachée, pommes de terre, oignons, reblochon', p:11.90, pizza:13.90},
+];
+
+const LINGUINES = [
+  {id:'l1', name:'Bolognaise', desc:'Sauce tomate, viande hachée, mozzarella', price:11},
+  {id:'l2', name:'Carbonara', desc:'Crème, lardons fumés, jaune d\'œuf', price:11},
+  {id:'l3', name:'Saumon Fumé', desc:'Crème, saumon fumé', price:12},
+  {id:'l4', name:'Gorgonzola', desc:'Crème, gorgonzola', price:12},
+];
+
+const SALADES = [
+  {id:'s1', name:'Salade verte et tomates', desc:'', price:3.50},
+  {id:'s2', name:'Salade de poulet mariné', desc:'Salade verte, poulet mariné, ananas, tomates, oignons frits', price:10},
+  {id:'s3', name:'Salade de thon mariné', desc:'Salade verte, thon mariné, poivrons, olives, oignons, tomates, sésame, crème citron', price:10},
+  {id:'s4', name:'Salade italienne', desc:'Salade verte, jambon de pays, mozzarella billes, tomates confites, roquette, pesto', price:11},
+  {id:'s5', name:'Salade terre et mer', desc:'Salade verte, saumon fumé et magrets de canard fumés maison', price:11},
+];
+
+const FOCACCIAS = [
+  {id:'f1', name:'La Romaine', desc:'Tomate, champignons, jambon, olives, mozzarella', price:12},
+  {id:'f2', name:'La Nordique', desc:'Tomate, mozzarella, champignons, poivrons, tomates fraîches, saumon fumé, crème citron', price:12},
+  {id:'f3', name:'L\'Arrache', desc:'Tomate, mozzarella, chorizo, poivrons, merguez', price:12},
+  {id:'f4', name:'La Fromagère', desc:'Tomate, mozzarella, reblochon, chèvre, roquefort', price:12},
+  {id:'f5', name:'L\'Indienne', desc:'Crème au curry, mozzarella, poulet épicé, poivrons, merguez', price:12},
+  {id:'f6', name:'La Végétarienne', desc:'Tomate, mozzarella, champignons, oignons, poivrons, quartiers de tomates', price:12},
+];
+
+const HAMBURGERS = [
+  {id:'h1', name:'Le Classique', desc:'Pain, steak haché, bacon, fromage, salade, tomate, oignons, sauce pitta', price:13.50},
+  {id:'h2', name:'Le Squid-Ink Burger', desc:'Pain à l\'encre de seiche, steak haché, chorizo, chèvre, salade, tomates, oignons, sauce pitta', price:13.50},
+  {id:'h3', name:'Le Végétarien', desc:'Pain, steak végétal, salade, tomate, oignons, cheddar, sauce pitta', price:13.50},
+];
+
+// ===== ÉTAT =====
+let cart = [];
+let globalSize = 'pizzetta';
+
+// ===== RENDU =====
+function fmt(n){ return n.toFixed(2).replace('.',',') + ' €'; }
+
+function renderPizzas(){
+  const el = document.getElementById('pizza-list');
+  el.innerHTML = PIZZAS.map(p => {
+    const price = globalSize === 'pizzetta' ? p.p : p.pizza;
+    return `<div class="menu-item" id="item-${p.id}">
+      <div class="item-info">
+        <div class="item-name">${p.name}</div>
+        <div class="item-desc">${p.desc}</div>
+      </div>
+      <div class="item-right">
+        <div>
+          <div class="item-price">${fmt(price)}</div>
+          <div class="item-price-small">${globalSize === 'pizzetta' ? '22 cm' : '31 cm'}</div>
+        </div>
+        <button class="add-btn" onclick="addToCart('${p.id}','${p.name.replace(/'/g,"\\'")}',${price},'Pizza ${globalSize === 'pizzetta' ? '22cm' : '31cm'}')"><i class="fa fa-plus"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSimple(items, containerId){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(item => `
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">${item.name}</div>
+        ${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}
+      </div>
+      <div class="item-right">
+        <div class="item-price">${fmt(item.price)}</div>
+        <button class="add-btn" onclick="addToCart('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price},'')"><i class="fa fa-plus"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function setGlobalSize(el, size, label){
+  document.querySelectorAll('.size-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  globalSize = size;
+  renderPizzas();
+}
+
+// ===== PANIER =====
+function addToCart(id, name, price, variant){
+  const key = id + (variant ? '_' + variant : '');
+  const existing = cart.find(i => i.key === key);
+  if(existing){ existing.qty++; }
+  else { cart.push({key, id, name, price, variant, qty:1}); }
+  updateCartUI();
+  showToast('✅ ' + name + ' ajouté !');
+}
+
+function removeFromCart(key){
+  const idx = cart.findIndex(i => i.key === key);
+  if(idx === -1) return;
+  cart[idx].qty--;
+  if(cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s,i) => s + i.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total-btn').textContent = count > 0 ? fmt(total) : 'Panier';
+  const bb = document.getElementById('bottom-bar');
+  if(count > 0){
+    bb.classList.add('visible');
+    document.getElementById('bb-total').textContent = fmt(total + 5);
+    document.getElementById('bb-items').textContent = count + ' article(s) + 5€ livraison';
+  } else {
+    bb.classList.remove('visible');
+  }
+  renderCart();
+}
+
+function renderCart(){
+  const el = document.getElementById('cart-content');
+  if(cart.length === 0){
+    el.innerHTML = '<div class="cart-empty"><i class="fa fa-basket-shopping" style="font-size:2rem;margin-bottom:8px;display:block;opacity:0.3"></i>Votre panier est vide</div>';
+    return;
+  }
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const total = subtotal + 5;
+  el.innerHTML = `
+    <div class="cart-items">
+      ${cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}${item.variant ? ' <small style="color:var(--muted)">(${item.variant})</small>' : ''}</div>
+            <div class="cart-item-price">${fmt(item.price)} / unité</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="removeFromCart('${item.key}')"><i class="fa fa-minus"></i></button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="addToCart('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price},'${item.variant}')"><i class="fa fa-plus"></i></button>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="cart-total-box">
+      <div class="cart-total-line"><span>Sous-total repas</span><span>${fmt(subtotal)}</span></div>
+      <div class="cart-total-line"><span>Frais de livraison Khéops</span><span>5,00 €</span></div>
+      <div class="cart-total-line total"><span>Total à payer</span><span>${fmt(total)}</span></div>
+    </div>
+    <button class="cart-order-btn" onclick="sendOrder()"><i class="fa fa-paper-plane"></i> Envoyer ma commande</button>
+    <p class="cart-note">⚠️ Payez d'abord votre repas directement à La Casa Bella (tél. ou en ligne), puis envoyez cette commande. Vous réglerez 5€ au livreur à la réception.</p>`;
+}
+
+function sendOrder(){
+  if(cart.length === 0) return;
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const total = subtotal + 5;
+  const items = cart.map(i => `- ${i.name}${i.variant ? ' ('+i.variant+')' : ''} x${i.qty} = ${fmt(i.price * i.qty)}`).join('\n');
+  const msg = `Commande La Casa Bella :\n${items}\n\nSous-total : ${fmt(subtotal)}\nLivraison : 5,00 €\nTotal : ${fmt(total)}`;
+  const url = `index.html#formulaire?shop=La Casa Bella — Restaurant Pizzeria, Nozay&order=${encodeURIComponent(msg)}`;
+  window.location.href = url;
+}
+
+function toggleCart(){ document.getElementById('cart-overlay').classList.toggle('open'); }
+function closeCartOutside(e){ if(e.target === document.getElementById('cart-overlay')) toggleCart(); }
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ===== INIT =====
+renderPizzas();
+renderSimple(LINGUINES, 'linguines-list');
+renderSimple(SALADES, 'salades-list');
+renderSimple(FOCACCIAS, 'focaccias-list');
+renderSimple(HAMBURGERS, 'hamburgers-list');
+</script>
+</body>
+</html>

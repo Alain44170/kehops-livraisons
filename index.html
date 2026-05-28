@@ -209,6 +209,72 @@
 </head>
 <body>
 
+  <!-- ======= BANNIÈRE SITE EN CONSTRUCTION ======= -->
+  <!-- Pour retirer la bannière : supprimer ce bloc -->
+  <div id="construction-banner" style="
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #0b3d2e, #0b6e68);
+    border-bottom: 3px solid #e8c84a;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  ">
+    <span style="font-size:1.8rem;display:block;margin-bottom:8px;">🚧</span>
+    <strong style="
+      color: #e8c84a;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      display: block;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    ">Site en cours de construction</strong>
+
+    <span style="
+      color: #ffffff;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    ">Mais vous pouvez malgré tout commander vos courses Super U Drive<br>et vous faire livrer chez vous en cliquant sur ce bouton dès maintenant !</span>
+
+    <span style="
+      color: rgba(255,255,255,0.6);
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      display: block;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    ">⚠️ Seul le <strong style="color:#fff;">Super U Drive</strong> est actuellement en service.<br>
+    Tout ce qui concerne les restaurants n'est pas encore disponible — revenez dans quelques jours !</span>
+
+    <button onclick="
+      document.getElementById('construction-banner').style.display='none';
+      document.body.style.paddingTop='0';
+      setTimeout(function(){ document.getElementById('superudrive-info').scrollIntoView({behavior:'smooth', block:'start'}); }, 100);
+    " style="
+      background: linear-gradient(135deg, #c9a227, #e8c84a);
+      border: none;
+      border-radius: 10px;
+      color: #0b3d2e;
+      padding: 13px 32px;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 4px 14px rgba(201,162,39,0.35);
+    ">🛒 Je commande mes courses Super U maintenant</button>
+  </div>
+  <!-- Compenser la hauteur de la bannière -->
+  <style>
+    body { padding-top: 180px; }
+    @media(max-width:700px){ body { padding-top: 220px; } }
+  </style>
+  <!-- ======= FIN BANNIÈRE ======= -->
+
+
   <!-- ======= NAVIGATION ======= -->
   <header class="nav-wrap">
     <nav class="nav container">
@@ -222,143 +288,147 @@
         <li><a href="#advantages">Avantages</a></li>
         <li><a href="#info">Infos</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#formulaire" class="nav-cta">Demande de livraison</a></li>
-
-        <!-- Lien vers l'application (si vous en avez une) -->  
-         
-        <li>
-  <a href="app.html" class="nav-download-app">
-    <i class="fa fa-download"></i>
-    Télécharger notre application
-  </a>
-</li>
+        <li><a href="#superudrive-info" class="nav-cta">Demande de livraison</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- ======= HERO ======= -->
-  <section id="hero" class="hero" aria-label="Présentation du service de livraison à domicile à Nozay">
+  <!-- ======= HERO NOUVELLE VERSION ======= -->
+  <section id="hero" class="hero" aria-label="Commander vos plats chauds à Nozay">
     <div class="hero-bg-pattern"></div>
     <div class="hero-glow"></div>
-    <div class="container hero-grid">
+    <div class="container">
 
-      <div class="hero-content">
+      <div class="hero-top">
         <div class="hero-badge">
           <i class="fa fa-map-marker-alt"></i>
-          Service local — Nozay (Loire-Atlantique)
+          Livraison à domicile — Nozay (44)
         </div>
         <h1>
-          Vos courses livrées
-          <span class="accent">chez vous à Nozay</span>
+          Commandez vos plats chauds
+          <span class="accent">livrés chez vous à Nozay</span>
         </h1>
         <p class="hero-lead">
-          Je récupère vos commandes dans tous les commerces de Nozay — restaurants, pharmacies, épiceries, supermarchés — et vous les livre directement à domicile.
+          Pizzas, plats cuisinés, pâtes fraîches… Choisissez votre restaurant, composez votre repas et payez en ligne. Je vous livre directement à domicile.
         </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="tel:0602019088"><i class="fa fa-phone"></i><span class="btn-text">Appeler maintenant</span></a>
-          <a class="btn btn-outline-white" href="#formulaire"><i class="fa fa-clipboard-list"></i>Formulaire de livraison</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-number">5€</span>
-            <span class="stat-label">par livraison</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">local Nozay</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">Tous</span>
-            <span class="stat-label">commerces acceptés</span>
-          </div>
+        <div class="hero-payment-info">
+          <span class="hpi-item"><i class="fa fa-coins"></i> Repas payé en ligne</span>
+          <span class="hpi-sep">+</span>
+          <span class="hpi-item hpi-highlight"><i class="fa fa-hand-holding-dollar"></i> 5€ livraison au livreur</span>
+          <span class="hpi-sep">·</span>
+          <span class="hpi-item"><i class="fa fa-credit-card"></i> CB ou espèces</span>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-img-wrap">
-          <img src="hero-village4.png" alt="Livreur Khéops Livraisons remettant une commande à une habitante de Nozay devant une maison de village française" loading="eager">
-        </div>
-        <div class="hero-pill pill-1">
-          <i class="fa fa-store"></i>
-          <div>
-            <strong>Tous commerces</strong>
-            <span class="pill-sub">Restaurants, pharmacies…</span>
+      <!-- RESTAURANTS — COMMANDE DIRECTE -->
+      <div class="hero-order-section">
+        <p class="hero-order-label">
+          <i class="fa fa-fire"></i> Choisissez votre restaurant et commandez maintenant
+        </p>
+        <div class="hero-restaurants">
+
+          <!-- Les 3 Marchands — 2 étapes : appel restaurant puis formulaire Khéops -->
+          <div class="hero-resto-card hero-resto-card--phone" style="flex-direction:column;align-items:stretch;gap:12px;">
+
+            <!-- En-tête -->
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="hero-resto-logo dark">
+                <img src="logo3_marchants.png" alt="Les 3 Marchands">
+              </div>
+              <div class="hero-resto-info">
+                <strong>Les 3 Marchands</strong>
+                <span>Cuisine traditionnelle · Midi 7j/7</span>
+                <span style="font-size:0.7rem;color:rgba(255,200,100,0.75);font-weight:600">
+                  💰 Repas + 5€ livraison · payés au livreur à la réception
+                </span>
+              </div>
+            </div>
+
+            <!-- 2 étapes bien visibles -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+
+              <!-- Étape 1 -->
+              <a href="tel:0240792847" style="
+                flex:1;min-width:140px;
+                display:flex;align-items:center;justify-content:center;gap:8px;
+                background:rgba(255,255,255,0.10);
+                border:1.5px solid rgba(255,255,255,0.18);
+                border-radius:12px;padding:10px 14px;
+                color:#fff;text-decoration:none;font-weight:700;font-size:0.82rem;
+                transition:background .2s;">
+                <span style="background:rgba(255,255,255,0.15);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0;">1</span>
+                <i class="fa fa-phone"></i> Appelez le restaurant
+              </a>
+
+              <!-- Étape 2 -->
+              <a href="#formulaire" style="
+                flex:1;min-width:140px;
+                display:flex;align-items:center;justify-content:center;gap:8px;
+                background:linear-gradient(135deg,var(--gold),var(--gold-light));
+                border-radius:12px;padding:10px 14px;
+                color:var(--green-deep);text-decoration:none;font-weight:800;font-size:0.82rem;
+                box-shadow:0 4px 14px rgba(201,162,39,0.4);
+                transition:transform .15s,box-shadow .15s;">
+                <span style="background:rgba(11,61,46,0.15);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0;">2</span>
+                <i class="fa fa-clipboard-list"></i> Demandez la livraison
+              </a>
+
+            </div>
+
           </div>
+
+          <a href="commander.html?r=casa-bella" class="hero-resto-card">
+            <div class="hero-resto-logo dark">
+              <img src="logo_casa_bella.png" alt="La Casa Bella">
+            </div>
+            <div class="hero-resto-info">
+              <strong>La Casa Bella</strong>
+              <span>Pizzas · Linguines · Hamburgers</span>
+              <span class="hero-resto-open">🟢 Commandes ouvertes</span>
+            </div>
+            <div class="hero-resto-cta">
+              <span>Commander</span>
+              <i class="fa fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <a href="commander.html?r=pates-et-vous" class="hero-resto-card">
+            <div class="hero-resto-logo light">
+              <span style="font-size:2rem">🍝</span>
+            </div>
+            <div class="hero-resto-info">
+              <strong>Et Pâtes &amp; Vous</strong>
+              <span>Pâtes fraîches · Sauces maison</span>
+              <span class="hero-resto-open">🟢 Commandes ouvertes</span>
+            </div>
+            <div class="hero-resto-cta">
+              <span>Commander</span>
+              <i class="fa fa-arrow-right"></i>
+            </div>
+          </a>
+
         </div>
-        <div class="hero-pill pill-2">
-          <i class="fa fa-motorcycle"></i>
-          <div>
-            <strong>Livraison rapide</strong>
-            <span class="pill-sub">En deux-roues sur Nozay</span>
-          </div>
+      </div>
+
+      <div class="hero-divider"><span>ou</span></div>
+
+      <div class="hero-other">
+        <p class="hero-other-label">
+          <i class="fa fa-store"></i> Autre chose à récupérer ? (pharmacie, épicerie, Super U…)
+        </p>
+        <div class="hero-other-actions">
+          <a class="btn btn-outline-white" href="#formulaire">
+            <i class="fa fa-clipboard-list"></i> Formulaire de livraison libre
+          </a>
+          <a class="btn btn-outline-white" href="tel:0602019088">
+            <i class="fa fa-phone"></i> Appeler directement
+          </a>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ======= SECTION PARTENAIRES ======= -->
-  <section id="partners" class="section-partners">
-    <div class="container">
-      <div class="section-eyebrow" style="text-align:center;display:block;margin-bottom:10px">Ils font confiance à Khéops</div>
-      <h2 class="partners-title">Nos commerces partenaires</h2>
-      <p class="partners-subtitle">Cliquez sur un logo pour visiter le site du commerce</p>
-
-      <!--
-        ╔══════════════════════════════════════════════════════╗
-        ║  AJOUTER UN PARTENAIRE — MODE D'EMPLOI               ║
-        ║                                                       ║
-        ║  Copiez-collez le bloc ci-dessous et remplissez :    ║
-        ║  • href       → lien vers le site du commerce        ║
-        ║  • src        → nom de l'image du logo               ║
-        ║  • alt        → nom du commerce                      ║
-        ║  • data-name  → nom affiché sous le logo             ║
-        ║  • data-type  → type (Restaurant, Pharmacie…)        ║
-        ╚══════════════════════════════════════════════════════╝
-
-        <a href="https://LIEN-DU-COMMERCE.fr" target="_blank" rel="noopener" class="partner-card">
-          <div class="partner-card-logo">
-            <img src="NOM-DU-LOGO.png" alt="Nom du commerce">
-          </div>
-          <span class="partner-card-name">Nom du Commerce</span>
-          <span class="partner-card-type">Restaurant</span>
-        </a>
-      -->
-
-      <div class="partners-cards">
-
-        <!-- Partenaire 1 : Les 3 Marchands -->
-        <a href="https://www.les3marchands.fr/" target="_blank" rel="noopener" class="partner-card">
-          <div class="partner-card-logo">
-            <img src="logo3_marchants.png" alt="Logo restaurant Les 3 Marchands Nozay - partenaire Khéops Livraisons">
-          </div>
-          <span class="partner-card-name">Les 3 Marchands</span>
-          <span class="partner-card-type">Restaurant</span>
-        </a>
-
-        <!-- Partenaire 2 : La Casa Bella -->
-        <a href="https://www.nozay44.com/casa-bella.html" target="_blank" rel="noopener" class="partner-card">
-          <div class="partner-card-logo partner-card-logo--dark">
-            <img src="logo_casa_bella.png" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons">
-          </div>
-          <span class="partner-card-name">La Casa Bella</span>
-          <span class="partner-card-type">Restaurant · Pizzeria</span>
-        </a>
-
-        <!-- Partenaire 3 : Super U / Courses U -->
-        <a href="https://tinyurl.com/bdzcpehm" target="_blank" rel="noopener" class="partner-card">
-          <div class="partner-card-logo">
-            <img src="lien_U.jpg" alt="Logo Courses U Super U Drive Nozay - partenaire Khéops Livraisons">
-          </div>
-          <span class="partner-card-name">Super U Drive</span>
-          <span class="partner-card-type">Supermarché</span>
-        </a>
-
-        <!-- ➕ AJOUTEZ VOS PROCHAINS PARTENAIRES ICI (voir modèle ci-dessus) -->
-
-      </div>
-    </div>
-  </section>
 
   <!-- ======= COMMENT ÇA MARCHE ======= -->
   <section id="how" class="section" aria-label="Comment fonctionne le service de livraison">
@@ -477,7 +547,7 @@
               <img src="logo_casa_bella.png" class="partner-logo logo-casabella" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons" style="filter:invert(1)">
               <span class="tooltip">Restaurant<br>La Casa Bella</span>
             </a>
-            <a href="https://tinyurl.com/bdzcpehm" target="_blank" rel="noopener noreferrer" class="partner-link">
+            <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="lien_U.jpg" class="partner-logo logo-3marchands" alt="Super U Drive">
               <span class="tooltip">Restaurant<br>Les 3 Marchands</span>
             </a>
@@ -486,6 +556,58 @@
       </div>
 
       <div class="contact-right">
+        <!-- Message d'information Super U Drive -->
+        <div id="superudrive-info" style="scroll-margin-top: 280px;"></div>
+        <div style="
+          background: #0b3d2e;
+          border: 2px solid #e8c84a;
+          border-radius: 16px;
+          padding: 20px 20px;
+          margin-bottom: 20px;
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+          box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+        ">
+          <span style="font-size:2rem;flex-shrink:0;">🛒</span>
+          <div>
+            <strong style="
+              display:block;
+              color:#e8c84a;
+              font-size:1.05rem;
+              margin-bottom:10px;
+              font-family:'Playfair Display',serif;
+            ">
+              ⚠️ Avant de remplir ce formulaire :
+            </strong>
+            <p style="
+              font-size:0.92rem;
+              color:#ffffff;
+              font-weight:600;
+              line-height:1.7;
+              margin-bottom:14px;
+            ">
+              Rendez-vous d'abord sur le site <strong style="color:#e8c84a;">Super U Drive</strong> pour passer et régler votre commande en ligne. Une fois votre commande validée et payée sur leur site, revenez ici et remplissez ce formulaire avec les informations nécessaires pour que le livreur puisse récupérer votre commande et vous la livrer à domicile.
+            </p>
+            <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener" style="
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              background: linear-gradient(135deg, #c9a227, #e8c84a);
+              color: #0b3d2e;
+              padding: 11px 20px;
+              border-radius: 10px;
+              font-size: 0.88rem;
+              font-weight: 800;
+              text-decoration: none;
+              box-shadow: 0 4px 14px rgba(201,162,39,0.35);
+            ">
+              <i class="fa fa-arrow-up-right-from-square"></i>
+              Commander sur Super U Drive →
+            </a>
+          </div>
+        </div>
+
         <div class="form-card" id="formulaire">
           <h3>Votre demande de livraison</h3>
           <p class="form-sub">Tous les champs sont obligatoires. Vous serez contacté rapidement.</p>

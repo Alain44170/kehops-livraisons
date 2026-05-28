@@ -47,7 +47,7 @@ img { max-width: 100%; display: block; }
 
 /* ========= NAVIGATION ========= */
 .nav-wrap {
-  position: sticky; top: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: rgba(232, 225, 210, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(201,162,39,0.22);
@@ -96,31 +96,6 @@ img { max-width: 100%; display: block; }
 .nav-toggle {
   display: none; background: none; border: none;
   font-size: 1.4rem; color: var(--green-deep); cursor: pointer;
-}
-
-/*========== Lien vers l'application dans la nav ========= */
-
-.nav-download-app{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:linear-gradient(135deg,#f4c542,#d4a017);
-  color:#111;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:700;
-  text-decoration:none;
-  box-shadow:0 6px 18px rgba(212,160,23,0.35);
-  transition:all .25s ease;
-}
-
-.nav-download-app:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 22px rgba(212,160,23,0.45);
-}
-
-.nav-download-app i{
-  font-size:.95rem;
 }
 
 /* ========= HERO ========= */
@@ -583,7 +558,7 @@ img { max-width: 100%; display: block; }
   transition: border-color 0.2s, background 0.2s;
 }
 .partner-logo:hover { border-color: rgba(201,162,39,0.5); background: rgba(209, 110, 255, 0.705); }
-.logo-3marchands { height: 52px; background: rgba(99, 247, 0, 0.514); border-color: rgba(255,255,255,0.2); }
+/* .logo-3marchands — retiré (Les 3 Marchands ne commande plus en ligne) */
 .logo-casabella { height: 52px; }
 
 .tooltip {
@@ -916,4 +891,225 @@ input, textarea, select { max-width: 100%; min-width: 0; }
     line-height: 1.6;
   }
 
+}
+/* ========= HERO NOUVELLE VERSION ========= */
+
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 52px;
+  padding-bottom: 52px;
+}
+
+/* ACCROCHE — texte bien blanc et lisible */
+.hero-top {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 36px;
+}
+/* Forcer le titre h1 en blanc dans le hero */
+.hero .hero-top h1 {
+  color: #ffffff !important;
+  font-size: clamp(2rem, 4.5vw, 3.2rem) !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero .hero-top h1 .accent {
+  color: var(--gold-light) !important;
+}
+.hero .hero-lead {
+  color: rgba(255,255,255,0.82) !important;
+  font-size: 1.05rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+
+/* ENCADRÉ COMMANDE — très visible, sur fond blanc cassé */
+.hero-order-section {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(201,162,39,0.35);
+  border-radius: 24px;
+  padding: 22px 20px;
+  backdrop-filter: blur(6px);
+}
+
+.hero-order-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-order-label i {
+  -webkit-text-fill-color: #ff7043;
+  font-size: 1rem;
+}
+
+/* Cartes restaurant */
+.hero-restaurants {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-resto-card {
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, transform .18s, box-shadow .2s;
+}
+.hero-resto-card:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: var(--gold-light);
+  transform: translateX(5px);
+  box-shadow: 0 4px 20px rgba(201,162,39,0.2);
+}
+
+.hero-resto-logo {
+  width: 52px; height: 52px;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 6px;
+}
+.hero-resto-logo.dark  { background: #111; border: 1px solid rgba(255,255,255,0.1); }
+.hero-resto-logo.light { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); }
+.hero-resto-logo img   { width:100%; height:100%; object-fit:contain; }
+
+.hero-resto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.hero-resto-info strong {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.hero-resto-info > span:not(.hero-resto-open):not(.hero-resto-hours) {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.6);
+}
+.hero-resto-open {
+  font-size: 0.72rem !important;
+  color: #6ee7a0 !important;
+  font-weight: 700 !important;
+}
+.hero-resto-hours {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+}
+
+/* BOUTON COMMANDER — bien flashy, grand et visible */
+.hero-resto-cta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #e8c84a, #f5d96a);
+  color: #0b3d2e;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(201,162,39,0.45);
+  transition: transform .15s, box-shadow .15s;
+}
+.hero-resto-card:hover .hero-resto-cta {
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(201,162,39,0.6);
+}
+
+/* Séparateur */
+.hero-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 24px auto;
+  max-width: 760px; width: 100%;
+}
+.hero-divider::before, .hero-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: rgba(255,255,255,0.10);
+}
+.hero-divider span {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+/* Autre commande — discret */
+.hero-other { max-width: 760px; width: 100%; margin: 0 auto; }
+.hero-other-label {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 7px;
+}
+.hero-other-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-other-actions .btn { font-size: 0.82rem; padding: 9px 16px; opacity: 0.7; }
+.hero-other-actions .btn:hover { opacity: 1; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .hero .container { padding-top: 32px; padding-bottom: 36px; }
+  .hero-top { margin-bottom: 22px; }
+  .hero-order-section { padding: 16px 14px; }
+  .hero-resto-cta span { display: none; }
+  .hero-resto-cta { padding: 9px 12px; }
+  .hero-other-actions { flex-direction: column; }
+  .hero-other-actions .btn { width: 100%; justify-content: center; opacity: 0.65; }
+}
+
+/* ========= HERO PAYMENT INFO ========= */
+.hero-payment-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(201,162,39,0.12);
+  border: 1.5px solid rgba(201,162,39,0.35);
+  border-radius: 30px;
+  padding: 10px 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hpi-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.82rem; font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}
+.hpi-item i { font-size: 0.78rem; color: var(--gold-light); }
+.hpi-highlight {
+  color: var(--gold-light) !important;
+  font-weight: 800 !important;
+  font-size: 0.88rem !important;
+}
+.hpi-sep {
+  color: rgba(255,255,255,0.25);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .hero-payment-info { gap: 7px; padding: 9px 14px; }
+  .hpi-item { font-size: 0.76rem; }
 }

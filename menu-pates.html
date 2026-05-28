@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Et Pâtes & Vous — Commander via Khéops Livraisons</title>
+  <meta name="description" content="Commandez vos pâtes fraîches Et Pâtes & Vous à Nozay — livraison à domicile par Khéops Livraisons"/>
+  <link rel="icon" href="logo.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    :root{--gold:#c9a227;--gold-light:#e8c84a;--green-deep:#0b3d2e;--green-mid:#0b6e68;--bg:#f0ebe0;--card:#e9e3d6;--surface:#ede8dd;--text:#111c16;--muted:#6b6255;--radius:16px;--radius-sm:10px;--shadow:0 4px 18px rgba(11,61,46,0.10);}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;}
+    .topbar{background:var(--green-deep);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
+    .topbar-back{color:rgba(255,255,255,0.7);font-size:0.9rem;display:flex;align-items:center;gap:6px;}
+    .topbar-logo{display:flex;align-items:center;gap:8px;margin-right:auto;}
+    .topbar-logo img{height:32px;}
+    .topbar-logo span{font-family:'Playfair Display',serif;color:#fff;font-size:1rem;}
+    .cart-btn{background:rgba(201,162,39,0.2);border:1px solid rgba(201,162,39,0.4);color:var(--gold-light);padding:8px 14px;border-radius:20px;display:flex;align-items:center;gap:7px;font-weight:600;font-size:0.85rem;cursor:pointer;}
+    .cart-count{background:var(--gold-light);color:var(--green-deep);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;}
+    .resto-hero{background:linear-gradient(135deg,#1a1a0a,#2d2a10);padding:28px 16px 24px;text-align:center;border-bottom:1px solid rgba(201,162,39,0.15);}
+    .resto-logo-wrap{width:80px;height:80px;border-radius:50%;background:#fff;border:2px solid rgba(201,162,39,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 auto 12px;padding:8px;}
+    .resto-logo-wrap img{width:100%;height:100%;object-fit:contain;}
+    .resto-hero h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:4px;}
+    .resto-hero p{font-size:0.82rem;color:rgba(255,255,255,0.55);}
+    .resto-badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+    .badge{background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.3);color:var(--gold-light);padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;}
+    .container{max-width:760px;margin:0 auto;padding:0 16px 120px;}
+    .cat-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--green-deep);padding:20px 0 10px;border-bottom:2px solid var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .cat-title i{color:var(--gold);}
+    .cat-desc{font-size:0.82rem;color:var(--muted);margin-bottom:14px;line-height:1.6;background:rgba(201,162,39,0.08);border-radius:10px;padding:10px 14px;border-left:3px solid var(--gold);}
+    .menu-item{background:var(--card);border-radius:var(--radius);border:1px solid rgba(11,61,46,0.10);box-shadow:var(--shadow);padding:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;transition:transform .2s;}
+    .menu-item:hover{transform:translateY(-2px);}
+    .item-info{flex:1;}
+    .item-name{font-weight:700;font-size:0.95rem;margin-bottom:4px;}
+    .item-desc{font-size:0.78rem;color:var(--muted);line-height:1.55;}
+    .item-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+    .item-price{font-weight:700;font-size:1rem;color:var(--green-mid);}
+    .add-btn{background:var(--green-mid);color:#fff;border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s;}
+    .add-btn:hover{background:var(--green-deep);}
+    .formule-badge{display:inline-block;background:rgba(11,110,104,0.1);color:var(--green-mid);font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-top:4px;text-transform:uppercase;letter-spacing:0.05em;}
+    .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .cart-overlay.open{opacity:1;pointer-events:auto;}
+    .cart-panel{position:fixed;bottom:0;left:0;right:0;max-width:760px;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:24px 20px;max-height:80vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease;z-index:201;}
+    .cart-overlay.open .cart-panel{transform:translateY(0);}
+    .cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .cart-header h2{font-family:'Playfair Display',serif;font-size:1.2rem;}
+    .cart-close{background:var(--card);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--muted);}
+    .cart-empty{text-align:center;padding:32px 0;color:var(--muted);}
+    .cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+    .cart-item{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:var(--radius-sm);padding:12px;}
+    .cart-item-info{flex:1;}
+    .cart-item-name{font-weight:600;font-size:0.88rem;}
+    .cart-item-price{font-size:0.8rem;color:var(--muted);}
+    .cart-item-qty{display:flex;align-items:center;gap:8px;}
+    .qty-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(11,61,46,0.2);background:transparent;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;color:var(--green-mid);}
+    .qty-val{font-weight:700;min-width:20px;text-align:center;}
+    .cart-total-box{background:var(--surface);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;}
+    .cart-total-line{display:flex;justify-content:space-between;font-size:0.88rem;color:var(--muted);margin-bottom:6px;}
+    .cart-total-line.total{font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0;}
+    .cart-order-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--green-mid),var(--green-deep));color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;}
+    .cart-note{font-size:0.75rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5;}
+    .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--green-deep);padding:14px 20px;display:none;align-items:center;justify-content:space-between;z-index:90;}
+    .bottom-bar.visible{display:flex;}
+    .bottom-bar-info{color:#fff;}
+    .bottom-bar-info strong{display:block;font-size:0.9rem;}
+    .bottom-bar-info span{font-size:0.75rem;color:rgba(255,255,255,0.6);}
+    .bottom-bar-btn{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--green-deep);border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;gap:7px;}
+    .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-10px);background:var(--green-deep);color:#fff;padding:10px 18px;border-radius:20px;font-size:0.82rem;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:300;white-space:nowrap;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-back"><i class="fa fa-arrow-left"></i> Retour</a>
+  <div class="topbar-logo">
+    <img src="logo.png" alt="Khéops">
+    <span>Khéops</span>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    <i class="fa fa-basket-shopping"></i>
+    <span id="cart-total-btn">Panier</span>
+    <span class="cart-count" id="cart-count">0</span>
+  </button>
+</div>
+
+<div class="resto-hero">
+  <div class="resto-logo-wrap">
+    <img src="logo-pates.png" alt="Et Pâtes & Vous" onerror="this.parentElement.innerHTML='🍝'">
+  </div>
+  <h1>Et Pâtes & Vous</h1>
+  <p>Restaurant de pâtes fraîches et sauces maison · Nozay (44)</p>
+  <div class="resto-badges">
+    <span class="badge"><i class="fa fa-motorcycle"></i> Livraison 5€ par Khéops</span>
+    <span class="badge"><i class="fa fa-circle-check"></i> Commande prépayée requise</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="cat-title"><i class="fa fa-utensils"></i> Pâtes fraîches maison</div>
+  <div class="cat-desc">Pâtes fraîches avec sauces originales faites maison. Disponibles en 3 tailles. La formule inclut une boisson ou un dessert.</div>
+
+  <div id="menu-list"></div>
+
+</div>
+
+<div class="cart-overlay" id="cart-overlay" onclick="closeCartOutside(event)">
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h2><i class="fa fa-basket-shopping"></i> Mon panier</h2>
+      <button class="cart-close" onclick="toggleCart()"><i class="fa fa-xmark"></i></button>
+    </div>
+    <div id="cart-content"></div>
+  </div>
+</div>
+
+<div class="bottom-bar" id="bottom-bar">
+  <div class="bottom-bar-info">
+    <strong id="bb-total">0,00 €</strong>
+    <span id="bb-items">0 article(s) + 5€ livraison</span>
+  </div>
+  <button class="bottom-bar-btn" onclick="toggleCart()">
+    <i class="fa fa-basket-shopping"></i> Voir le panier
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MENU = [
+  {
+    id:'kid', name:'Kid', desc:'Pâtes fraîches avec sauce au choix — pour les enfants',
+    price:5.50, formule:7.80,
+    sauces:['Basic (jambon, crème, emmental)','Bolognaise','Forestière','Carbonara']
+  },
+  {
+    id:'classic', name:'Classic', desc:'Pâtes fraîches avec sauce au choix — taille standard',
+    price:6.50, formule:9.50,
+    sauces:['Basic (jambon, crème, emmental)','Bolognaise','Forestière','Carbonara','Saumon','Végétarienne']
+  },
+  {
+    id:'big', name:'Big', desc:'Pâtes fraîches avec sauce au choix — grande portion',
+    price:8.00, formule:11.50,
+    sauces:['Basic (jambon, crème, emmental)','Bolognaise','Forestière','Carbonara','Saumon','Végétarienne','Du Chef']
+  },
+];
+
+let cart = [];
+
+function fmt(n){ return n.toFixed(2).replace('.',',') + ' €'; }
+
+function renderMenu(){
+  const el = document.getElementById('menu-list');
+  el.innerHTML = MENU.map(item => `
+    <div class="menu-item" style="flex-direction:column;gap:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;width:100%">
+        <div class="item-info">
+          <div class="item-name">${item.name}</div>
+          <div class="item-desc">${item.desc}</div>
+          <div style="margin-top:8px;font-size:0.78rem;color:var(--muted)">
+            <strong>Sauces disponibles :</strong> ${item.sauces.join(' · ')}
+          </div>
+        </div>
+        <div class="item-right">
+          <div>
+            <div class="item-price">${fmt(item.price)}</div>
+            <div style="font-size:0.72rem;color:var(--muted)">à la carte</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;width:100%;flex-wrap:wrap;">
+        <button class="add-btn" style="width:auto;padding:8px 14px;border-radius:10px;font-size:0.82rem;font-weight:600;gap:7px;display:flex;align-items:center;" 
+          onclick="addToCart('${item.id}_carte','${item.name} (à la carte)',${item.price})">
+          <i class="fa fa-plus"></i> Ajouter — ${fmt(item.price)}
+        </button>
+        <button class="add-btn" style="width:auto;padding:8px 14px;border-radius:10px;font-size:0.82rem;font-weight:600;gap:7px;display:flex;align-items:center;background:var(--gold);color:var(--green-deep);" 
+          onclick="addToCart('${item.id}_formule','${item.name} Formule',${item.formule})">
+          <i class="fa fa-star"></i> Formule — ${fmt(item.formule)}
+        </button>
+      </div>
+      <div style="font-size:0.76rem;color:var(--muted);padding:8px 12px;background:rgba(201,162,39,0.08);border-radius:8px;border-left:3px solid var(--gold)">
+        ℹ️ Précisez votre sauce choisie dans le champ "message" du formulaire de commande.
+      </div>
+    </div>`).join('');
+}
+
+function addToCart(key, name, price){
+  const existing = cart.find(i => i.key === key);
+  if(existing){ existing.qty++; }
+  else { cart.push({key, name, price, qty:1}); }
+  updateCartUI();
+  showToast('✅ ' + name + ' ajouté !');
+}
+
+function removeFromCart(key){
+  const idx = cart.findIndex(i => i.key === key);
+  if(idx === -1) return;
+  cart[idx].qty--;
+  if(cart[idx].qty <= 0) cart.splice(idx,1);
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s,i) => s + i.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total-btn').textContent = count > 0 ? fmt(total) : 'Panier';
+  const bb = document.getElementById('bottom-bar');
+  if(count > 0){
+    bb.classList.add('visible');
+    document.getElementById('bb-total').textContent = fmt(total + 5);
+    document.getElementById('bb-items').textContent = count + ' article(s) + 5€ livraison';
+  } else { bb.classList.remove('visible'); }
+  renderCart();
+}
+
+function renderCart(){
+  const el = document.getElementById('cart-content');
+  if(cart.length === 0){
+    el.innerHTML = '<div class="cart-empty"><i class="fa fa-basket-shopping" style="font-size:2rem;margin-bottom:8px;display:block;opacity:0.3"></i>Votre panier est vide</div>';
+    return;
+  }
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const total = subtotal + 5;
+  el.innerHTML = `
+    <div class="cart-items">
+      ${cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">${fmt(item.price)} / unité</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="removeFromCart('${item.key}')"><i class="fa fa-minus"></i></button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="addToCart('${item.key}','${item.name}',${item.price})"><i class="fa fa-plus"></i></button>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div style="background:rgba(201,162,39,0.08);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:0.78rem;color:var(--muted);border-left:3px solid var(--gold)">
+      ⚠️ N'oubliez pas d'indiquer votre sauce choisie pour chaque pâtes dans le formulaire !
+    </div>
+    <div class="cart-total-box">
+      <div class="cart-total-line"><span>Sous-total repas</span><span>${fmt(subtotal)}</span></div>
+      <div class="cart-total-line"><span>Frais de livraison Khéops</span><span>5,00 €</span></div>
+      <div class="cart-total-line total"><span>Total à payer</span><span>${fmt(total)}</span></div>
+    </div>
+    <button class="cart-order-btn" onclick="sendOrder()"><i class="fa fa-paper-plane"></i> Envoyer ma commande</button>
+    <p class="cart-note">⚠️ Payez d'abord votre repas directement à Et Pâtes & Vous, puis envoyez cette commande. Vous réglerez 5€ au livreur.</p>`;
+}
+
+function sendOrder(){
+  if(cart.length === 0) return;
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const items = cart.map(i => `- ${i.name} x${i.qty} = ${fmt(i.price * i.qty)}`).join('\n');
+  const msg = `Commande Et Pâtes & Vous :\n${items}\n\nSous-total : ${fmt(subtotal)}\nLivraison : 5,00 €\nTotal : ${fmt(subtotal + 5)}\n\n⚠️ Précisez vos sauces dans le champ message.`;
+  window.location.href = `index.html#formulaire?shop=Et Pâtes et Vous, Nozay&order=${encodeURIComponent(msg)}`;
+}
+
+function toggleCart(){ document.getElementById('cart-overlay').classList.toggle('open'); }
+function closeCartOutside(e){ if(e.target === document.getElementById('cart-overlay')) toggleCart(); }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+
+renderMenu();
+</script>
+</body>
+</html>

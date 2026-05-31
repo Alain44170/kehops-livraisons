@@ -229,6 +229,51 @@
 
 <script>
 // ══════════════════════════════════════════════
+// SYSTÈME PREMIÈRE COMMANDE
+// ══════════════════════════════════════════════
+const STORAGE_KEY = 'kheops_clients';
+
+function normalizeText(str){
+  return str.toLowerCase().trim()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/\s+/g,' ');
+}
+
+function isFirstOrder(name, phone, address){
+  try {
+    const clients = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const normName    = normalizeText(name);
+    const normPhone   = phone.replace(/\s/g,'');
+    const normAddress = normalizeText(address);
+
+    return !clients.some(c =>
+      c.phone === normPhone ||
+      (c.name === normName && c.address === normAddress)
+    );
+  } catch(e){ return true; }
+}
+
+function saveClient(name, phone, address){
+  try {
+    const clients = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    clients.push({
+      name:    normalizeText(name),
+      phone:   phone.replace(/\s/g,''),
+      address: normalizeText(address),
+      date:    new Date().toISOString()
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(clients));
+  } catch(e){}
+}
+
+function getDeliveryFee(name, phone, address){
+  if(!name || !phone || !address) return KHEOPS_CONFIG.deliveryFee;
+  return isFirstOrder(name, phone, address)
+    ? KHEOPS_CONFIG.deliveryFeeFirstOrder
+    : KHEOPS_CONFIG.deliveryFee;
+}
+
+// ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
 const params   = new URLSearchParams(location.search);
@@ -326,7 +371,7 @@ function renderMenu(){
             ${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}
           </div>
           <div class="item-right">
-            <div class="item-price">${fmt(item.price)}</div>
+            <div class="item-price">${item.price === 0 ? '<span style="color:var(--green-accent);font-size:0.82rem;font-weight:600;">Inclus</span>' : fmt(item.price)}</div>
             ${qty > 0 ? `<span class="in-cart-badge">${qty} dans panier</span>` : ''}
             <button class="add-btn" onclick="addItem('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price})">
               <i class="fa fa-plus"></i>
@@ -361,7 +406,46 @@ function removeItem(id){
 }
 
 function cartSubtotal(){ return cart.reduce((s,i) => s + i.price * i.qty, 0); }
-function cartTotal()   { return cartSubtotal() + KHEOPS_CONFIG.deliveryFee; }
+function getCurrentFee(){
+  const name    = document.getElementById('co-name')?.value.trim()    || '';
+  const phone   = document.getElementById('co-phone')?.value.trim()   || '';
+  const address = document.getElementById('co-address')?.value.trim() || '';
+  return getDeliveryFee(name, phone, address);
+}
+
+function cartTotal(){ return cartSubtotal() + getCurrentFee(); }
+
+function updateDeliveryFee(){
+  const name    = document.getElementById('co-name')?.value.trim()    || '';
+  const phone   = document.getElementById('co-phone')?.value.trim()   || '';
+  const address = document.getElementById('co-address')?.value.trim() || '';
+  const badge   = document.getElementById('delivery-fee-badge');
+  const label   = document.getElementById('fee-label');
+  const sub     = document.getElementById('fee-sublabel');
+  if(!badge || !label || !sub) return;
+
+  if(!name || !phone || !address){
+    label.textContent = 'Frais de livraison : ?';
+    sub.textContent   = 'Renseignez vos informations pour voir votre tarif';
+    badge.style.borderColor = 'rgba(42,168,121,0.3)';
+    return;
+  }
+
+  const fee   = getDeliveryFee(name, phone, address);
+  const first = fee === KHEOPS_CONFIG.deliveryFeeFirstOrder;
+
+  label.textContent = 'Frais de livraison : ' + fmt(fee);
+  badge.style.background    = first ? 'rgba(42,168,121,0.12)' : 'rgba(11,61,46,0.06)';
+  badge.style.borderColor   = first ? 'rgba(42,168,121,0.4)'  : 'rgba(11,61,46,0.15)';
+
+  if(first){
+    sub.innerHTML = '🎉 <strong>Offre de bienvenue !</strong> Première livraison à 2,00 € seulement !';
+    sub.style.color = '#0b6e68';
+  } else {
+    sub.textContent = 'Tarif habituel — merci de votre fidélité !';
+    sub.style.color = '#6b6255';
+  }
+}
 function cartCount()   { return cart.reduce((s,i) => s + i.qty, 0); }
 
 function updateUI(){
@@ -441,8 +525,8 @@ function renderCartDrawer(title, body, footer){
         </div>`).join('')}
       <div class="total-box">
         <div class="total-row"><span>Sous-total repas</span><span>${fmt(sub)}</span></div>
-        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)}</span></div>
-        <div class="total-row main"><span>Total</span><span>${fmt(total)}</span></div>
+        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)} <small style="color:var(--green-accent);font-size:0.7rem">(2€ si 1ère commande)</small></span></div>
+        <div class="total-row main"><span>Total estimé</span><span>${fmt(total)}</span></div>
       </div>
     </div>`;
 
@@ -467,20 +551,46 @@ function renderCheckoutDrawer(title, body, footer){
     <div class="checkout-title">📍 Vos informations</div>
     <div id="checkout-fields">
       <label for="co-name">Nom complet</label>
-      <input id="co-name" type="text" placeholder="Prénom Nom" required/>
+      <input id="co-name" type="text" placeholder="Prénom Nom" required
+        oninput="updateDeliveryFee()"/>
 
       <label for="co-phone">Téléphone</label>
-      <input id="co-phone" type="tel" placeholder="06 XX XX XX XX" required/>
+      <input id="co-phone" type="tel" placeholder="06 XX XX XX XX" required
+        oninput="updateDeliveryFee()"/>
 
       <label for="co-email">Email (pour la confirmation)</label>
       <input id="co-email" type="email" placeholder="votre@email.fr" required/>
 
       <label for="co-address">Adresse de livraison</label>
-      <input id="co-address" type="text" placeholder="N° et nom de rue, Nozay" required/>
+      <input id="co-address" type="text" placeholder="N° et nom de rue, Nozay" required
+        oninput="updateDeliveryFee()"/>
 
       <label for="co-note">Instructions (étage, code, créneau…)</label>
       <textarea id="co-note" placeholder="Ex : 1er étage gauche, disponible à partir de 12h30…"></textarea>
       <p class="field-note">Optionnel</p>
+    </div>
+
+    <!-- BADGE TARIF LIVRAISON DYNAMIQUE -->
+    <div id="delivery-fee-badge" style="
+      background: rgba(42,168,121,0.12);
+      border: 1.5px solid rgba(42,168,121,0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+    ">
+      <span style="font-size:1.4rem">🛵</span>
+      <div>
+        <strong id="fee-label" style="display:block;font-size:1rem;color:#0b3d2e;">
+          Frais de livraison : 4,50 €
+        </strong>
+        <span id="fee-sublabel" style="font-size:0.78rem;color:#6b6255;">
+          Renseignez vos informations pour voir votre tarif
+        </span>
+      </div>
     </div>
 
     <div style="margin-top:16px;" class="payment-box">
@@ -572,6 +682,9 @@ async function processPayment(){
     );
   }catch(e){ console.warn('EmailJS:', e); }
 
+  // Sauvegarder le client pour la prochaine commande
+  saveClient(name, phone, address);
+
   // Stocker la commande localement
   const order = { ref:orderRef, resto:resto.name, name, phone, email, address, note, items:cart, sub, total, date: new Date().toLocaleString('fr-FR') };
   saveOrder(order);
@@ -628,115 +741,12 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'), 1800);
 }
 
+
+
+
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
-// ══════════════════════════════════════════════
-// VÉRIFICATION HORAIRES DE COMMANDE
-// ══════════════════════════════════════════════
-function checkOrderHours(){
-  // Système avec créneaux multiples (orderSlots) ou créneau unique (orderHours)
-  const now   = new Date();
-  const total = now.getHours() * 60 + now.getMinutes();
-
-  // Nouveau système : plusieurs créneaux
-  if(resto.orderSlots){
-    const day = now.getDay(); // 0=dim, 1=lun, 2=mar, 3=mer, 4=jeu, 5=ven, 6=sam
-    return resto.orderSlots.some(slot => {
-      const open  = slot.open.h  * 60 + slot.open.m;
-      const close = slot.close.h * 60 + slot.close.m;
-      const timeOk = total >= open && total < close;
-      // Si le slot a des jours définis, vérifier le jour aussi
-      const dayOk  = !slot.days || slot.days.includes(day);
-      return timeOk && dayOk;
-    });
-  }
-
-  // Ancien système : créneau unique
-  if(resto.orderHours){
-    const open  = resto.orderHours.open.h  * 60 + resto.orderHours.open.m;
-    const close = resto.orderHours.close.h * 60 + resto.orderHours.close.m;
-    return total >= open && total < close;
-  }
-
-  return true; // Pas de restriction
-}
-
-function getSlotsLabel(){
-  // Génère un texte lisible des créneaux
-  if(resto.orderSlots){
-    return resto.orderSlots.map(slot => {
-      const oh = slot.open.h  + 'h' + (slot.open.m  === 0 ? '00' : String(slot.open.m).padStart(2,'0'));
-      const ch = slot.close.h + 'h' + (slot.close.m === 0 ? '00' : String(slot.close.m).padStart(2,'0'));
-      return `${oh}–${ch} (${slot.label})`;
-    }).join(' &nbsp;·&nbsp; ');
-  }
-  if(resto.orderHours){
-    const oh = resto.orderHours;
-    const o = oh.open.h  + 'h' + (oh.open.m  === 0 ? '00' : oh.open.m);
-    const c = oh.close.h + 'h' + (oh.close.m === 0 ? '00' : oh.close.m);
-    return `${o} à ${c}`;
-  }
-  return '';
-}
-
-function showClosedBanner(){
-  const hasRestriction = resto.orderSlots || resto.orderHours;
-  if(!hasRestriction) return;
-  if(checkOrderHours()) return;
-
-  const container = document.getElementById('menu-container');
-  const message   = resto.orderClosedMessage || (resto.orderHours && resto.orderHours.message) || 'Les commandes sont fermées pour le moment.';
-  const slots     = getSlotsLabel();
-
-  container.innerHTML = `
-    <div style="
-      background:#fff8f0;
-      border:2px solid rgba(200,100,0,0.25);
-      border-radius:20px;
-      padding:32px 24px;
-      text-align:center;
-      margin-top:16px;
-    ">
-      <div style="font-size:2.5rem;margin-bottom:14px;">🕙</div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#7a3500;margin-bottom:10px;">
-        Commandes fermées
-      </h2>
-      <p style="font-size:0.88rem;color:#8a5030;line-height:1.7;max-width:340px;margin:0 auto 18px;">
-        ${message}
-      </p>
-      <div style="
-        background:rgba(200,100,0,0.08);
-        border-radius:12px;
-        padding:12px 18px;
-        display:inline-flex;
-        align-items:center;
-        gap:10px;
-        font-size:0.85rem;
-        font-weight:700;
-        color:#7a3500;
-      ">
-        <i class="fa fa-clock"></i>
-        Commandes acceptées : ${slots}
-      </div>
-      <br><br>
-      <a href="index.html" style="
-        display:inline-flex;align-items:center;gap:8px;
-        background:var(--green-mid);color:#fff;
-        padding:10px 20px;border-radius:12px;
-        font-weight:700;font-size:0.88rem;
-        text-decoration:none;
-      ">
-        <i class="fa fa-arrow-left"></i> Voir les autres restaurants
-      </a>
-    </div>`;
-
-  document.getElementById('bottom-bar').style.display = 'none';
-  document.querySelector('.cart-fab').style.pointerEvents = 'none';
-  document.querySelector('.cart-fab').style.opacity = '0.4';
-  document.getElementById('cat-tabs').style.display = 'none';
-}
-
 renderHeader();
 renderTabs();
 renderMenu();

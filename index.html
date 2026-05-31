@@ -327,56 +327,35 @@
         </p>
         <div class="hero-restaurants">
 
-          <!-- Les 3 Marchands — 2 étapes : appel restaurant puis formulaire Khéops -->
+          <!--
+          LES 3 MARCHANDS - temporairement masqué (patron préfère les commandes par téléphone : 02 40 79 28 47)
+          Pour réactiver : décommenter ce bloc
           <div class="hero-resto-card hero-resto-card--phone" style="flex-direction:column;align-items:stretch;gap:12px;">
-
-            <!-- En-tête -->
             <div style="display:flex;align-items:center;gap:14px;">
               <div class="hero-resto-logo dark">
                 <img src="logo3_marchants.png" alt="Les 3 Marchands">
               </div>
               <div class="hero-resto-info">
                 <strong>Les 3 Marchands</strong>
-                <span>Cuisine traditionnelle · Midi 7j/7</span>
+                <span>Cuisine traditionnelle - Midi 7j/7</span>
                 <span style="font-size:0.7rem;color:rgba(255,200,100,0.75);font-weight:600">
-                  💰 Repas + 5€ livraison · payés au livreur à la réception
+                  Repas + 5e livraison - payés au livreur à la réception
                 </span>
               </div>
             </div>
-
-            <!-- 2 étapes bien visibles -->
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
-
-              <!-- Étape 1 -->
-              <a href="tel:0240792847" style="
-                flex:1;min-width:140px;
-                display:flex;align-items:center;justify-content:center;gap:8px;
-                background:rgba(255,255,255,0.10);
-                border:1.5px solid rgba(255,255,255,0.18);
-                border-radius:12px;padding:10px 14px;
-                color:#fff;text-decoration:none;font-weight:700;font-size:0.82rem;
-                transition:background .2s;">
+              <a href="tel:0240792847" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,0.10);border:1.5px solid rgba(255,255,255,0.18);border-radius:12px;padding:10px 14px;color:#fff;text-decoration:none;font-weight:700;font-size:0.82rem;">
                 <span style="background:rgba(255,255,255,0.15);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0;">1</span>
-                <i class="fa fa-phone"></i> Appelez le restaurant
+                Appelez le restaurant
               </a>
-
-              <!-- Étape 2 -->
-              <a href="#formulaire" style="
-                flex:1;min-width:140px;
-                display:flex;align-items:center;justify-content:center;gap:8px;
-                background:linear-gradient(135deg,var(--gold),var(--gold-light));
-                border-radius:12px;padding:10px 14px;
-                color:var(--green-deep);text-decoration:none;font-weight:800;font-size:0.82rem;
-                box-shadow:0 4px 14px rgba(201,162,39,0.4);
-                transition:transform .15s,box-shadow .15s;">
+              <a href="#formulaire" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:12px;padding:10px 14px;color:var(--green-deep);text-decoration:none;font-weight:800;font-size:0.82rem;">
                 <span style="background:rgba(11,61,46,0.15);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0;">2</span>
-                <i class="fa fa-clipboard-list"></i> Demandez la livraison
+                Demandez la livraison
               </a>
-
             </div>
-
           </div>
-
+          -->
+          <!-- LA CASA BELLA — temporairement masquée, décommenter pour réactiver
           <a href="commander.html?r=casa-bella" class="hero-resto-card">
             <div class="hero-resto-logo dark">
               <img src="logo_casa_bella.png" alt="La Casa Bella">
@@ -391,10 +370,11 @@
               <i class="fa fa-arrow-right"></i>
             </div>
           </a>
+          -->
 
           <a href="commander.html?r=pates-et-vous" class="hero-resto-card">
-            <div class="hero-resto-logo light">
-              <span style="font-size:2rem">🍝</span>
+            <div class="hero-resto-logo dark">
+              <img src="https://etpatesetvous.com/wp-content/uploads/2020/11/cropped-19657234_1964331553844365_3904454414963968489_n-270x270.jpg" alt="Et Pâtes &amp; Vous">
             </div>
             <div class="hero-resto-info">
               <strong>Et Pâtes &amp; Vous</strong>
@@ -539,17 +519,22 @@
         <div class="partners-block">
           <h3>Nos commerces partenaires</h3>
           <div class="partners-logos">
+            <!-- LES 3 MARCHANDS — temporairement masqué, décommenter pour réactiver
             <a href="https://www.les3marchands.fr/" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="logo3_marchants.png" class="partner-logo logo-3marchands" alt="Logo restaurant Les 3 Marchands Nozay - partenaire Khéops Livraisons">
-              <span class="tooltip">Restaurant<br>Les 3 Marchands</span>
             </a>
+            -->
+            <!-- LA CASA BELLA — temporairement masquée, décommenter pour réactiver
             <a href="https://www.nozay44.com/casa-bella.html" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="logo_casa_bella.png" class="partner-logo logo-casabella" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons" style="filter:invert(1)">
-              <span class="tooltip">Restaurant<br>La Casa Bella</span>
+            </a>
+            -->
+            <a href="https://etpatesetvous.com" target="_blank" rel="noopener noreferrer" class="partner-link">
+              <span class="partner-logo" style="display:flex;align-items:center;justify-content:center;font-size:2rem;background:rgba(11,61,46,0.08);border-radius:12px;width:80px;height:80px;">🍝</span>
             </a>
             <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener noreferrer" class="partner-link">
-              <img src="lien_U.jpg" class="partner-logo logo-3marchands" alt="Super U Drive">
-              <span class="tooltip">Restaurant<br>Les 3 Marchands</span>
+              <img src="lien_U.jpg" class="partner-logo" alt="Super U Drive">
+              <span class="tooltip">Super U Drive</span>
             </a>
           </div>
         </div>

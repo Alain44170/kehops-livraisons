@@ -11,7 +11,8 @@ const KHEOPS_CONFIG = {
   stripePublicKey: 'pk_test_REMPLACER_PAR_VOTRE_CLE_STRIPE',
 
   // Frais de livraison
-  deliveryFee: 5.00,
+  deliveryFee: 4.50,         // Tarif normal
+  deliveryFeeFirstOrder: 2.00, // Tarif première commande
 
   // EmailJS — déjà configuré
   emailjs: {
@@ -221,9 +222,8 @@ const RESTAURANTS = [
     type: 'Pâtes fraîches maison',
     address: 'Nozay (44)',
     phone: null,
-    logo: null,
-    logoEmoji: '🍝',
-    logoDark: false,
+    logo: 'https://etpatesetvous.com/wp-content/uploads/2020/11/cropped-19657234_1964331553844365_3904454414963968489_n-270x270.jpg',
+    logoDark: true,
     hours: 'Midi 11h45-14h · Soir lun & ven 18h45-21h30',
     color: '#1a1a0a',
 

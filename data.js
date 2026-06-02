@@ -11,7 +11,7 @@ const KHEOPS_CONFIG = {
   stripePublicKey: 'pk_test_REMPLACER_PAR_VOTRE_CLE_STRIPE',
 
   // Frais de livraison
-  deliveryFee: 4.50,         // Tarif normal
+  deliveryFee: 4.00,         // Tarif normal
   deliveryFeeFirstOrder: 2.00, // Tarif première commande
 
   // EmailJS — déjà configuré
@@ -194,10 +194,10 @@ const RESTAURANTS = [
         items: [
           {id:'tm-p1', name:'Croustillant de bar',       desc:'Bar au parfum de curry — spécialité de la maison',        price:16.50},
           {id:'tm-p2', name:'Tajine d\'agneau',          desc:'Aux épices raz-el-hanout',                                 price:15.50},
-          {id:'tm-p3', name:'Nems de cabillaud',         desc:'À la sauce thaï',                                          price:14.50},
+          {id:'tm-p3', name:'Nems de cabillaud',         desc:'À la sauce thaï',                                          price:14.00},
           {id:'tm-p4', name:'Filet de bœuf',             desc:'Au whisky, sauce maison',                                  price:18.00},
           {id:'tm-p5', name:'Sandre beurre blanc',       desc:'Poisson de Loire, beurre blanc nantais',                   price:16.00},
-          {id:'tm-p6', name:'Couscous maison',           desc:'Selon la tradition',                                        price:14.50},
+          {id:'tm-p6', name:'Couscous maison',           desc:'Selon la tradition',                                        price:14.00},
         ]
       },
       {
@@ -279,6 +279,72 @@ const RESTAURANTS = [
       },
     ],
     saucesNote: '🧂 Sauces toujours disponibles : Basic (dés de jambon, crème, emmental). Précisez votre sauce choisie dans les instructions de commande.'
+  },
+
+  /* ── AUX DOUCEURS ÉTOILÉES ───────────────────── */
+  {
+    id: 'douceurs-etoilees',
+    name: 'Aux Douceurs Étoilées',
+    type: 'Pâtisserie artisanale',
+    address: '50 route de Rennes, Nozay (44)',
+    phone: null,
+    logo: null,
+    logoEmoji: '⭐',
+    logoDark: false,
+    hours: 'Mar-Sam 9h-18h',
+    color: '#3d1f0a',
+
+    orderSlots: [
+      { open: { h:9, m:0 }, close: { h:17, m:0 }, days:[1,2,3,4,5,6], label: 'journée' },
+    ],
+    orderClosedMessage: 'La pâtisserie est ouverte du mardi au samedi de 9h à 18h. Les commandes sont acceptées pendant ces horaires.',
+
+    categories: [
+      {
+        id: 'mignardises',
+        name: '🍬 Mignardises',
+        icon: 'fa-candy-cane',
+        menuNote: 'Bouchées artisanales — à partir de 1,00 €',
+        items: [
+          {id:'de-m1',  name:'Les Madeleines Vanille',          desc:'Madeleine maison à la vanille',                    price:1.00},
+          {id:'de-m2',  name:'Les Nougats',                     desc:'Nougats artisanaux',                               price:1.20},
+          {id:'de-m3',  name:'Les Pâtes de Fruits',             desc:'Pâtes de fruits maison',                           price:1.20},
+          {id:'de-m4',  name:'Les Tartelettes',                 desc:'Tartelettes — parfum au choix',                    price:1.50},
+          {id:'de-m5',  name:'Les Muffins',                     desc:'Muffins moelleux — parfum au choix',               price:1.50},
+          {id:'de-m6',  name:'Les Cakes au Citron',             desc:'Petits cakes au citron',                           price:1.50},
+          {id:'de-m7',  name:'Les Minis Pavlovas',              desc:'Pavlovas aux fruits de saison',                    price:1.50},
+          {id:'de-m8',  name:"L'Instant Fraise & Basilic",      desc:'Bouchée fraise, basilic',                          price:1.50},
+          {id:'de-m9',  name:'Le Vanille Coulant Caramel',      desc:'Bouchée vanille, cœur caramel',                    price:1.50},
+          {id:'de-m10', name:'La Pavlova aux Fruits de Saison', desc:'Pavlova individuelle',                             price:1.50},
+          {id:'de-m11', name:'Le Velour Chocolaté Praliné',     desc:'Bouchée chocolat, praliné',                        price:1.50},
+          {id:'de-m12', name:'La Fleur Citronnée Meringuée',    desc:'Bouchée citron, meringue',                         price:1.50},
+        ]
+      },
+      {
+        id: 'patisseries',
+        name: '🎂 Pâtisseries Traditionnelles',
+        icon: 'fa-cake-candles',
+        menuNote: 'Prix de départ — plusieurs tailles disponibles, précisez votre choix dans les instructions',
+        items: [
+          {id:'de-p1', name:'Le Gâteau Nantais',            desc:'Spécialité nantaise — précisez la taille souhaitée',        price:3.00},
+          {id:'de-p2', name:'Le Flan Pâtissier au Praliné', desc:'Flan maison au praliné — précisez la taille souhaitée',     price:3.00},
+          {id:'de-p3', name:'La Tarte aux Fraises',         desc:'Tarte aux fraises fraîches — précisez la taille souhaitée', price:3.50},
+          {id:'de-p4', name:'Le Millefeuille',              desc:'Millefeuille traditionnel — précisez la taille souhaitée',  price:3.50},
+          {id:'de-p5', name:'La Tarte Citron Meringuée',    desc:'Tarte citron meringuée — précisez la taille souhaitée',     price:3.00},
+          {id:'de-p6', name:'La Tropézienne',               desc:'Tarte tropézienne — précisez la taille souhaitée',          price:3.00},
+        ]
+      },
+      {
+        id: 'paniers',
+        name: '🧺 Paniers Garnis',
+        icon: 'fa-basket-shopping',
+        menuNote: 'Idée cadeau gourmand',
+        items: [
+          {id:'de-pg1', name:'Le Gourmand', desc:'Panier garni — assortiment de pâtisseries et douceurs maison', price:30.00},
+        ]
+      },
+    ],
+    saucesNote: '⭐ Pour les pâtisseries avec variantes de taille, précisez votre choix dans les instructions de commande. Les prix affichés sont les prix de départ.'
   },
 
 ];

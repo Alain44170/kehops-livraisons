@@ -305,7 +305,7 @@ function renderHeader(){
     <div class="resto-type">${resto.type}</div>
     <div class="resto-badges">
       <span class="badge"><i class="fa fa-clock"></i> ${resto.hours}</span>
-      <span class="badge gold"><i class="fa fa-motorcycle"></i> Livraison 4€ · 2€ 1ère livraison — Nozay</span>
+      <span class="badge gold"><i class="fa fa-motorcycle"></i> Livraison 5€ — Nozay</span>
     </div>
     ${resto.menuChangesWeekly ? `
     <div style="margin-top:10px;">
@@ -460,7 +460,7 @@ function updateUI(){
   if(count > 0){
     bb.classList.add('visible');
     document.getElementById('bb-total-label').textContent = fmt(total);
-    document.getElementById('bb-sub-label').textContent   = count + ' article(s) · livraison 4€ (2€ 1ère livraison)';
+    document.getElementById('bb-sub-label').textContent   = count + ' article(s) · livraison 5€ incluse';
   } else {
     bb.classList.remove('visible');
   }
@@ -525,7 +525,7 @@ function renderCartDrawer(title, body, footer){
         </div>`).join('')}
       <div class="total-box">
         <div class="total-row"><span>Sous-total repas</span><span>${fmt(sub)}</span></div>
-        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)} <small style="color:var(--green-accent);font-size:0.7rem">(2€ si 1ère commande)</small></span></div>
+        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)} <small style="color:var(--green-accent);font-size:0.7rem">(2€ si 1ère livraison)</small></span></div>
         <div class="total-row main"><span>Total estimé</span><span>${fmt(total)}</span></div>
       </div>
     </div>`;
@@ -585,7 +585,7 @@ function renderCheckoutDrawer(title, body, footer){
       <span style="font-size:1.4rem">🛵</span>
       <div>
         <strong id="fee-label" style="display:block;font-size:1rem;color:#0b3d2e;">
-          Frais de livraison : 4 € (2 € pour la 1ère livraison)
+          Frais de livraison : 4 €
         </strong>
         <span id="fee-sublabel" style="font-size:0.78rem;color:#6b6255;">
           Renseignez vos informations pour voir votre tarif

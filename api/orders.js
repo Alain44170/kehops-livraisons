@@ -7,12 +7,9 @@ const admin = require('firebase-admin');
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n').replace(/"/g, ''),
-    }),
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-  });
+      projectId: "kheops-livraisons",
+      clientEmail: "firebase-adminsdk-fbsvc@kheops-livraisons.iam.gserviceaccount.com",
+      privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCvNf05v0igleK9\nYM5YAQCbeKajOHOnexQ70hCWitNYuX1dIrFt7THtBNA39nF3VMe5RBs1dflxTud0\nzlJXol7lKify2L3QG9XyH9ULqUF/yXzU0W+u+odQF283NtwLMchSBK/AmOqAxYIv\nrEPe6s8XPIjp6jfOS4a+uC2HTqECzYpYyjW6e7QxqkDUTNMltKW6hC3qMKC9OWHq\nolDqGvSlG/oQI7LO3+6EQ+Fo4/D0pcMN+jigjSsJHs+o+w3AUCqfYHP9vpw/yOEQ\nt/7IJQzHyY8I0wdIgDnXijAF/uyx9Mff5ctDCBh0K+9EMUnL7L1CDs2v/sGLkmZH\nPcon8U9jAgMBAAECggEAE00Twa5IPmR0j18gLAKkQfw3Ayj/WJZO4s4fxK2zXYVF\ngaKGQDFOfCk5FMkhs78Tp12Qz8FYwrop9iyaVowM/xq3PuHQeyHt3hfSnM++5uhX\nx4vwzSpNCK4kMsVo1RTdV+erQsC1qIzZbA4ChgaA3LLu9DG4hxG73LumTE8Fnqy+\nDUJLut6XP8KUUOJXpFZMke1kGivpt6dqpQc9ODGrYA2aSQuwPEddz1Ov0kqc4Vs/\nbPfSEvY3mj4tZWXQr6QJxYzFpUwAkYq4+pji0tHDXaRsToDcY8RPVCRAuRnkimkV\nfmJugMf9GNdhjAh8ko6rHXaQwhFnHbF05qwpBBLxZQKBgQDhkBGAKU+O5Sq+5Owu\nlZTiR89EIXN4Mffy4NWjTNO7bie/GGr5YneJVnwNoP+CPUujnWTP8OM+ApbPBtKO\nZwVx1d5cwg34MpOxSf+Y5SDIsXjladJ7NCX6T0gp3a+uN53bZhTGWE0/QWJT4p
 }
 
 const db = admin.database();

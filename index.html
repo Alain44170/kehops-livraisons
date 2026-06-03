@@ -852,7 +852,7 @@
     // =============================================
     // STRIPE LIVRAISON SUPER U — frais de livraison
     // =============================================
-    const STRIPE_PK = 'pk_test_REMPLACER_PAR_VOTRE_CLE_STRIPE'; // Remplacer par pk_live_ au lancement
+    const STRIPE_PK = 'pk_live_51TeCxFLtSJXN2AaiLfJ760aDJF39YT5BXS1oyeDnQ8ZrReKlSPJP0rhoSPoxXG3Hr00PgI8gKwdf1uZNhGezG7HU00AmJfdx4A';
     const FEE_NORMAL   = 400;  // 4€ en centimes
     const FEE_FIRST    = 200;  // 2,00€ en centimes
     const FIRST_ORDER_KEY = 'kheops_first_done';
@@ -921,8 +921,8 @@
             // Pour l'instant on utilise Stripe Payment Links (à créer dans le dashboard Stripe)
             // URL à remplacer par le vrai lien Payment Link Stripe une fois créé
             const paymentUrl = amount === FEE_FIRST
-              ? 'https://buy.stripe.com/LIEN_PREMIERE_COMMANDE'
-              : 'https://buy.stripe.com/LIEN_NORMAL';
+              ? 'https://buy.stripe.com/cNibJ2981gN8fTcg0XfQI01'
+              : 'https://buy.stripe.com/aFa00kgAt00a9uO2Y7fQI00';
 
             // Marquer la livraison comme payée (sera confirmé côté Stripe webhook en production)
             deliveryPaid = true;

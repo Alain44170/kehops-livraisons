@@ -699,7 +699,7 @@ try {
       clientPhone: phone,
       clientAddress: address,
       restaurant: resto.name,
-      items: cart.map(i => i.name || i),
+      items: cart.map(i => i.qty > 1 ? i.qty + 'x ' + (i.name || i) : (i.name || i)),
       total: total,
       deliveryFee: 4.00
     })

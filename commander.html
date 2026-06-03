@@ -681,6 +681,26 @@ async function processPayment(){
       KHEOPS_CONFIG.emailjs.publicKey
     );
   }catch(e){ console.warn('EmailJS:', e); }
+  // Email au restaurateur
+try {
+  await emailjs.send(
+    KHEOPS_CONFIG.emailjs.serviceId,
+    'template_b7gddbf',
+    {
+      resto_email: resto.email || 'slz028sa@gmail.com',
+      shop_name: resto.name,
+      name: name,
+      phone: phone,
+      address: address,
+      shopping_list: items + '\n\nSous-total : ' + fmt(sub) + '\nLivraison : ' + fmt(KHEOPS_CONFIG.deliveryFee),
+      sub: fmt(sub),
+      livraison: fmt(KHEOPS_CONFIG.deliveryFee),
+      total: fmt(total),
+      order_ref: orderRef,
+    },
+    KHEOPS_CONFIG.emailjs.publicKey
+  );
+} catch(e) { console.warn('EmailJS resto:', e); }
 
   // Sauvegarder le client pour la prochaine commande
   saveClient(name, phone, address);

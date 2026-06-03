@@ -602,9 +602,14 @@ function renderCheckoutDrawer(title, body, footer){
     <div style="height:16px;"></div>`;
 
   footer.innerHTML = `
-    <button class="btn-gold" id="pay-btn" onclick="processPayment()">
+    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 14px;margin-bottom:10px;font-size:0.85rem;color:#856404;text-align:center;">
+      🚧 <strong>Service en cours de lancement</strong><br>
+      Les commandes en ligne seront disponibles très prochainement.<br>
+      Pour toute question : <strong>06 02 01 90 88</strong>
+    </div>
+    <button class="btn-gold" id="pay-btn" disabled style="opacity:0.4;cursor:not-allowed;">
       <i class="fa fa-lock"></i>
-      <span id="pay-btn-text">Payer ${fmt(total)}</span>
+      <span id="pay-btn-text">Paiement temporairement désactivé</span>
       <span class="loader-spin" id="pay-loader"></span>
     </button>
     <button class="btn-secondary" onclick="openDrawer('cart')">← Retour au panier</button>`;

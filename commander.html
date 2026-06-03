@@ -700,8 +700,10 @@ try {
       clientAddress: address,
       restaurant: resto.name,
       items: order.items.map(i => ({ name: i.name, qty: i.qty || 1 })),
-    })
-  });
+    }),
+    total: parseFloat(order.total) || 0,
+    deliveryFee: 4.00
+  })
 } catch(e) { console.warn('Dispatch:', e); }
 
   btn.disabled = false;

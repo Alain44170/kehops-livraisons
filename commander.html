@@ -689,6 +689,23 @@ async function processPayment(){
   const order = { ref:orderRef, resto:resto.name, name, phone, email, address, note, items:cart, sub, total, date: new Date().toLocaleString('fr-FR') };
   saveOrder(order);
 
+  // Envoi commande au système dispatch
+try {
+  fetch('https://kehops-livraisons.vercel.app/api/orders', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      clientName: name,
+      clientPhone: phone,
+      clientAddress: address,
+      restaurant: resto.name,
+      items: cart.map(i => i.name || i),
+      total: total,
+      deliveryFee: 4.00
+    })
+  });
+} catch(e) { console.warn('Dispatch:', e); }
+
   btn.disabled = false;
   loader.style.display = 'none';
   cart = [];

@@ -652,57 +652,76 @@ async function processPayment(){
     return;
   }
 
+  if(!cardElement){
+    alert('Le module de paiement n\'est pas chargé. Rechargez la page.');
+    return;
+  }
+
   const btn    = document.getElementById('pay-btn');
   const loader = document.getElementById('pay-loader');
   btn.disabled = true;
   loader.style.display = 'inline-block';
   document.getElementById('pay-btn-text').textContent = 'Traitement en cours…';
 
-  // ── En mode TEST (clé non configurée) ──
-  // On simule le paiement et on envoie quand même la notification EmailJS
   const orderRef = 'KHP-' + Date.now().toString(36).toUpperCase();
   const sub   = cartSubtotal();
   const total = cartTotal();
   const items = cart.map(i => `• ${i.name} × ${i.qty} = ${fmt(i.price * i.qty)}`).join('\n');
+  const amountCents = Math.round(total * 100);
 
-  // Notification EmailJS à toi
+  // ── 1. Créer le PaymentIntent côté serveur ──
+  let clientSecret;
+  try {
+    const resp = await fetch('https://kehops-livraisons.vercel.app/api/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amountCents, restaurantName: resto.name })
+    });
+    const data = await resp.json();
+    if(!data.clientSecret) throw new Error(data.error || 'Erreur serveur');
+    clientSecret = data.clientSecret;
+  } catch(e) {
+    document.getElementById('card-errors').textContent = 'Erreur de paiement : ' + e.message;
+    btn.disabled = false;
+    loader.style.display = 'none';
+    document.getElementById('pay-btn-text').textContent = 'Payer';
+    return;
+  }
+
+  // ── 2. Confirmer le paiement avec la carte ──
+  const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+      card: cardElement,
+      billing_details: { name, email, phone }
+    }
+  });
+
+  if(error) {
+    document.getElementById('card-errors').textContent = error.message;
+    btn.disabled = false;
+    loader.style.display = 'none';
+    document.getElementById('pay-btn-text').textContent = 'Payer';
+    return;
+  }
+
+  // ── 3. Paiement confirmé — notifications et dispatch ──
+
+  // Notification EmailJS à Alain
   try{
     await emailjs.send(
       KHEOPS_CONFIG.emailjs.serviceId,
       KHEOPS_CONFIG.emailjs.templateId,
       {
-        name,
-        phone,
-        address,
+        name, phone, address,
         shop_name: resto.name + ' — ' + resto.address,
         shopping_list: items + `\n\nSous-total : ${fmt(sub)}\nLivraison : ${fmt(KHEOPS_CONFIG.deliveryFee)}\nTOTAL PAYÉ : ${fmt(total)}`,
-        message: `Email client : ${email}\nRéf commande : ${orderRef}\nNote : ${note || 'aucune'}\n\n⚠️ PAIEMENT VALIDÉ — Aller chercher la commande chez ${resto.name}`
+        message: `Email client : ${email}\nRéf commande : ${orderRef}\nStripe ID : ${paymentIntent.id}\nNote : ${note || 'aucune'}\n\n✅ PAIEMENT ENCAISSÉ — Aller chercher la commande chez ${resto.name}`
       },
       KHEOPS_CONFIG.emailjs.publicKey
     );
   }catch(e){ console.warn('EmailJS:', e); }
-  // Email au restaurateur
-try {
-  await emailjs.send(
-    KHEOPS_CONFIG.emailjs.serviceId,
-    'template_b7gddbf',
-    {
-      resto_email: resto.email || 'slz028sa@gmail.com',
-      shop_name: resto.name,
-      name: name,
-      phone: phone,
-      address: address,
-      shopping_list: items + '\n\nSous-total : ' + fmt(sub) + '\nLivraison : ' + fmt(KHEOPS_CONFIG.deliveryFee),
-      sub: fmt(sub),
-      livraison: fmt(KHEOPS_CONFIG.deliveryFee),
-      total: fmt(total),
-      order_ref: orderRef,
-    },
-    KHEOPS_CONFIG.emailjs.publicKey
-  );
-} catch(e) { console.warn('EmailJS resto:', e); }
 
-  // Sauvegarder le client pour la prochaine commande
+  // Sauvegarder le client
   saveClient(name, phone, address);
 
   // Stocker la commande localement
@@ -710,21 +729,21 @@ try {
   saveOrder(order);
 
   // Envoi commande au système dispatch
-try {
-  fetch('https://kehops-livraisons.vercel.app/api/orders', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      clientName: name,
-      clientPhone: phone,
-      clientAddress: address,
-      restaurant: resto.name,
-      items: order.items.map(i => ({ name: i.name, qty: i.qty || 1 })),
-    }),
-    total: cartSubtotal() + getCurrentFee(),
-    deliveryFee: 4.00
-  })
-} catch(e) { console.warn('Dispatch:', e); }
+  try {
+    fetch('https://kehops-livraisons.vercel.app/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clientName: name,
+        clientPhone: phone,
+        clientAddress: address,
+        restaurant: resto.name,
+        items: order.items.map(i => ({ name: i.name, qty: i.qty || 1 })),
+        total,
+        deliveryFee: KHEOPS_CONFIG.deliveryFee
+      })
+    });
+  } catch(e) { console.warn('Dispatch:', e); }
 
   btn.disabled = false;
   loader.style.display = 'none';

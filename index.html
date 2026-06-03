@@ -215,41 +215,7 @@
 </head>
 <body>
 
-  <!-- ======= BANNIÈRE SITE EN CONSTRUCTION ======= -->
-  <!-- Pour retirer la bannière quand le site sera opérationnel : supprimer ce bloc -->
-  <div id="construction-banner" style="
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 9999;
-    background: linear-gradient(135deg, #0b3d2e, #0b6e68);
-    border-bottom: 3px solid #e8c84a;
-    padding: 18px 20px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  ">
-    <span style="font-size:1.6rem;display:block;margin-bottom:6px;">🚧</span>
-    <strong style="
-      color: #e8c84a;
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
-      font-weight: 700;
-      display: block;
-      line-height: 1.1;
-      margin-bottom: 10px;
-    ">Site en cours de construction</strong>
-    <span style="
-      color: rgba(255,255,255,0.75);
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      display: block;
-      line-height: 1.6;
-    ">Le service sera bientôt disponible — revenez dans quelques jours !</span>
-  </div>
-  <!-- Compenser la hauteur de la bannière -->
-  <style>
-    body { padding-top: 140px; }
-    @media(max-width:700px){ body { padding-top: 160px; } }
-  </style>
-  <!-- ======= FIN BANNIÈRE ======= -->
+
 
 
 
@@ -398,12 +364,15 @@
       <div class="hero-divider"><span>ou</span></div>
 
       <div class="hero-other">
-        <p class="hero-other-label">
-          <i class="fa fa-store"></i> Autre chose à récupérer ? (pharmacie, épicerie, Super U…)
+        <p class="hero-other-label" style="font-size:1rem;font-weight:700;color:#f9d05e;">
+          <i class="fa fa-bolt"></i> Livraison libre — disponible maintenant !
+        </p>
+        <p style="color:rgba(255,255,255,0.8);font-size:0.88rem;margin:-6px 0 10px;text-align:center;">
+          Pharmacie, épicerie, Super U Drive… Je récupère et livre tout à Nozay — <strong style="color:#f9d05e;">4€ seulement</strong>
         </p>
         <div class="hero-other-actions">
-          <a class="btn btn-outline-white" href="#formulaire">
-            <i class="fa fa-clipboard-list"></i> Formulaire de livraison libre
+          <a class="btn btn-outline-white" href="#formulaire" style="background:rgba(201,162,39,0.15);border-color:#e8c84a;color:#f9d05e;font-weight:800;">
+            <i class="fa fa-clipboard-list"></i> Commander une livraison libre
           </a>
           <a class="btn btn-outline-white" href="tel:0602019088">
             <i class="fa fa-phone"></i> Appeler directement

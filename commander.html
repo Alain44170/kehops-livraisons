@@ -701,7 +701,7 @@ try {
       restaurant: resto.name,
       items: order.items.map(i => ({ name: i.name, qty: i.qty || 1 })),
     }),
-    total: parseFloat(order.total) || 0,
+    total: parseFloat(String(order.total).replace(',', '.')) || parseFloat(String(order.sub).replace(',', '.')) || 0,
     deliveryFee: 4.00
   })
 } catch(e) { console.warn('Dispatch:', e); }

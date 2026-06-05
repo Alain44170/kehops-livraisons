@@ -226,10 +226,7 @@ const RESTAURANTS = [
 
     // ── HORAIRES DE COMMANDE ──
     // Commandes acceptées 1h avant ouverture, fermées 1h avant fermeture
-    orderSlots: [
-      { open: { h:10, m:45 }, close: { h:13, m:0  }, label: 'service du midi'  },
-      { open: { h:17, m:45 }, close: { h:20, m:30 }, label: 'service du soir'  },
-    ],
+    orderSlots: [], // TEMP — ouvert 24h/24 pour tests
     orderClosedMessage: 'Les commandes pour Et Pâtes & Vous sont acceptées de 10h45 à 13h00 (midi) et de 17h45 à 20h30 (soir). En dehors de ces créneaux, le restaurant ne peut plus prendre de nouvelles commandes.',
 
     categories: [

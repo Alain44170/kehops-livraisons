@@ -1113,3 +1113,26 @@ input, textarea, select { max-width: 100%; min-width: 0; }
   .hero-payment-info { gap: 7px; padding: 9px 14px; }
   .hpi-item { font-size: 0.76rem; }
 }
+
+/* ── TABLETTE (768px – 1024px) ── */
+@media (min-width: 701px) and (max-width: 1024px) {
+  .hero .hero-top h1 {
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem) !important;
+  }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-visual { display: none; }
+  .hero-order-section { max-width: 100%; }
+  .hero-restos-grid { grid-template-columns: 1fr; gap: 12px; }
+  .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .container { padding-left: 28px; padding-right: 28px; }
+  .hero-payment-info { flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .hero-resto-card { padding: 14px 16px; }
+  .section { padding: 60px 0; }
+  .form-card { padding: 28px 24px; }
+  .nav-links { gap: 18px; }
+  .nav-links a { font-size: 0.88rem; }
+}

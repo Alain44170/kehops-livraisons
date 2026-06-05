@@ -543,11 +543,6 @@ function renderCheckoutDrawer(title, body, footer){
   const total = cartTotal();
 
   body.innerHTML = `
-    <div class="test-badge">
-      <i class="fa fa-flask"></i>
-      <div><strong>Mode test activé</strong> — Aucun vrai paiement. Utilisez la carte test Stripe : <strong>4242 4242 4242 4242</strong>, date future, CVC 123. Le paiement réel sera activé dès réception du Kbis.</div>
-    </div>
-
     <div class="checkout-title">📍 Vos informations</div>
     <div id="checkout-fields">
       <label for="co-name">Nom complet</label>
@@ -602,20 +597,18 @@ function renderCheckoutDrawer(title, body, footer){
     <div style="height:16px;"></div>`;
 
   footer.innerHTML = `
-    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 14px;margin-bottom:10px;font-size:0.85rem;color:#856404;text-align:center;">
-      🚧 <strong>Service en cours de lancement</strong><br>
-      Les commandes en ligne seront disponibles très prochainement.<br>
-      Pour toute question : <strong>06 02 01 90 88</strong>
-    </div>
-    <button class="btn-gold" id="pay-btn" disabled style="opacity:0.4;cursor:not-allowed;">
+    <button class="btn-gold" id="pay-btn" onclick="processPayment()">
       <i class="fa fa-lock"></i>
-      <span id="pay-btn-text">Paiement temporairement désactivé</span>
+      <span id="pay-btn-text">Payer — <span id="pay-btn-amount"></span></span>
       <span class="loader-spin" id="pay-loader"></span>
     </button>
     <button class="btn-secondary" onclick="openDrawer('cart')">← Retour au panier</button>`;
 
   // Init Stripe Elements
   initStripe();
+  // Montant initial sur le bouton Payer
+  const payBtnAmount = document.getElementById('pay-btn-amount');
+  if (payBtnAmount) payBtnAmount.textContent = fmt(cartTotal());
 }
 
 function initStripe(){
@@ -804,6 +797,33 @@ function showToast(msg){
 
 
 
+
+// ══════════════════════════════════════════════
+// BANNIÈRE SERVICE FERMÉ
+// ══════════════════════════════════════════════
+function showClosedBanner() {
+  if (!resto.orderSlots || resto.orderSlots.length === 0) return;
+  const now      = new Date();
+  const day      = now.getDay();
+  const totalMin = now.getHours() * 60 + now.getMinutes();
+  const isOpen = resto.orderSlots.some(slot => {
+    const dayOk  = !slot.days || slot.days.includes(day);
+    const timeOk = (slot.open.h * 60 + slot.open.m) <= totalMin &&
+                   totalMin < (slot.close.h * 60 + slot.close.m);
+    return dayOk && timeOk;
+  });
+  if (!isOpen) {
+    const msg = resto.orderClosedMessage || 'Les commandes sont actuellement fermées.';
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:#1a1a1a;color:#fff;font-weight:600;font-size:0.95rem;text-align:center;padding:16px 20px;border-radius:12px;margin:16px;border:2px solid #e8372a;line-height:1.5;';
+    banner.innerHTML = '🛑 ' + msg;
+    const header = document.getElementById('resto-header');
+    if (header && header.parentNode) header.parentNode.insertBefore(banner, header.nextSibling);
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.disabled = true; btn.style.opacity = '0.4'; btn.style.cursor = 'not-allowed';
+    });
+  }
+}
 
 // ══════════════════════════════════════════════
 // INIT

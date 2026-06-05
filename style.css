@@ -7,7 +7,7 @@
 
 :root {
   --gold: #c9a227;
-  --gold-light: #e8c84a;
+  --gold-light: #ffe033;
   --gold-pale: #f5e9c0;
   --green-deep: #0b3d2e;
   --green-mid: #0b6e68;
@@ -914,7 +914,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 /* Forcer le titre h1 en blanc dans le hero */
 .hero .hero-top h1 {
   color: #ffffff !important;
-  font-size: clamp(1.6rem, 5vw, 3.2rem) !important;
+  font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
   white-space: normal !important;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }

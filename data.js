@@ -13,8 +13,8 @@ const KHEOPS_CONFIG = {
  
 
   // Frais de livraison
-  deliveryFee: 5.90,         // Tarif normal
-  deliveryFeeFirstOrder: 4.50, // Tarif première commande
+  deliveryFee: 4.80,         // Tarif normal
+  deliveryFeeFirstOrder: 2.50, // Tarif première commande
 
   // EmailJS — déjà configuré
   emailjs: {

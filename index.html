@@ -619,6 +619,10 @@
                 <span id="delivery-amount-label" style="font-size:1.1rem;font-weight:800;color:#fff;margin-left:8px;">4 €</span>
                 <span id="first-order-badge" style="display:none;margin-left:8px;background:linear-gradient(135deg,#e8372a,#ff6b5b);color:#fff;font-size:0.75rem;font-weight:800;padding:3px 10px;border-radius:20px;">1ère commande</span>
               </div>
+              <div style="background:#fff;border-radius:8px;padding:12px 14px;margin-bottom:12px;">
+                <div id="card-element-delivery" style="min-height:44px;"></div>
+                <div id="card-errors-delivery" style="color:#ff6b6b;font-size:0.82rem;margin-top:6px;min-height:18px;"></div>
+              </div>
               <button type="button" id="stripeDeliveryBtn" style="
                 width:100%;
                 display:flex;align-items:center;justify-content:center;gap:10px;
@@ -824,107 +828,130 @@
   <script>
   (function(){
     // =============================================
-    // STRIPE LIVRAISON SUPER U — frais de livraison
+    // STRIPE LIVRAISON SUPER U — PaymentIntent
     // =============================================
-    const STRIPE_PK = 'pk_live_51TeCxFLtSJXN2AaiLfJ760aDJF39YT5BXS1oyeDnQ8ZrReKlSPJP0rhoSPoxXG3Hr00PgI8gKwdf1uZNhGezG7HU00AmJfdx4A';
-    const FEE_NORMAL   = 400;  // 4€ en centimes
-    const FEE_FIRST    = 200;  // 2,00€ en centimes
+    const STRIPE_PK       = 'pk_test_51TeCxFLtSJXN2AainrMSQuOfg1RIkllYWgGxNDvJtKKQctPGnQWAGtJO4uULrj9W5DGwuWgkghAQ1lACEWFpfWfQ00GG2GUbuv';
+    const FEE_NORMAL      = 400;  // 4€
+    const FEE_FIRST       = 200;  // 2€
     const FIRST_ORDER_KEY = 'kheops_first_done';
+    const API_URL         = 'https://kehops-livraisons.vercel.app/api/payment';
 
-    let deliveryPaid = false;
-    let stripePaymentIntentId = null;
+    let stripeInstance = null;
+    let cardElement    = null;
+    let deliveryPaid   = false;
 
-    // Détecter si première commande
     function isFirstOrder() {
-      const name    = document.getElementById('name')?.value.trim();
-      const phone   = document.getElementById('phone')?.value.trim();
-      const done    = localStorage.getItem(FIRST_ORDER_KEY);
-      return !done && name && phone;
+      return !localStorage.getItem(FIRST_ORDER_KEY);
+    }
+
+    function getAmount() {
+      return isFirstOrder() ? FEE_FIRST : FEE_NORMAL;
+    }
+
+    function fmt(cents) {
+      return (cents / 100).toFixed(2).replace('.', ',') + ' €';
     }
 
     function updateDeliveryAmount() {
-      const first = isFirstOrder();
-      const amount = first ? FEE_FIRST : FEE_NORMAL;
+      const amount = getAmount();
       const label  = document.getElementById('delivery-amount-label');
       const badge  = document.getElementById('first-order-badge');
-      if (label) label.textContent = (amount / 100).toFixed(2).replace('.', ',') + ' €';
-      if (badge) badge.style.display = first ? 'inline-block' : 'none';
-      return amount;
+      if (label) label.textContent = fmt(amount);
+      if (badge) badge.style.display = isFirstOrder() ? 'inline-block' : 'none';
     }
 
-    // Afficher / masquer le bloc Stripe selon choix radio
-    document.addEventListener('DOMContentLoaded', function() {
-      const radios = document.querySelectorAll('input[name="paymentMethod"]');
-      const stripeWrap   = document.getElementById('stripe-delivery-wrap');
-      const stripeSuccess = document.getElementById('stripe-delivery-success');
+    function mountStripeCard() {
+      if (cardElement) return; // déjà monté
+      stripeInstance = Stripe(STRIPE_PK);
+      const elements = stripeInstance.elements();
+      cardElement = elements.create('card', {
+        style: {
+          base: { fontFamily: 'DM Sans,sans-serif', fontSize: '15px', color: '#111c16', '::placeholder': { color: '#9a8f80' } },
+          invalid: { color: '#c0392b' }
+        },
+        hidePostalCode: true
+      });
+      cardElement.mount('#card-element-delivery');
+      cardElement.on('change', function(e) {
+        const err = document.getElementById('card-errors-delivery');
+        if (err) err.textContent = e.error ? e.error.message : '';
+      });
+    }
 
-      radios.forEach(r => {
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDeliveryAmount();
+
+      // Afficher/masquer bloc Stripe selon choix radio
+      document.querySelectorAll('input[name="paymentMethod"]').forEach(function(r) {
         r.addEventListener('change', function() {
+          const wrap = document.getElementById('stripe-delivery-wrap');
           if (this.value === 'online') {
-            stripeWrap.style.display = 'block';
+            wrap.style.display = 'block';
             updateDeliveryAmount();
+            mountStripeCard();
           } else {
-            stripeWrap.style.display = 'none';
+            wrap.style.display = 'none';
           }
         });
       });
 
-      // Mettre à jour le montant quand nom/téléphone changent
-      ['name','phone'].forEach(id => {
+      ['name','phone'].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updateDeliveryAmount);
       });
 
-      // Bouton paiement Stripe
+      // Bouton payer
       const stripeBtn = document.getElementById('stripeDeliveryBtn');
       if (stripeBtn) {
         stripeBtn.addEventListener('click', async function() {
-          const amount = updateDeliveryAmount();
-          const name   = document.getElementById('name')?.value.trim()   || 'Client';
-          const phone  = document.getElementById('phone')?.value.trim()  || '';
-          const addr   = document.getElementById('address')?.value.trim()|| '';
+          if (!cardElement) return;
+          const amount = getAmount();
+          const name   = (document.getElementById('name')?.value || '').trim() || 'Client';
+          const phone  = (document.getElementById('phone')?.value || '').trim() || '';
+          const errDiv = document.getElementById('card-errors-delivery');
 
           stripeBtn.disabled = true;
-          stripeBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Connexion au paiement...';
+          stripeBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Traitement...';
 
+          // 1. Créer PaymentIntent
+          let clientSecret;
           try {
-            const stripe = Stripe(STRIPE_PK);
-
-            // Création d'une session Checkout Stripe
-            // NOTE : en production, cet appel doit passer par un backend ou Stripe Payment Links
-            // Pour l'instant on utilise Stripe Payment Links (à créer dans le dashboard Stripe)
-            // URL à remplacer par le vrai lien Payment Link Stripe une fois créé
-            const paymentUrl = amount === FEE_FIRST
-              ? 'https://buy.stripe.com/cNibJ2981gN8fTcg0XfQI01'
-              : 'https://buy.stripe.com/aFa00kgAt00a9uO2Y7fQI00';
-
-            // Marquer la livraison comme payée (sera confirmé côté Stripe webhook en production)
-            deliveryPaid = true;
-            localStorage.setItem(FIRST_ORDER_KEY, '1');
-
-            // Afficher succès et lien facture
-            stripeWrap.style.display = 'none';
-            stripeSuccess.style.display = 'block';
-
-            const invoiceLink = document.getElementById('invoice-download-link');
-            if (invoiceLink) {
-              invoiceLink.href = paymentUrl;
-              invoiceLink.textContent = '📄 Voir le reçu Stripe';
-            }
-
-            // Ouvrir le paiement dans un nouvel onglet
-            window.open(paymentUrl, '_blank');
-
+            const resp = await fetch(API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ amount: amount, restaurantName: 'Livraison libre — Nozay' })
+            });
+            const data = await resp.json();
+            if (!data.clientSecret) throw new Error(data.error || 'Erreur serveur');
+            clientSecret = data.clientSecret;
           } catch(err) {
-            console.error('Stripe erreur', err);
+            if (errDiv) errDiv.textContent = 'Erreur : ' + err.message;
             stripeBtn.disabled = false;
             stripeBtn.innerHTML = '<i class="fa fa-lock"></i> Payer ma livraison en ligne';
-            alert('Erreur de connexion au paiement. Veuillez réessayer.');
+            return;
           }
+
+          // 2. Confirmer le paiement
+          const result = await stripeInstance.confirmCardPayment(clientSecret, {
+            payment_method: { card: cardElement, billing_details: { name: name, phone: phone } }
+          });
+
+          if (result.error) {
+            if (errDiv) errDiv.textContent = result.error.message;
+            stripeBtn.disabled = false;
+            stripeBtn.innerHTML = '<i class="fa fa-lock"></i> Payer ma livraison en ligne';
+            return;
+          }
+
+          // 3. Paiement OK
+          deliveryPaid = true;
+          localStorage.setItem(FIRST_ORDER_KEY, '1');
+          document.getElementById('stripe-delivery-wrap').style.display = 'none';
+          document.getElementById('stripe-delivery-success').style.display = 'block';
         });
       }
 
-      // Validation formulaire — vérifier paiement si CB choisi
+      // Validation formulaire
       const form = document.getElementById('delivery-form');
       if (form) {
         form.addEventListener('submit', function(e) {
@@ -933,12 +960,10 @@
             e.preventDefault();
             e.stopImmediatePropagation();
             document.getElementById('stripe-delivery-wrap').style.display = 'block';
-            document.getElementById('stripe-delivery-wrap').scrollIntoView({behavior:'smooth'});
+            mountStripeCard();
+            document.getElementById('stripe-delivery-wrap').scrollIntoView({ behavior: 'smooth' });
             const msg = document.getElementById('formMsg');
-            if (msg) {
-              msg.textContent = '⚠️ Veuillez d'abord régler les frais de livraison en ligne.';
-              msg.style.color = '#e8372a';
-            }
+            if (msg) { msg.textContent = '⚠️ Veuillez d’abord régler les frais de livraison.'; msg.style.color = '#e8372a'; }
           }
         }, true);
       }

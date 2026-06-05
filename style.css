@@ -68,6 +68,7 @@ img { max-width: 100%; display: block; }
   font-size: 1.15rem;
   color: var(--green-deep);
   font-weight: 700;
+  white-space: nowrap;
 }
 .nav-links {
   list-style: none; display: flex; gap: 6px;
@@ -104,7 +105,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   background: var(--green-deep);
   overflow: hidden;
-  min-height: auto;
+  min-height: 92vh;
   display: flex; align-items: center;
 }
 
@@ -914,8 +915,8 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 /* Forcer le titre h1 en blanc dans le hero */
 .hero .hero-top h1 {
   color: #ffffff !important;
-  font-size: clamp(1.6rem, 5vw, 3.2rem) !important;
-  white-space: normal !important;
+  font-size: clamp(1.2rem, 3.8vw, 2.6rem) !important;
+  white-space: nowrap !important;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .hero .hero-top h1 .accent {

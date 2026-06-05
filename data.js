@@ -11,8 +11,8 @@ const KHEOPS_CONFIG = {
   stripePublicKey: 'pk_test_51TeCxFLtSJXN2AainrMSQuOfg1RIkllYWgGxNDvJtKKQctPGnQWAGtJO4uULrj9W5DGwuWgkghAQ1lACEWFpfWfQ00GG2GUbuv',
 
   // Frais de livraison
-  deliveryFee: 4.00,         // Tarif normal
-  deliveryFeeFirstOrder: 2.00, // Tarif première commande
+  deliveryFee: 5.90,         // Tarif normal
+  deliveryFeeFirstOrder: 4.50, // Tarif première commande
 
   // EmailJS — déjà configuré
   emailjs: {

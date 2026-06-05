@@ -525,7 +525,7 @@ function renderCartDrawer(title, body, footer){
         </div>`).join('')}
       <div class="total-box">
         <div class="total-row"><span>Sous-total repas</span><span>${fmt(sub)}</span></div>
-        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)} <small style="color:var(--green-accent);font-size:0.7rem">(2€ si 1ère livraison)</small></span></div>
+        <div class="total-row"><span>Livraison Khéops</span><span>${fmt(KHEOPS_CONFIG.deliveryFee)} <small style="color:var(--green-accent);font-size:0.7rem">(4,50 € si 1ère livraison)</small></span></div>
         <div class="total-row main"><span>Total estimé</span><span>${fmt(total)}</span></div>
       </div>
     </div>`;
@@ -580,7 +580,7 @@ function renderCheckoutDrawer(title, body, footer){
       <span style="font-size:1.4rem">🛵</span>
       <div>
         <strong id="fee-label" style="display:block;font-size:1rem;color:#0b3d2e;">
-          Frais de livraison : 4 €
+          Frais de livraison : 5,90 €
         </strong>
         <span id="fee-sublabel" style="font-size:0.78rem;color:#6b6255;">
           Renseignez vos informations pour voir votre tarif

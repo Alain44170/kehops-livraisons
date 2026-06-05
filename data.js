@@ -43,10 +43,7 @@ const RESTAURANTS = [
     // Commandes acceptées 1h avant ouverture, fermées 1h avant fermeture
     // Midi mer-sam : commandes de 11h00 à 13h00
     // Soir jeu-dim : commandes de 18h00 à 21h00
-    orderSlots: [
-      { open: { h:11, m:0 }, close: { h:13, m:0 }, label: 'service du midi (mer-sam)',  days: [3,4,5,6] },
-      { open: { h:18, m:0 }, close: { h:21, m:0 }, label: 'service du soir (jeu-dim)',  days: [0,4,5,6] },
-    ],
+   orderSlots: [],
     orderClosedMessage: 'Les commandes pour La Casa Bella sont acceptées de 11h00 à 13h00 (midi, mercredi au samedi) et de 18h00 à 21h00 (soir, jeudi au dimanche). Le restaurant est fermé le lundi et le mardi.',
     categories: [
       {

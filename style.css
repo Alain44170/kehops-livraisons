@@ -104,7 +104,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   background: var(--green-deep);
   overflow: hidden;
-  min-height: 92vh;
+  min-height: auto;
   display: flex; align-items: center;
 }
 

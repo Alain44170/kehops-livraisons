@@ -90,6 +90,7 @@ img { max-width: 100%; display: block; }
   color: #fff !important;
   padding: 8px 18px !important;
   border-radius: 10px !important;
+  white-space: nowrap;
 }
 .nav-cta:hover { background: var(--green-deep) !important; }
 
@@ -103,7 +104,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   background: var(--green-deep);
   overflow: hidden;
-  min-height: auto;
+  min-height: 92vh;
   display: flex; align-items: center;
 }
 

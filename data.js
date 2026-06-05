@@ -10,6 +10,8 @@ const KHEOPS_CONFIG = {
   // Mode PROD : pk_live_... (vrais paiements)
   stripePublicKey: 'pk_live_51TeCxFLtSJXN2AaiLfJ760aDJF39YT5BXS1oyeDnQ8ZrReKlSPJP0rhoSPoxXG3Hr00PgI8gKwdf1uZNhGezG7HU00AmJfdx4A',
 
+ 
+
   // Frais de livraison
   deliveryFee: 5.90,         // Tarif normal
   deliveryFeeFirstOrder: 4.50, // Tarif première commande
@@ -226,8 +228,8 @@ const RESTAURANTS = [
 
     // ── HORAIRES DE COMMANDE ──
     // Commandes acceptées 1h avant ouverture, fermées 1h avant fermeture
-    orderSlots: [], // TEMP — ouvert 24h/24 pour tests
-    orderClosedMessage: 'Les commandes pour Et Pâtes & Vous sont acceptées de 10h45 à 13h00 (midi) et de 17h45 à 20h30 (soir). En dehors de ces créneaux, le restaurant ne peut plus prendre de nouvelles commandes.',
+    orderSlots: [{ open: { h:0, m:0 }, close: { h:0, m:0 } }],
+    orderClosedMessage: 'Les commandes pour Et Pâtes & Vous sont temporairement indisponibles. Revenez bientôt !',
 
     categories: [
       {

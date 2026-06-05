@@ -383,7 +383,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ========= SECTIONS COMMUNES ========= */
-.section { padding: 88px 0; }
+.section { padding: 50px 0; }
 .section-sm { padding: 60px 0; }
 .alt-bg { background: linear-gradient(180deg, #e8e1d3, #ede7db); }
 .dark-bg { background: var(--bg-dark); }
@@ -477,6 +477,8 @@ img { max-width: 100%; display: block; }
 
 /* ========= FORMULAIRE CONTACT ========= */
 .contact-section {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
   background: linear-gradient(160deg, var(--green-deep) 0%, #0f4d3a 100%);
   position: relative; overflow: hidden;
 }

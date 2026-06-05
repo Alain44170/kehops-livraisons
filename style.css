@@ -68,7 +68,6 @@ img { max-width: 100%; display: block; }
   font-size: 1.15rem;
   color: var(--green-deep);
   font-weight: 700;
-  white-space: nowrap;
 }
 .nav-links {
   list-style: none; display: flex; gap: 6px;
@@ -105,8 +104,8 @@ img { max-width: 100%; display: block; }
   position: relative;
   background: var(--green-deep);
   overflow: hidden;
-  
-  display: flex; align-items: flex-start;
+  min-height: 92vh;
+  display: flex; align-items: center;
 }
 
 .hero-bg-pattern {
@@ -131,7 +130,7 @@ img { max-width: 100%; display: block; }
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  padding: 0;
+  padding: 80px 0;
 }
 
 .hero-badge {
@@ -915,8 +914,8 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 /* Forcer le titre h1 en blanc dans le hero */
 .hero .hero-top h1 {
   color: #ffffff !important;
-  font-size: clamp(1.2rem, 3.8vw, 2.6rem) !important;
-  white-space: nowrap !important;
+  font-size: clamp(1.6rem, 5vw, 3.2rem) !important;
+  white-space: normal !important;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .hero .hero-top h1 .accent {
@@ -1062,14 +1061,14 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 }
 
 /* Autre commande — discret */
-.hero-other { max-width: 760px; width: 100%; margin: 0 auto; }
+.hero-other { max-width: 760px; width: 100%; margin: 0 auto; text-align: center; }
 .hero-other-label {
   font-size: 0.76rem;
   color: rgba(255,255,255,0.38);
   margin-bottom: 12px;
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
 }
-.hero-other-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-other-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .hero-other-actions .btn { font-size: 0.82rem; padding: 9px 16px; opacity: 0.7; }
 .hero-other-actions .btn:hover { opacity: 1; }
 
@@ -1124,7 +1123,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
   .hero .hero-top h1,
   .hero-content h1 {
     font-size: clamp(1.4rem, 7vw, 2rem) !important;
-    white-space: nowrap !important;
+    white-space: normal !important;
     word-break: break-word;
   }
   .hero-payment-info {

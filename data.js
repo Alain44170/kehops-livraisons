@@ -8,7 +8,7 @@ const KHEOPS_CONFIG = {
   // Clé Stripe — remplacer par la vraie clé quand Kbis reçu
   // Mode TEST : pk_test_... (aucun vrai paiement)
   // Mode PROD : pk_live_... (vrais paiements)
-  stripePublicKey: 'pk_live_51TeCxFLtSJXN2AaiLfJ760aDJF39YT5BXS1oyeDnQ8ZrReKlSPJP0rhoSPoxXG3Hr00PgI8gKwdf1uZNhGezG7HU00AmJfdx4A',
+  stripePublicKey: 'pk_test_51TeCxFLtSJXN2AainrMSQuOfg1RIkllYWgGxNDvJtKKQctPGnQWAGtJO4uULrj9W5DGwuWgkghAQ1lACEWFpfWfQ00GG2GUbuv',
 
   // Frais de livraison
   deliveryFee: 4.00,         // Tarif normal

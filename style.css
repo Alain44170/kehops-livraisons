@@ -105,8 +105,8 @@ img { max-width: 100%; display: block; }
   position: relative;
   background: var(--green-deep);
   overflow: hidden;
-  min-height: 92vh;
-  display: flex; align-items: center;
+  
+  display: flex; align-items: flex-start;
 }
 
 .hero-bg-pattern {
@@ -131,7 +131,7 @@ img { max-width: 100%; display: block; }
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  padding: 80px 0;
+  padding: 0;
 }
 
 .hero-badge {
@@ -1124,7 +1124,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
   .hero .hero-top h1,
   .hero-content h1 {
     font-size: clamp(1.4rem, 7vw, 2rem) !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
     word-break: break-word;
   }
   .hero-payment-info {

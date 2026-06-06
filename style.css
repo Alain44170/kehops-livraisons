@@ -100,7 +100,6 @@ img { max-width: 100%; display: block; }
 }
 
 /* ========= HERO ========= */
-
 .hero {
   position: relative;
   background: var(--green-deep);
@@ -139,7 +138,7 @@ img { max-width: 100%; display: block; }
   background: rgba(201,162,39,0.15);
   border: 1px solid rgba(201,162,39,0.35);
   color: var(--gold-light);
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -902,7 +901,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding-top: 100px;
+  padding-top: 120px;
   padding-bottom: 52px;
 }
 
@@ -915,7 +914,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 /* Forcer le titre h1 en blanc dans le hero */
 .hero .hero-top h1 {
   color: #ffffff !important;
-  font-size: clamp(1.6rem, 5vw, 1.7rem) !important;
+  font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
   white-space: normal !important;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
@@ -1075,7 +1074,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 
 /* Responsive */
 @media (max-width: 700px) {
-  .hero .container { padding-top: 32px; padding-bottom: 36px; }
+  .hero .container { padding-top: 90px; padding-bottom: 36px; }
   .hero-top { margin-bottom: 22px; }
   .hero-order-section { padding: 16px 14px; }
   .hero-resto-cta span { display: none; }
@@ -1138,7 +1137,6 @@ input, textarea, select { max-width: 100%; min-width: 0; }
   .hero-restos-grid { gap: 10px; }
   .container { padding-left: 16px; padding-right: 16px; }
 }
-
 .title3 {
-  color: rgb(18, 221, 0)
+  color: #42ff13
 }

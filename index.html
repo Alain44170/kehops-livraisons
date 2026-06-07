@@ -538,6 +538,7 @@
 
             <label for="shop_name">Nom et adresse du lieu de prise en charge </label>
             <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Super U drive, Mondial Relay, Click & Collect" />
+            <p id="shop-distance-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;"></p>
             <p class="field-note">Indiquez le nom et l'adresse du lieu de prise en charge de se que je dois récupérer.</p>
 
             <label for="shopping_list">Articles / commande à récupérer</label>
@@ -547,11 +548,11 @@
             <label for="message">Créneau de retrait & détails</label>
             <textarea id="message" name="message" rows="3" required placeholder="Ex : commande prête à 12h30, le vendredi 30 mai. Autres précisions…"></textarea>
 
-            <!-- Case 1 : commande préalablement payée -->
+            <!-- Case 1 : acceptation des CGL -->
             <div class="checkbox-wrap">
               <input type="checkbox" id="paidConfirm" required />
               <label for="paidConfirm" style="margin:0;font-weight:400;font-size:0.87rem;color:var(--text-muted)">
-                ✅ Je confirme avoir réglé préalablement ma commande<strong></strong>.
+                ✅ J'ai pris connaissance des <a href="#" onclick="ouvrirCGL(event)" style="color:var(--gold);font-weight:700;text-decoration:underline;">conditions générales de livraison</a> et je les accepte.
               </label>
             </div>
 
@@ -845,6 +846,52 @@
   <a class="fab whatsapp" href="https://wa.me/33664071212" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
   <!-- ======= FOOTER ======= -->
+  <!-- MODAL CONDITIONS GÉNÉRALES DE LIVRAISON -->
+  <div id="cgl-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:20px;">
+    <div style="background:#fff;border-radius:14px;max-width:680px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+      
+      <!-- Header modal -->
+      <div style="background:#0b3d2e;border-radius:14px 14px 0 0;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="color:#f9d05e;font-family:'Playfair Display',serif;font-size:1.2rem;margin:0;">Conditions Générales de Livraison</h3>
+        <button onclick="fermerCGL()" style="background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.5rem;cursor:pointer;line-height:1;">✕</button>
+      </div>
+
+      <!-- Contenu scrollable -->
+      <div style="overflow-y:auto;padding:28px;flex:1;line-height:1.8;color:#2a2a2a;font-size:0.92rem;">
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 1 — Zone de livraison</h4>
+        <p style="margin-bottom:18px;">Le service de livraison est valable uniquement sur le bourg de Nozay (44170, Loire-Atlantique), dans un rayon de 3 kilomètres. Si votre adresse dépasse ce rayon, le formulaire de demande sera automatiquement bloqué.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 2 — Volume et poids maximum</h4>
+        <p style="margin-bottom:18px;">Le volume maximum accepté est l'équivalent de 2 grands sacs de courses et un pack d'eau, pour un poids total n'excédant pas 10 kg. Si vous n'êtes pas sûr du volume ou du poids de votre commande, merci de prendre contact par téléphone avec le livreur au <a href="tel:0664071212" style="color:#0b3d2e;font-weight:700;">06 64 07 12 12</a> avant de valider votre demande.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 3 — Paiement de la commande</h4>
+        <p style="margin-bottom:18px;">Pour les commerces disposant d'un système de paiement en ligne (exemple : Super U Drive), le client s'engage à avoir préalablement réglé sa commande avant toute intervention de Khéops Livraisons.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 4 — Frais de livraison</h4>
+        <p style="margin-bottom:18px;">Les frais de livraison s'élèvent à 5,80 €. Offre de bienvenue : votre première livraison est à 2,80 €. Ils sont réglables en ligne par carte bancaire via le site, ou en espèces directement au livreur à la réception de la commande. En cas de paiement en espèces, l'appoint est souhaité.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 5 — Responsabilité</h4>
+        <p style="margin-bottom:18px;">Khéops Livraisons ne peut être tenu responsable d'une erreur de commande passée par le client auprès du commerce, ni d'un retard imputable au commerce lui-même.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 6 — Annulation</h4>
+        <p style="margin-bottom:18px;">En cas d'annulation, merci de nous en informer de préférence avant que le livreur ne se déplace au commerce.</p>
+
+        <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 7 — Contact</h4>
+        <p>Pour toute question : <a href="tel:0664071212" style="color:#0b3d2e;font-weight:700;">06 64 07 12 12</a> — <a href="https://kheops-livraison.fr" style="color:#0b3d2e;font-weight:700;">kheops-livraison.fr</a></p>
+
+      </div>
+
+      <!-- Bouton J'accepte -->
+      <div style="padding:20px 28px;border-top:1px solid #eee;text-align:center;">
+        <button onclick="accepterCGL()" style="background:linear-gradient(135deg,#0b3d2e,#1a6b4a);color:#f9d05e;border:none;border-radius:8px;padding:14px 40px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;letter-spacing:0.5px;">
+          ✅ J'ai lu et j'accepte les conditions générales de livraison
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <footer class="site-footer" itemscope itemtype="https://schema.org/LocalBusiness">
     <div class="container">
       <p>
@@ -1019,6 +1066,17 @@
             return;
           }
 
+          // Verifier zone du lieu de prise en charge
+          var shopVal = document.getElementById('shop_name') ? document.getElementById('shop_name').value.trim() : '';
+          if (shopVal.length > 4 && typeof shopValid !== 'undefined' && !shopValid) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var fmsg = document.getElementById('formMsg');
+            if (fmsg) { fmsg.textContent = '⚠️ Le lieu de prise en charge semble hors de Nozay. Vérifiez l\'adresse.'; fmsg.style.color = '#e8372a'; }
+            document.getElementById('shop_name').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
           const onlineRadio = document.getElementById('payOnline');
           if (onlineRadio && onlineRadio.checked && !deliveryPaid) {
             e.preventDefault();
@@ -1095,10 +1153,95 @@
             geoTimer = setTimeout(checkAddress, 1200);
           });
         }
+
+        // Vérification distance pour le lieu de prise en charge
+        var shopValid = true; // pas bloquant si vide ou non reconnu
+        var shopTimer = null;
+
+        function showShopMsg(msg, color) {
+          var el = document.getElementById('shop-distance-msg');
+          if (el) { el.textContent = msg; el.style.color = color; }
+        }
+
+        function checkShop() {
+          var shopInput = document.getElementById('shop_name');
+          if (!shopInput) return;
+          var addr = shopInput.value.trim();
+          if (addr.length < 5) { showShopMsg('', ''); shopValid = true; return; }
+          if (addr.toLowerCase().indexOf('nozay') === -1) {
+            addr = addr + ', Nozay, 44170, France';
+          }
+          showShopMsg('Vérification de la zone...', '#aaa');
+          var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+          fetch(geoUrl)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (!data.results || data.results.length === 0) {
+                showShopMsg('', ''); shopValid = true; return;
+              }
+              var loc = data.results[0].geometry.location;
+              var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
+              if (dist > 3) {
+                showShopMsg('⚠️ Ce lieu semble hors de Nozay (' + dist.toFixed(1) + ' km). Vérifiez l\'adresse.', '#e8372a');
+                shopValid = false;
+              } else {
+                showShopMsg('✅ Lieu dans la zone (' + dist.toFixed(1) + ' km)', '#4caf50');
+                shopValid = true;
+              }
+            })
+            .catch(function() { showShopMsg('', ''); shopValid = true; });
+        }
+
+        var shopInput = document.getElementById('shop_name');
+        if (shopInput) {
+          shopInput.addEventListener('blur', checkShop);
+          shopInput.addEventListener('input', function() {
+            clearTimeout(shopTimer);
+            shopTimer = setTimeout(checkShop, 1200);
+          });
+        }
       });
       // ======= FIN GEOCODING =======
 
 })();
+  </script>
+
+  <script>
+    var scrollPos = 0;
+
+    function ouvrirCGL(e) {
+      e.preventDefault();
+      scrollPos = window.scrollY;
+      var modal = document.getElementById('cgl-modal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + scrollPos + 'px';
+      document.body.style.width = '100%';
+    }
+
+    function fermerCGL() {
+      var modal = document.getElementById('cgl-modal');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPos);
+    }
+
+    function accepterCGL() {
+      // Cocher automatiquement la case
+      var checkbox = document.getElementById('paidConfirm');
+      if (checkbox) checkbox.checked = true;
+      // Fermer la modal
+      fermerCGL();
+    }
+
+    // Fermer si clic en dehors de la modal
+    document.getElementById('cgl-modal').addEventListener('click', function(e) {
+      if (e.target === this) fermerCGL();
+    });
   </script>
 </body>
 </html>

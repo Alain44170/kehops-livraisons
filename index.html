@@ -508,20 +508,20 @@
               <label class="service-card" data-value="colis">
                 <input type="radio" name="serviceType" value="Colis / courrier" style="display:none;">
                 <span style="font-size:1.5rem;">📦</span>
-                <strong>Colis / Courrier</strong>
-                <span> <br> Dépôt ou retrait / pli urgent</span>
+                <strong>Colis - Click & Collect / Courrier</strong>
+                <span> <br>Dépôt ou retrait / pli urgent poids max. 10kg</span>
               </label>
               <label class="service-card" data-value="cles">
                 <input type="radio" name="serviceType" value="Transport de clés" style="display:none;">
                 <span style="font-size:1.5rem;">🔑</span>
                 <strong>Transport de clés</strong>
-                <span> <br> remise ou récupération</span>
+                <span> <br> ...remise ou récupération</span>
               </label>
               <label class="service-card" data-value="linge">
                 <input type="radio" name="serviceType" value="Transport linge" style="display:none;">
                 <span style="font-size:1.5rem;">👕</span>
-                <strong>Transport de linge </strong>
-                <span> <br> laverie automatique</span>
+                <strong>Transport de linge / pressing </strong>
+                <span> <br> ... laverie automatique total poids max. 10kg</span>
               </label>
               
             </div>
@@ -535,22 +535,22 @@
             <label for="address">Adresse de livraison</label>
             <input id="address" name="address" type="text" required placeholder="N° et nom de rue, Nozay" />
 
-            <label for="shop_name">Nom et adresse du commerce où récupérer vos articles</label>
-            <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Super U drive, Mondial Relay, consigne Amazon, serrurier" />
-            <p class="field-note">Indiquez le nom et l'adresse du commerce où votre commande est prête.</p>
+            <label for="shop_name">Nom et adresse du lieu de prise en charge </label>
+            <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Super U drive, Mondial Relay, Click & Collect" />
+            <p class="field-note">Indiquez le nom et l'adresse du lieu de prise en charge de se que je dois récupérer.</p>
 
             <label for="shopping_list">Articles / commande à récupérer</label>
             <textarea id="shopping_list" name="shopping_list" rows="4" placeholder="Liste des articles Indiquez les quantités." required></textarea>
-            <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau.</p>
+            <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau. max.10kg</p>
 
             <label for="message">Créneau de retrait & détails</label>
             <textarea id="message" name="message" rows="3" required placeholder="Ex : commande prête à 12h30, le vendredi 30 mai. Autres précisions…"></textarea>
 
-            <!-- Case 1 : commande Super U payée -->
+            <!-- Case 1 : commande préalablement payée -->
             <div class="checkbox-wrap">
               <input type="checkbox" id="paidConfirm" required />
               <label for="paidConfirm" style="margin:0;font-weight:400;font-size:0.87rem;color:var(--text-muted)">
-                ✅ Je confirme avoir réglé ma commande sur le site <strong>Super U Drive</strong>.
+                ✅ Je confirme avoir réglé préalablement ma commande<strong></strong>.
               </label>
             </div>
 
@@ -561,8 +561,8 @@
             <div class="checkbox-wrap" style="margin-bottom:6px;">
               <input type="radio" id="payOnline" name="paymentMethod" value="online" required />
               <label for="payOnline" style="margin:0;font-weight:500;font-size:0.87rem;color:var(--text-muted)">
-                Par carte bancaire en ligne <span style="color:var(--gold);font-weight:700;">(recommandé)</span>
-              </label>
+                Par carte bancaire en ligne  <span style="color:var(--gold);font-weight:700;">(recommandé)</span>
+              <br> après paiement, validée la demande de livraison en cliquant sur <br> "envoyez la demande"</label>
             </div>
             <div class="checkbox-wrap" style="margin-bottom:14px;">
               <input type="radio" id="payCash" name="paymentMethod" value="cash" />

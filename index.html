@@ -534,6 +534,7 @@
 
             <label for="address">Adresse de livraison</label>
             <input id="address" name="address" type="text" required placeholder="N° et nom de rue, Nozay" />
+            <p id="address-distance-msg" style="font-size:0.82rem;margin-top:4px;min-height:16px;"></p>
 
             <label for="shop_name">Nom et adresse du lieu de prise en charge </label>
             <input id="shop_name" name="shop_name" type="text" required placeholder="Ex : Super U drive, Mondial Relay, Click & Collect" />
@@ -1007,6 +1008,17 @@
       const form = document.getElementById('delivery-form');
       if (form) {
         form.addEventListener('submit', function(e) {
+          // Verifier zone de livraison
+          var addrVal = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
+          if (addrVal.length > 4 && typeof addressValid !== 'undefined' && !addressValid) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var fmsg = document.getElementById('formMsg');
+            if (fmsg) { fmsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).'; fmsg.style.color = '#e8372a'; }
+            document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
           const onlineRadio = document.getElementById('payOnline');
           if (onlineRadio && onlineRadio.checked && !deliveryPaid) {
             e.preventDefault();
@@ -1020,7 +1032,72 @@
         }, true);
       }
     });
-  })();
+  
+      // ======= VERIFICATION DISTANCE GOOGLE GEOCODING =======
+      var GOOGLE_API_KEY = 'AIzaSyCd1K70U1Ekepsd9TQZLJm0xonFmaK1Nxo';
+      var MAIRIE_LAT = 47.5647;
+      var MAIRIE_LNG = -1.5642;
+      var MAX_KM = 3;
+      var addressValid = false;
+
+      function haversineKm(lat1, lng1, lat2, lng2) {
+        var R = 6371;
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLng = (lng2 - lng1) * Math.PI / 180;
+        var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+                Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+                Math.sin(dLng/2)*Math.sin(dLng/2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      }
+
+      function showDistanceMsg(msg, color) {
+        var el = document.getElementById('address-distance-msg');
+        if (el) { el.textContent = msg; el.style.color = color; }
+      }
+
+      var geoTimer = null;
+      function checkAddress() {
+        var addr = (document.getElementById('address') || {}).value || '';
+        addr = addr.trim();
+        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; return; }
+        if (addr.toLowerCase().indexOf('nozay') === -1) {
+          addr = addr + ', Nozay, 44170, France';
+        }
+        showDistanceMsg('Verification de la zone...', '#aaa');
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&key=' + GOOGLE_API_KEY)
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (!data.results || data.results.length === 0) {
+              showDistanceMsg('Adresse non reconnue. Verifiez votre saisie.', '#e8372a');
+              addressValid = false;
+              return;
+            }
+            var loc = data.results[0].geometry.location;
+            var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
+            if (dist > MAX_KM) {
+              showDistanceMsg('Adresse hors zone (' + dist.toFixed(1) + ' km). Livraison limitee a ' + MAX_KM + ' km autour de Nozay.', '#e8372a');
+              addressValid = false;
+            } else {
+              showDistanceMsg('Adresse dans la zone de livraison (' + dist.toFixed(1) + ' km)', '#4caf50');
+              addressValid = true;
+            }
+          })
+          .catch(function() { showDistanceMsg('', ''); addressValid = true; });
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var addrInput = document.getElementById('address');
+        if (addrInput) {
+          addrInput.addEventListener('blur', checkAddress);
+          addrInput.addEventListener('input', function() {
+            clearTimeout(geoTimer);
+            geoTimer = setTimeout(checkAddress, 1200);
+          });
+        }
+      });
+      // ======= FIN GEOCODING =======
+
+})();
   </script>
 </body>
 </html>

@@ -600,7 +600,7 @@ img { max-width: 100%; display: block; }
   margin-bottom: 6px;
 }
 .form-card .form-sub {
-  color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px;
+  color: red; font-size: 1.1rem; margin-bottom: 24px;
 }
 
 label {

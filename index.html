@@ -1035,8 +1035,8 @@
   
       // ======= VERIFICATION DISTANCE GOOGLE GEOCODING =======
       var GOOGLE_API_KEY = 'AIzaSyCd1K70U1Ekepsd9TQZLJm0xonFmaK1Nxo';
-      var MAIRIE_LAT = 47.5647;
-      var MAIRIE_LNG = -1.5642;
+      var MAIRIE_LAT = 47.564751;
+      var MAIRIE_LNG = -1.626916;
       var MAX_KM = 3;
       var addressValid = false;
 
@@ -1064,7 +1064,8 @@
           addr = addr + ', Nozay, 44170, France';
         }
         showDistanceMsg('Verification de la zone...', '#aaa');
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&key=' + GOOGLE_API_KEY)
+        var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&location=47.564751,-1.626916&radius=5000&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+        fetch(geoUrl)
           .then(function(r) { return r.json(); })
           .then(function(data) {
             if (!data.results || data.results.length === 0) {

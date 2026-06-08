@@ -416,26 +416,26 @@
         </div>
 
         <div class="partners-block">
-         <!-- <h3>Nos commerces partenaires</h3>
+          <h3>Nos commerces partenaires</h3>
           <div class="partners-logos">
-            LES 3 MARCHANDS — temporairement masqué, décommenter pour réactiver
+            <!-- LES 3 MARCHANDS — temporairement masqué, décommenter pour réactiver
             <a href="https://www.les3marchands.fr/" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="logo3_marchants.png" class="partner-logo logo-3marchands" alt="Logo restaurant Les 3 Marchands Nozay - partenaire Khéops Livraisons">
             </a>
-            
-           LA CASA BELLA — temporairement masquée, décommenter pour réactiver
+            -->
+            <!-- LA CASA BELLA — temporairement masquée, décommenter pour réactiver
             <a href="https://www.nozay44.com/casa-bella.html" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="logo_casa_bella.png" class="partner-logo logo-casabella" alt="Logo restaurant pizzeria La Casa Bella Nozay - partenaire Khéops Livraisons" style="filter:invert(1)">
             </a>
             -->
             <!--<a href="https://etpatesetvous.com" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="https://etpatesetvous.com/wp-content/uploads/2020/11/cropped-19657234_1964331553844365_3904454414963968489_n-270x270.jpg" class="partner-logo" alt="Et Pâtes &amp; Vous - partenaire Khéops Livraisons" style="width:80px;height:80px;border-radius:12px;object-fit:cover;">
-            </a>
+            </a>-->
             <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener noreferrer" class="partner-link">
               <img src="lien_U.jpg" class="partner-logo" alt="Super U Drive">
               <span class="tooltip">Super U Drive</span>
             </a>
-          </div>-->
+          </div>
         </div>
       </div>
 
@@ -473,45 +473,28 @@
             ">
               Rendez-vous d'abord sur le site <strong style="color:#e8c84a;">Super U Drive</strong> pour passer et régler votre commande en ligne. Une fois votre commande validée et payée sur leur site, revenez ici et remplissez ce formulaire.<br><br><span style="color:#f9d05e;font-weight:700;">💶 Les frais de livraison (5,80 € — ou 2,80 € pour votre 1ère livraison) sont à régler en ligne par CB ou directement au livreur si vous souhaitez payer en espèces à la réception de vos courses.</span>
             </p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-              <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener" style="
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: linear-gradient(135deg, #c9a227, #e8c84a);
-                color: #0b3d2e;
-                padding: 11px 16px;
-                border-radius: 10px;
-                font-size: 0.82rem;
-                font-weight: 800;
-                text-decoration: none;
-                box-shadow: 0 4px 14px rgba(201,162,39,0.35);
-              ">
-                <i class="fa fa-arrow-up-right-from-square"></i>
-                Commander sur Super U Drive →
-              </a>
-              <a href="#why" style="
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: rgba(255,255,255,0.1);
-                color: #f9d05e;
-                border: 1.5px solid rgba(249,208,94,0.5);
-                padding: 11px 16px;
-                border-radius: 10px;
-                font-size: 0.82rem;
-                font-weight: 800;
-                text-decoration: none;
-              ">
-                📊 Comparatif frais de livraison
-              </a>
-            </div>
+            <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener" style="
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              background: linear-gradient(135deg, #c9a227, #e8c84a);
+              color: #0b3d2e;
+              padding: 11px 20px;
+              border-radius: 10px;
+              font-size: 0.88rem;
+              font-weight: 800;
+              text-decoration: none;
+              box-shadow: 0 4px 14px rgba(201,162,39,0.35);
+            ">
+              <i class="fa fa-arrow-up-right-from-square"></i>
+              Commander sur Super U Drive →
+            </a>
           </div>
         </div>
 
         <div class="form-card" id="formulaire">
           <h3>Votre demande de livraison</h3>
-          <p class="form-sub">Tous les champs sont obligatoires. <br> Vous serez contacté rapidement.</p>
+          <p class="form-sub">Tous les champs sont obligatoires. Vous serez contacté rapidement.</p>
 
           <form id="delivery-form" novalidate>
 
@@ -1189,7 +1172,7 @@
           addr = addr + ', Nozay, 44170, France';
         }
         showDistanceMsg('Verification de la zone...', '#aaa');
-        var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&location=47.564751,-1.626916&radius=5000&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+        var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&bounds=47.544751,-1.646916|47.584751,-1.606916&region=fr&key=' + GOOGLE_API_KEY;
         fetch(geoUrl)
           .then(function(r) { return r.json(); })
           .then(function(data) {
@@ -1239,7 +1222,7 @@
             addr = addr + ', Nozay, 44170, France';
           }
           showShopMsg('Vérification de la zone...', '#aaa');
-          var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+          var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&bounds=47.544751,-1.646916|47.584751,-1.606916&region=fr&key=' + GOOGLE_API_KEY;
           fetch(geoUrl)
             .then(function(r) { return r.json(); })
             .then(function(data) {

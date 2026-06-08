@@ -8,6 +8,74 @@
    Message : {{message}}
 */
 
+/* =====================================================
+   MODALE DE CONFIRMATION — affichée après envoi réussi
+   ===================================================== */
+function afficherConfirmation() {
+  // Créer la modale si elle n'existe pas encore
+  if (!document.getElementById('confirm-modal')) {
+    const modal = document.createElement('div');
+    modal.id = 'confirm-modal';
+    modal.style.cssText = `
+      position:fixed;inset:0;z-index:9999;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);
+      padding:16px;
+    `;
+    modal.innerHTML = `
+      <div style="
+        background:#0b3d2e;
+        border:2px solid #f9d05e;
+        border-radius:18px;
+        padding:36px 28px 28px;
+        max-width:420px;width:100%;
+        text-align:center;
+        box-shadow:0 20px 60px rgba(0,0,0,0.5);
+        animation:confirmPop .3s cubic-bezier(.34,1.56,.64,1) both;
+      ">
+        <div style="font-size:3rem;margin-bottom:12px;">✅</div>
+        <h2 style="color:#f9d05e;font-family:'Playfair Display',serif;font-size:1.4rem;margin:0 0 12px;">
+          Demande envoyée !
+        </h2>
+        <p style="color:rgba(255,255,255,0.88);font-size:0.95rem;line-height:1.6;margin:0 0 24px;">
+          Votre demande de livraison a bien été prise en compte.<br>
+          Je vous contacte sous peu au numéro indiqué. 🛵
+        </p>
+        <button id="confirm-close-btn" style="
+          background:linear-gradient(135deg,#f9d05e,#e8c84a);
+          color:#0b3d2e;font-weight:800;font-size:1rem;
+          border:none;border-radius:10px;padding:13px 32px;
+          cursor:pointer;width:100%;
+          box-shadow:0 4px 14px rgba(249,208,94,0.4);
+          transition:transform .15s;
+        ">Fermer</button>
+      </div>
+    `;
+    // Animation CSS
+    const style = document.createElement('style');
+    style.textContent = `@keyframes confirmPop {
+      from { opacity:0; transform:scale(.85) translateY(20px); }
+      to   { opacity:1; transform:scale(1)  translateY(0);    }
+    }`;
+    document.head.appendChild(style);
+    document.body.appendChild(modal);
+
+    // Fermer au clic sur le bouton ou en dehors
+    document.getElementById('confirm-close-btn').addEventListener('click', fermerConfirmation);
+    modal.addEventListener('click', function(e){ if(e.target === modal) fermerConfirmation(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermerConfirmation(); });
+  } else {
+    document.getElementById('confirm-modal').style.display = 'flex';
+  }
+  document.body.style.overflow = 'hidden';
+}
+
+function fermerConfirmation() {
+  const modal = document.getElementById('confirm-modal');
+  if (modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   // Affiche l'année courante
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -79,6 +147,14 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
+    // Vérification zone de livraison
+    if(typeof addressValid !== 'undefined' && !addressValid){
+      formMsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).';
+      formMsg.style.color = '#c0392b';
+      document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
     submitBtn.classList.add('loading');
     submitBtn.setAttribute('disabled', 'disabled');
 
@@ -102,9 +178,8 @@ document.addEventListener('DOMContentLoaded', function(){
     try{
       const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
       console.log('EmailJS success', response);
-      formMsg.textContent = 'Votre demande a bien été prise en compte. Je vous contacte sous peu !';
-      formMsg.style.color = 'var(--accent)';
       form.reset();
+      afficherConfirmation();
     }catch(error){
       console.error('EmailJS erreur', error);
       formMsg.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous appeler directement.';

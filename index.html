@@ -1059,7 +1059,6 @@
           var addrVal = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
           if (addrVal.length > 4 && typeof addressValid !== 'undefined' && !addressValid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             var fmsg = document.getElementById('formMsg');
             if (fmsg) { fmsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).'; fmsg.style.color = '#e8372a'; }
             document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1070,7 +1069,6 @@
           var shopVal = document.getElementById('shop_name') ? document.getElementById('shop_name').value.trim() : '';
           if (shopVal.length > 4 && typeof shopValid !== 'undefined' && !shopValid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             var fmsg = document.getElementById('formMsg');
             if (fmsg) { fmsg.textContent = '⚠️ Le lieu de prise en charge semble hors de Nozay. Vérifiez l\'adresse.'; fmsg.style.color = '#e8372a'; }
             document.getElementById('shop_name').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1080,14 +1078,13 @@
           const onlineRadio = document.getElementById('payOnline');
           if (onlineRadio && onlineRadio.checked && !deliveryPaid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             document.getElementById('stripe-delivery-wrap').style.display = 'block';
             mountStripeCard();
             document.getElementById('stripe-delivery-wrap').scrollIntoView({ behavior: 'smooth' });
             const msg = document.getElementById('formMsg');
             if (msg) { msg.textContent = '⚠️ Veuillez d’abord régler les frais de livraison.'; msg.style.color = '#e8372a'; }
           }
-        }, true);
+        });
       }
     });
   

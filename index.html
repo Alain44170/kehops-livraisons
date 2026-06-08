@@ -1265,6 +1265,16 @@
         }, true);
       }
     });
+    // Masquer le bloc Stripe si service fermé
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!isServiceOuvert()) {
+        var stripeWrap = document.getElementById('stripe-delivery-wrap');
+        if (stripeWrap) stripeWrap.style.display = 'none';
+        // Désactiver aussi les boutons radio de paiement
+        var radios = document.querySelectorAll('input[name="paymentMethod"], input[name="payment"]');
+        radios.forEach(function(r) { r.disabled = true; });
+      }
+    });
     // ======= FIN VÉRIFICATION HORAIRE =======
 
     function ouvrirCGL(e) {

@@ -1109,7 +1109,6 @@
           var addrVal = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
           if (addrVal.length > 4 && typeof addressValid !== 'undefined' && !addressValid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             var fmsg = document.getElementById('formMsg');
             if (fmsg) { fmsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).'; fmsg.style.color = '#e8372a'; }
             document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1120,7 +1119,6 @@
           var shopVal = document.getElementById('shop_name') ? document.getElementById('shop_name').value.trim() : '';
           if (shopVal.length > 4 && typeof shopValid !== 'undefined' && !shopValid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             var fmsg = document.getElementById('formMsg');
             if (fmsg) { fmsg.textContent = '⚠️ Le lieu de prise en charge semble hors de Nozay. Vérifiez l\'adresse.'; fmsg.style.color = '#e8372a'; }
             document.getElementById('shop_name').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1130,7 +1128,6 @@
           const onlineRadio = document.getElementById('payOnline');
           if (onlineRadio && onlineRadio.checked && !deliveryPaid) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             document.getElementById('stripe-delivery-wrap').style.display = 'block';
             mountStripeCard();
             document.getElementById('stripe-delivery-wrap').scrollIntoView({ behavior: 'smooth' });
@@ -1146,7 +1143,7 @@
       var MAIRIE_LAT = 47.564751;
       var MAIRIE_LNG = -1.626916;
       var MAX_KM = 3;
-      var addressValid = false;
+      var addressValid = true;
 
       function haversineKm(lat1, lng1, lat2, lng2) {
         var R = 6371;
@@ -1286,15 +1283,6 @@
       document.querySelectorAll('a[href="#formulaire"]').forEach(function(lien) {
         lien.addEventListener('click', verifierHoraire);
       });
-      // Bloquer aussi la soumission du formulaire
-      var form = document.getElementById('delivery-form');
-      if (form) {
-        form.addEventListener('click', function(e) {
-          if (!isServiceOuvert()) {
-            document.getElementById('horaire-modal').style.display = 'flex';
-          }
-        }, true);
-      }
     });
     // Masquer le bloc Stripe si service fermé
     document.addEventListener('DOMContentLoaded', function() {

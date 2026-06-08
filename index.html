@@ -892,6 +892,25 @@
     </div>
   </div>
 
+  <!-- MODAL HORAIRES FERMÉS -->
+  <div id="horaire-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:20px;">
+    <div style="background:#fff;border-radius:14px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;">
+      <div style="background:#0b3d2e;padding:20px 24px;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:8px;">🕐</div>
+        <h3 style="color:#f9d05e;font-family:'Playfair Display',serif;font-size:1.2rem;margin:0;">Service actuellement fermé</h3>
+      </div>
+      <div style="padding:24px;text-align:center;">
+        <p style="font-size:1rem;color:#2a2a2a;font-weight:700;margin-bottom:12px;">Les livraisons sont disponibles :</p>
+        <p style="font-size:1.1rem;color:#0b3d2e;font-weight:900;margin-bottom:6px;">🗓️ Lundi au Samedi</p>
+        <p style="font-size:1.3rem;color:#0b3d2e;font-weight:900;margin-bottom:16px;">⏰ 9h00 — 18h00</p>
+        <p style="font-size:0.85rem;color:#888;margin-bottom:20px;">Fermé le dimanche</p>
+        <button onclick="document.getElementById('horaire-modal').style.display='none';" style="background:linear-gradient(135deg,#0b3d2e,#1a6b4a);color:#f9d05e;border:none;border-radius:8px;padding:12px 32px;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;">
+          Compris !
+        </button>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer" itemscope itemtype="https://schema.org/LocalBusiness">
     <div class="container">
       <p>
@@ -1208,6 +1227,45 @@
 
   <script>
     var scrollPos = 0;
+
+    // ======= VÉRIFICATION HORAIRE =======
+    function isServiceOuvert() {
+      var now = new Date();
+      var jour = now.getDay(); // 0=dimanche, 1=lundi, ..., 6=samedi
+      var heure = now.getHours();
+      var minute = now.getMinutes();
+      var heureDecimale = heure + minute / 60;
+      // Fermé le dimanche (jour=0) et en dehors de 9h-18h
+      if (jour === 0) return false;
+      if (heureDecimale < 9 || heureDecimale >= 18) return false;
+      return true;
+    }
+
+    function verifierHoraire(e) {
+      if (!isServiceOuvert()) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('horaire-modal').style.display = 'flex';
+        return false;
+      }
+    }
+
+    // Bloquer les liens qui pointent vers #formulaire
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href="#formulaire"]').forEach(function(lien) {
+        lien.addEventListener('click', verifierHoraire);
+      });
+      // Bloquer aussi la soumission du formulaire
+      var form = document.getElementById('delivery-form');
+      if (form) {
+        form.addEventListener('click', function(e) {
+          if (!isServiceOuvert()) {
+            document.getElementById('horaire-modal').style.display = 'flex';
+          }
+        }, true);
+      }
+    });
+    // ======= FIN VÉRIFICATION HORAIRE =======
 
     function ouvrirCGL(e) {
       e.preventDefault();

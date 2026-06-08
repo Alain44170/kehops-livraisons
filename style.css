@@ -916,7 +916,7 @@ input, textarea, select { max-width: 100%; min-width: 0; }
 /* Forcer le titre h1 en blanc dans le hero */
 .hero .hero-top h1 {
   color: #ffffff !important;
-  font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+  font-size: clamp(1.6rem, 5vw, 1.2rem) !important;
   white-space: normal !important;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }

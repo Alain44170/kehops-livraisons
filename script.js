@@ -138,22 +138,30 @@ document.addEventListener('DOMContentLoaded', function(){
     const address = form.address.value.trim();
     const shopName = form.shop_name.value.trim();
     const shoppingList = form.shopping_list.value.trim();
-    const message = form.message.value.trim();
+    const message = form.message ? form.message.value.trim() : '';
+    const deliveryDate = form.delivery_date ? form.delivery_date.value : '';
+    const deliveryTime = form.delivery_time ? form.delivery_time.value : '';
     const paid = document.getElementById('paidConfirm').checked;
 
-    if(!name || !phone || !address || !shopName || !shoppingList || !message || !paid){
+    if(!name || !phone || !address || !shopName || !shoppingList || !deliveryDate || !deliveryTime || !paid){
       formMsg.textContent = 'Veuillez compléter tous les champs requis.';
       formMsg.style.color = '#c0392b';
       return;
     }
 
-    // Vérification zone de livraison
-    if(typeof addressValid !== 'undefined' && !addressValid){
-      formMsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).';
+    // Vérification créneau 24h
+    if(typeof window.checkDatetime === 'function' && !window.checkDatetime()){
+      formMsg.textContent = '⚠️ Veuillez corriger le créneau de livraison.';
       formMsg.style.color = '#c0392b';
-      document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('delivery_date').scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    // Formatage de la date pour l'email
+    const dateFormatee = deliveryDate
+      ? new Date(deliveryDate + 'T' + (deliveryTime || '00:00')).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
+      : '';
+    const creneau = dateFormatee + (deliveryTime ? ' à ' + deliveryTime : '');
 
     submitBtn.classList.add('loading');
     submitBtn.setAttribute('disabled', 'disabled');
@@ -172,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function(){
       address,
       shop_name: shopName,
       shopping_list: shoppingList,
-      message
+      message: (message ? message + '\n' : '') + 'Créneau souhaité : ' + creneau
     };
 
     try{

@@ -545,8 +545,21 @@
             <textarea id="shopping_list" name="shopping_list" rows="4" placeholder="Liste des articles Indiquez les quantités." required></textarea>
             <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau. max.10kg</p>
 
-            <label for="message">Créneau de retrait & détails</label>
-            <textarea id="message" name="message" rows="3" required placeholder="Ex : commande prête à 12h30, le vendredi 30 mai. Autres précisions…"></textarea>
+            <label>Créneau de livraison souhaité</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px;">
+              <div>
+                <label for="delivery_date" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">📅 Date</label>
+                <input id="delivery_date" name="delivery_date" type="date" required style="width:100%;" />
+              </div>
+              <div>
+                <label for="delivery_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
+                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="08:00" max="23:00" />
+              </div>
+            </div>
+            <p id="datetime-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;"></p>
+
+            <label for="message">Détails supplémentaires</label>
+            <textarea id="message" name="message" rows="2" placeholder="Précisions sur la commande, accès, digicode…"></textarea>
 
             <!-- Case 1 : acceptation des CGL -->
             <div class="checkbox-wrap">
@@ -1055,16 +1068,6 @@
       const form = document.getElementById('delivery-form');
       if (form) {
         form.addEventListener('submit', function(e) {
-          // Verifier zone de livraison
-          var addrVal = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
-          if (addrVal.length > 4 && typeof addressValid !== 'undefined' && !addressValid) {
-            e.preventDefault();
-            var fmsg = document.getElementById('formMsg');
-            if (fmsg) { fmsg.textContent = 'Adresse hors zone de livraison (rayon 3 km autour de Nozay).'; fmsg.style.color = '#e8372a'; }
-            document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
-          }
-
           // Verifier zone du lieu de prise en charge
           var shopVal = document.getElementById('shop_name') ? document.getElementById('shop_name').value.trim() : '';
           if (shopVal.length > 4 && typeof shopValid !== 'undefined' && !shopValid) {
@@ -1072,6 +1075,15 @@
             var fmsg = document.getElementById('formMsg');
             if (fmsg) { fmsg.textContent = '⚠️ Le lieu de prise en charge semble hors de Nozay. Vérifiez l\'adresse.'; fmsg.style.color = '#e8372a'; }
             document.getElementById('shop_name').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
+          // Vérifier créneau date/heure (plage horaire + délai 24h si zone 2/3)
+          if (typeof window.checkDatetime === 'function' && !window.checkDatetime()) {
+            e.preventDefault();
+            var fmsg = document.getElementById('formMsg');
+            if (fmsg) { fmsg.textContent = '⚠️ Veuillez corriger le créneau de livraison.'; fmsg.style.color = '#e8372a'; }
+            document.getElementById('delivery_date').scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
           }
 
@@ -1131,10 +1143,10 @@
             var loc = data.results[0].geometry.location;
             var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
             if (dist > MAX_KM) {
-              showDistanceMsg('Adresse hors zone (' + dist.toFixed(1) + ' km). Livraison limitee a ' + MAX_KM + ' km autour de Nozay.', '#e8372a');
+              showDistanceMsg('📅 Adresse en zone 2 ou 3 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#e8a020');
               addressValid = false;
             } else {
-              showDistanceMsg('Adresse dans la zone de livraison (' + dist.toFixed(1) + ' km)', '#4caf50');
+              showDistanceMsg('✅ Adresse dans la zone 1 (' + dist.toFixed(1) + ' km) — livraison rapide disponible.', '#4caf50');
               addressValid = true;
             }
           })
@@ -1142,6 +1154,65 @@
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+
+        // ── Initialisation date minimum (aujourd'hui) ──
+        var dateInput = document.getElementById('delivery_date');
+        var timeInput = document.getElementById('delivery_time');
+        if (dateInput) {
+          var today = new Date();
+          var yyyy = today.getFullYear();
+          var mm = String(today.getMonth()+1).padStart(2,'0');
+          var dd = String(today.getDate()).padStart(2,'0');
+          dateInput.min = yyyy + '-' + mm + '-' + dd;
+        }
+
+        // ── Validation créneau 24h pour zones 2 & 3 ──
+        function checkDatetime() {
+          var dateVal = dateInput ? dateInput.value : '';
+          var timeVal = timeInput ? timeInput.value : '';
+          var msgEl = document.getElementById('datetime-msg');
+          if (!msgEl || !dateVal || !timeVal) return true;
+
+          var chosen = new Date(dateVal + 'T' + timeVal);
+          var now = new Date();
+          var diffH = (chosen - now) / 3600000;
+
+          // Heure hors plage 8h-20h
+          var h = parseInt(timeVal.split(':')[0]);
+          if (h < 8 || h >= 23) {
+            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 8h00 et 23h00.';
+            msgEl.style.color = '#e8372a';
+            return false;
+          }
+
+          // Zone 2 ou 3 → 24h obligatoire
+          if (typeof addressValid !== 'undefined' && !addressValid) {
+            // adresse hors zone 3km → on vérifie 24h
+            if (diffH < 24) {
+              msgEl.textContent = '⚠️ Votre adresse est en zone 2 ou 3. La livraison doit être réservée au minimum 24h à l\'avance. Veuillez choisir un créneau après le ' + new Date(now.getTime() + 86400000).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', hour:'2-digit', minute:'2-digit'}) + '.';
+              msgEl.style.color = '#e8372a';
+              return false;
+            }
+          }
+
+          // Créneau dans le passé
+          if (diffH < 0) {
+            msgEl.textContent = '⚠️ Ce créneau est déjà passé. Veuillez choisir une date et heure future.';
+            msgEl.style.color = '#e8372a';
+            return false;
+          }
+
+          msgEl.textContent = '✅ Créneau valide.';
+          msgEl.style.color = '#4caf50';
+          return true;
+        }
+
+        if (dateInput) dateInput.addEventListener('change', checkDatetime);
+        if (timeInput) timeInput.addEventListener('change', checkDatetime);
+
+        // Exposer pour la validation à la soumission
+        window.checkDatetime = checkDatetime;
+
         var addrInput = document.getElementById('address');
         if (addrInput) {
           addrInput.addEventListener('blur', checkAddress);

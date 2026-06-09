@@ -1,12 +1,50 @@
 /* script.js
    Interactions : menu mobile, reveal on scroll, validation du formulaire
    Commentaires en français
-
-   Template EmailJS attendu :
-   Nom du commerce : {{shop_name}}
-   Contenu de la commande : {{shopping_list}}
-   Message : {{message}}
 */
+
+// Tarifs par zone
+const TARIFS = {
+  normal:      { 1: 5.80, 2: 7.00, 3: 9.00 },
+  firstOrder:  { 1: 2.80, 2: 3.50, 3: 4.50 },
+};
+
+// État global première commande
+let isFirstOrder = false;
+
+// Formate un montant en euros
+function formatEur(n) {
+  return n.toFixed(2).replace('.', ',') + ' €';
+}
+
+// Vérifie si le numéro est une première commande via l'API Vercel
+async function checkFirstOrder(phone) {
+  try {
+    const res = await fetch('/api/check-phone', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone }),
+    });
+    const data = await res.json();
+    return data.firstOrder === true;
+  } catch (e) {
+    console.warn('check-phone indisponible', e);
+    return false;
+  }
+}
+
+// Enregistre le client après commande réussie
+async function registerOrder(phone) {
+  try {
+    await fetch('/api/register-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone }),
+    });
+  } catch (e) {
+    console.warn('register-order indisponible', e);
+  }
+}
 
 /* =====================================================
    MODALE DE CONFIRMATION — affichée après envoi réussi
@@ -99,8 +137,25 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }catch(err){ console.error('Erreur init EmailJS', err); }
 
-  // Menu mobile toggle
-  const toggle = document.querySelector('.nav-toggle');
+  // Vérification première commande au blur du champ téléphone
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('blur', async function() {
+      const phone = phoneInput.value.trim();
+      if (phone.length >= 8) {
+        isFirstOrder = await checkFirstOrder(phone);
+        // Mettre à jour l'encadré prix si déjà affiché
+        if (typeof window.updatePriceSummaryExternal === 'function') {
+          window.updatePriceSummaryExternal();
+        }
+        // Afficher un badge discret si première commande
+        const badge = document.getElementById('first-order-badge');
+        if (badge) {
+          badge.style.display = isFirstOrder ? 'block' : 'none';
+        }
+      }
+    });
+  }
   const links = document.querySelector('.nav-links');
   toggle && toggle.addEventListener('click', ()=> links.classList.toggle('open'));
 
@@ -193,6 +248,11 @@ document.addEventListener('DOMContentLoaded', function(){
     try{
       const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
       console.log('EmailJS success', response);
+      // Enregistrer le numéro si première commande
+      if (isFirstOrder) {
+        await registerOrder(phone);
+        isFirstOrder = false;
+      }
       form.reset();
       afficherConfirmation();
     }catch(error){

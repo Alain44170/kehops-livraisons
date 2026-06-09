@@ -259,7 +259,8 @@
           </span><br>
         </h1>
         <p class="hero-lead" style="text-align:center;margin-left:auto;margin-right:auto;">
-           <strong style="color:#f1f0efe7; font-size: 1.2rem;">Livraison à domicile de vos courses Super U drive, vos colis en dépot click and collect, je transporte vos colis ou pli urgent, récupère votre linge en laverie ou pressing et bien d'autre possibilités ! <br> <br> <strong style="color:#ffd900e7;">5,80 € seulement ou 2,80 € pour votre 1ère livraison !
+           <strong style="color:#f1f0efe7; font-size: 1.2rem;">Livraison à domicile de vos courses Super U drive, vos colis en dépot click and collect, je transporte vos colis ou pli urgent, récupère votre linge en laverie ou pressing et bien d'autre possibilités ! <br> <br> <strong style="color:#ffd900e7;"> <br> Offre de bienvenue : votre première livraison à seulement <br> 2,80 € pour Nozay <br> 3,50 € pour la zone 2 <br> 
+             4,50 € pour la zone 3 !
         </strong> </p>
         <h3 class="title3">Bientôt disponible ! </h3> <h4>Composez votre repas et payez en ligne. <br> Commande directe auprès de nos futurs commerces partenaires ! <br><br> 🍽️ Vous aimez un restaurant ou une boulangerie de Nozay ? <strong style="color:#f9d05e;">Parlez-leur de Khéops !</strong> Plus ils reçoivent de demandes de leurs clients, plus vite ils rejoindront notre service.</h4>
           
@@ -539,6 +540,9 @@
 
             <label for="phone">Téléphone</label>
             <input id="phone" name="phone" type="tel" pattern="[0-9\s+\-()]{6,}" required placeholder="06 XX XX XX XX" />
+            <div id="first-order-badge" style="display:none;margin-top:6px;background:linear-gradient(135deg,#ff8800,#ff6b5b);color:#fff;font-size:0.78rem;font-weight:800;padding:6px 12px;border-radius:8px;display:none;">
+              🎁 Bienvenue ! Votre 1ère livraison bénéficie d'un tarif préférentiel.
+            </div>
 
             <label for="address">Adresse de livraison</label>
             <input id="address" name="address" type="text" required placeholder="N° et nom de rue, Nozay" />
@@ -595,7 +599,7 @@
             </div>
 
             <!-- Encadré récapitulatif montant -->
-            <div id="price-summary" style="display:none;background:rgba(0,0,0,0.3);border:2px solid #2ecc71;border-radius:12px;padding:14px 18px;margin:14px 0;"></div>
+            <div id="price-summary" style="display:none;background:#0a0a0a;border:2px solid #2ecc71;border-radius:12px;padding:14px 18px;margin:14px 0;"></div>
 
             <!-- Case 2 : choix paiement livraison -->
             <div style="margin:14px 0 6px;font-weight:700;font-size:0.9rem;color:var(--gold);">
@@ -1247,25 +1251,38 @@
         var box = document.getElementById('price-summary');
         if (!box) return;
         var zoneColors = { 1: '#2ecc71', 2: '#2e86de', 3: '#e67e22' };
-        var zonePrices = { 1: '5,80 €', 2: '7,00 €', 3: '9,00 €' };
+        var zonePricesNormal     = { 1: 5.80, 2: 7.00, 3: 9.00 };
+        var zonePricesFirstOrder = { 1: 2.80, 2: 3.50, 3: 4.50 };
         var zoneLabels = { 1: 'Zone 1 — jusqu\'à 3 km', 2: 'Zone 2 — de 3 à 5 km', 3: 'Zone 3 — de 5 à 8 km' };
         var effectiveZone = getEffectiveZone();
         if (effectiveZone === 0) { box.style.display = 'none'; return; }
+
+        var fo = (typeof isFirstOrder !== 'undefined') && isFirstOrder;
         var color = zoneColors[effectiveZone];
-        var price = zonePrices[effectiveZone];
-        var label = zoneLabels[effectiveZone];
+        var priceNormal = zonePricesNormal[effectiveZone];
+        var priceFirst  = zonePricesFirstOrder[effectiveZone];
+        var price = fo ? priceFirst : priceNormal;
+        var priceStr = price.toFixed(2).replace('.', ',') + ' €';
+
         box.style.display = 'block';
         box.style.borderColor = color;
+        box.style.background = '#0a0a0a';
         box.innerHTML =
           '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">' +
             '<div>' +
-              '<div style="font-size:0.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:' + color + ';margin-bottom:2px;">Montant à préparer</div>' +
-              '<div style="font-size:0.88rem;color:rgba(255,255,255,0.75);">' + label + '</div>' +
+              '<div style="font-size:0.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:' + color + ';margin-bottom:4px;">' +
+                (fo ? '🎁 OFFRE 1ÈRE COMMANDE !' : '💶 MONTANT À PRÉPARER') +
+              '</div>' +
+              '<div style="font-size:0.95rem;font-weight:800;color:#ffffff;">' + zoneLabels[effectiveZone] + '</div>' +
+              (fo ? '<div style="font-size:0.8rem;color:#aaaaaa;text-decoration:line-through;margin-top:2px;">' + priceNormal.toFixed(2).replace('.', ',') + ' €</div>' : '') +
             '</div>' +
-            '<div style="font-family:\'Playfair Display\',serif;font-size:2rem;font-weight:900;color:' + color + ';">' + price + '</div>' +
+            '<div style="font-family:\'Playfair Display\',serif;font-size:2.4rem;font-weight:900;color:' + color + ';text-shadow:0 0 20px ' + color + '88;">' + priceStr + '</div>' +
           '</div>' +
-          '<div style="margin-top:8px;font-size:0.75rem;color:rgba(255,255,255,0.5);">💶 À régler en espèces au livreur à la réception. L\'appoint est souhaité.</div>';
+          '<div style="margin-top:10px;font-size:0.78rem;color:#cccccc;border-top:1px solid rgba(255,255,255,0.15);padding-top:8px;">💶 À régler en espèces au livreur à la réception. L\'appoint est souhaité.</div>';
       }
+
+      // Exposer pour mise à jour depuis script.js
+      window.updatePriceSummaryExternal = updatePriceSummary;
 
       function haversineKm(lat1, lng1, lat2, lng2) {
         var R = 6371;

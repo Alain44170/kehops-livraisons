@@ -166,6 +166,9 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
+  // Activer les animations reveal uniquement si JS fonctionne
+  document.body.classList.add('js-ready');
+
   // Reveal on scroll
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{

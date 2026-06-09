@@ -476,7 +476,7 @@
               line-height:1.7;
               margin-bottom:14px;
             ">
-              Rendez-vous d'abord sur le site <strong style="color:#e8c84a;">Super U Drive</strong> pour passer et régler votre commande en ligne. Une fois votre commande validée et payée sur leur site, revenez ici et remplissez ce formulaire.<br><br><span style="color:#f9d05e;font-weight:700;">💶 Les frais de livraison sont à régler en espèces directement au livreur à la réception de vos courses. L'appoint est souhaité.</span>
+              Rendez-vous d'abord sur le site <strong style="color:#e8c84a;">Super U Drive</strong> pour passer et régler votre commande en ligne. Une fois votre commande validée et payée sur leur site, revenez ici et remplissez ce formulaire.<br><br><span style="color:#f9d05e;font-weight:700;">💳 Les frais de livraison sont à régler par carte bancaire en ligne avant l'envoi de votre demande.</span>
             </p>
             <a href="https://www.coursesu.com/drive-superu-nozay" target="_blank" rel="noopener" style="
               display: inline-flex;
@@ -567,7 +567,7 @@
               </div>
               <div>
                 <label for="pickup_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
+                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="09:00" max="23:00" />
               </div>
             </div>
             <p id="pickup-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;margin-bottom:12px;"></p>
@@ -582,7 +582,7 @@
               </div>
               <div>
                 <label for="delivery_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
+                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="09:00" max="23:00" />
               </div>
             </div>
             <p id="datetime-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;"></p>
@@ -606,61 +606,39 @@
               💳 Règlement des frais de livraison
             </div>
 
-            <!-- CB désactivée - maintenance -->
-            <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;margin-bottom:10px;opacity:0.6;">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <i class="fa fa-credit-card" style="color:rgba(255,255,255,0.4);"></i>
-                <div>
-                  <div style="font-size:0.87rem;color:rgba(255,255,255,0.4);font-weight:600;text-decoration:line-through;">Par carte bancaire en ligne</div>
-                  <div style="font-size:0.75rem;color:#e67e22;font-weight:700;margin-top:2px;">🔧 Temporairement indisponible — en cours de maintenance</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Espèces — seule option disponible, cochée par défaut -->
-            <div class="checkbox-wrap" style="margin-bottom:14px;background:rgba(46,204,113,0.08);border:1.5px solid rgba(46,204,113,0.3);border-radius:10px;padding:12px 16px;">
-              <input type="radio" id="payCash" name="paymentMethod" value="cash" checked required />
-              <label for="payCash" style="margin:0;font-weight:600;font-size:0.87rem;color:var(--text-muted)">
-                💶 En espèces à la réception — <strong style="color:#2ecc71;">l'appoint est souhaité</strong>
+            <!-- Paiement CB uniquement -->
+            <div class="checkbox-wrap" style="margin-bottom:10px;background:rgba(249,208,94,0.06);border:1.5px solid rgba(249,208,94,0.3);border-radius:10px;padding:12px 16px;">
+              <input type="radio" id="payOnline" name="paymentMethod" value="online" required checked />
+              <label for="payOnline" style="margin:0;font-weight:600;font-size:0.87rem;color:var(--text-muted);">
+                💳 Paiement par carte bancaire en ligne<br>
+                <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Paiement 100% sécurisé — vous recevrez un reçu par email</span>
               </label>
             </div>
 
-            <!-- Si paiement en ligne choisi, affichage du formulaires de paiement Stripe -->
-
-            <!-- Bouton Stripe — affiché uniquement si paiement en ligne choisi -->
-            <div id="stripe-delivery-wrap" style="display:none;background:rgba(201,162,39,0.08);border:1.5px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:16px;">
-              <div style="font-size:0.88rem;color:#fff;margin-bottom:12px;line-height:1.6;">
-                <strong style="color:var(--gold);">Montant à régler :</strong>
-                <span id="delivery-amount-label" style="font-size:1.1rem;font-weight:800;color:#4e0303;margin-left:8px;">5,80 €</span>
-                <span id="first-order-badge" style="display:none;margin-left:8px;background:linear-gradient(135deg,#e8372a,#ff6b5b);color:#4e0303;font-size:0.75rem;font-weight:800;padding:3px 10px;border-radius:20px;">1ère commande</span>
+            <!-- Bloc paiement en ligne — toujours visible -->
+            <div id="stripe-link-wrap" style="background:#0b3d2e;border:2px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <strong style="color:var(--gold);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;">Montant à régler</strong>
+                <span id="stripe-amount-label" style="font-size:1.5rem;font-weight:900;color:var(--gold);">—</span>
               </div>
-              <div style="background:#fff;border-radius:8px;padding:12px 14px;margin-bottom:12px;">
-                <div id="card-element-delivery" style="min-height:44px;"></div>
-                <div id="card-errors-delivery" style="color:#ff6b6b;font-size:0.82rem;margin-top:6px;min-height:18px;"></div>
-              </div>
-              <button type="button" id="stripeDeliveryBtn" style="
-                width:100%;
+              <a id="stripe-payment-link" href="#" target="_blank" style="
                 display:flex;align-items:center;justify-content:center;gap:10px;
-                background:linear-gradient(135deg,var(--gold),var(--gold-light));
-                color:var(--green-deep);font-weight:800;font-size:0.95rem;
-                border:none;border-radius:10px;padding:14px 20px;cursor:pointer;
-                box-shadow:0 4px 14px rgba(201,162,39,0.4);
-                transition:transform .15s,box-shadow .15s;
+                background:linear-gradient(135deg,var(--gold),#e8c84a);
+                color:#0b3d2e;font-weight:800;font-size:0.95rem;
+                border:none;border-radius:10px;padding:14px 20px;
+                text-decoration:none;
+                box-shadow:0 4px 14px rgba(249,208,94,0.4);
+                margin-bottom:10px;
               ">
-                <i class="fa fa-lock"></i> Payer ma livraison en ligne
-              </button>
-              <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center;">
-                🔒 Paiement sécurisé par Stripe · Une facture vous sera envoyée par email
-              </p>
-            </div>
-
-            <div id="stripe-delivery-success" style="display:none;background:rgba(42,168,121,0.15);border:1.5px solid var(--green-bright);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;">
-              <span style="font-size:1.3rem;">✅</span>
-              <strong style="color:var(--green-bright);display:block;margin-top:4px;">Livraison payée !</strong>
-              <span style="font-size:0.82rem;color:rgba(255,255,255,0.7);">Facture envoyée par email · Vous pouvez envoyer votre demande.</span>
-              <a id="invoice-download-link" href="#" target="_blank" style="display:inline-block;margin-top:8px;color:var(--gold);font-size:0.82rem;font-weight:700;text-decoration:underline;">
-                <i class="fa fa-file-pdf"></i> Télécharger la facture PDF
+                <i class="fa fa-lock"></i> Payer ma livraison maintenant
               </a>
+              <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px;">
+                🔒 Paiement 100% sécurisé — vous recevrez un reçu par email
+              </p>
+              <label style="font-size:0.82rem;color:rgba(255,255,255,0.8);font-weight:600;display:block;margin-bottom:4px;">
+                Référence de paiement reçue par email <span style="color:rgba(255,255,255,0.45);font-weight:400;">(optionnel)</span>
+              </label>
+              <input id="stripeRef" name="stripe_ref" type="text" placeholder="Ex: réf. commande reçue par email..." style="width:100%;font-size:0.82rem;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 12px;" />
             </div>
 
             <div class="form-actions">
@@ -986,7 +964,7 @@
         <p style="margin-bottom:18px;">Pour les commerces disposant d'un système de paiement en ligne (exemple : Super U Drive), le client s'engage à avoir préalablement réglé sa commande avant toute intervention de Khéops Livraisons.</p>
 
         <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 4 — Frais de livraison</h4>
-        <p style="margin-bottom:18px;">Les frais de livraison varient selon la zone (5,80 € / 7,00 € / 9,00 €). Offre de bienvenue : votre première livraison est à 2,80 €. Le règlement s'effectue <strong>en espèces directement au livreur</strong> à la réception de la commande. L'appoint est souhaité. Le paiement par carte bancaire en ligne est temporairement indisponible.</p>
+        <p style="margin-bottom:18px;">Les frais de livraison varient selon la zone (5,80 € / 7,00 € / 9,00 €). Offre de bienvenue : votre première livraison est à 2,80 €. Le règlement s'effectue <strong>par carte bancaire en ligne</strong> avant l'envoi de la demande de livraison.</p>
 
         <h4 style="color:#0b3d2e;margin-bottom:6px;">Article 5 — Responsabilité</h4>
         <p style="margin-bottom:18px;">Khéops Livraisons ne peut être tenu responsable d'une erreur de commande passée par le client auprès du commerce, ni d'un retard imputable au commerce lui-même.</p>
@@ -1045,128 +1023,48 @@
     });
 
     // =============================================
-    // STRIPE LIVRAISON SUPER U — PaymentIntent
+    // STRIPE — Payment Links par zone
     // =============================================
-    const STRIPE_PK       = 'pk_live_51TeCxFLtSJXN2AaiLfJ760aDJF39YT5BXS1oyeDnQ8ZrReKlSPJP0rhoSPoxXG3Hr00PgI8gKwdf1uZNhGezG7HU00AmJfdx4A';
-    const FEE_NORMAL      = 580;  // 5,80€
-    const FEE_FIRST       = 280;  // 2,80€
-    const FIRST_ORDER_KEY = 'kheops_first_done';
-    const API_URL         = 'https://kehops-livraisons.vercel.app/api/payment';
+    const STRIPE_LINKS = {
+      normal:     { 1: 'https://buy.stripe.com/test_aFa00kgAt0Oa9uO2Y7fQI00', 2: 'https://buy.stripe.com/test_7sY3cw98140m4aufKTfQI02', 3: 'https://buy.stripe.com/test_7sYfZi6ZT7cycH056ffQI03' },
+      firstOrder: { 1: 'https://buy.stripe.com/test_cNibJ2981gN8fTcgOXfQI01', 2: 'https://buy.stripe.com/test_eVq28sbg99kGgXg9mvfQI04', 3: 'https://buy.stripe.com/test_eVqfZiesl1SefTcbuDfQI05' },
+    };
+    const STRIPE_LABELS = {
+      normal:     { 1: '5,80 €', 2: '7,00 €', 3: '9,00 €' },
+      firstOrder: { 1: '2,80 €', 2: '3,50 €', 3: '4,50 €' },
+    };
 
-    let stripeInstance = null;
-    let cardElement    = null;
-    let deliveryPaid   = false;
-
-    function isFirstOrder() {
-      return !localStorage.getItem(FIRST_ORDER_KEY);
+    function updateStripeLink() {
+      const wrap  = document.getElementById('stripe-link-wrap');
+      const link  = document.getElementById('stripe-payment-link');
+      const label = document.getElementById('stripe-amount-label');
+      if (!wrap || !link || !label) return;
+      const zone = (typeof getEffectiveZone === 'function') ? getEffectiveZone() : 1;
+      const z    = (zone >= 1 && zone <= 3) ? zone : 1;
+      const fo   = (typeof isFirstOrder !== 'undefined') && isFirstOrder;
+      const type = fo ? 'firstOrder' : 'normal';
+      link.href         = STRIPE_LINKS[type][z];
+      label.textContent = STRIPE_LABELS[type][z];
+      label.style.color = fo ? '#ff8800' : 'var(--gold)';
     }
-
-    function getAmount() {
-      return isFirstOrder() ? FEE_FIRST : FEE_NORMAL;
-    }
-
-    function fmt(cents) {
-      return (cents / 100).toFixed(2).replace('.', ',') + ' €';
-    }
-
-    function updateDeliveryAmount() {
-      const amount = getAmount();
-      const label  = document.getElementById('delivery-amount-label');
-      const badge  = document.getElementById('first-order-badge');
-      if (label) label.textContent = fmt(amount);
-      if (badge) badge.style.display = isFirstOrder() ? 'inline-block' : 'none';
-    }
-
-    function mountStripeCard() {
-      if (cardElement) return; // déjà monté
-      stripeInstance = Stripe(STRIPE_PK);
-      const elements = stripeInstance.elements();
-      cardElement = elements.create('card', {
-        style: {
-          base: { fontFamily: 'DM Sans,sans-serif', fontSize: '15px', color: '#111c16', '::placeholder': { color: '#9a8f80' } },
-          invalid: { color: '#c0392b' }
-        },
-        hidePostalCode: true
-      });
-      cardElement.mount('#card-element-delivery');
-      cardElement.on('change', function(e) {
-        const err = document.getElementById('card-errors-delivery');
-        if (err) err.textContent = e.error ? e.error.message : '';
-      });
-    }
+    window.updateStripeLink = updateStripeLink;
 
     document.addEventListener('DOMContentLoaded', function() {
-      updateDeliveryAmount();
 
-      // Afficher/masquer bloc Stripe selon choix radio
+      // Afficher/masquer bloc paiement selon choix radio
       document.querySelectorAll('input[name="paymentMethod"]').forEach(function(r) {
         r.addEventListener('change', function() {
-          const wrap = document.getElementById('stripe-delivery-wrap');
+          const wrap = document.getElementById('stripe-link-wrap');
+          if (!wrap) return;
           if (this.value === 'online') {
             wrap.style.display = 'block';
-            updateDeliveryAmount();
-            mountStripeCard();
+            updateStripeLink();
           } else {
             wrap.style.display = 'none';
           }
+          updatePriceSummary();
         });
       });
-
-      ['name','phone'].forEach(function(id) {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', updateDeliveryAmount);
-      });
-
-      // Bouton payer
-      const stripeBtn = document.getElementById('stripeDeliveryBtn');
-      if (stripeBtn) {
-        stripeBtn.addEventListener('click', async function() {
-          if (!cardElement) return;
-          const amount = getAmount();
-          const name   = (document.getElementById('name')?.value || '').trim() || 'Client';
-          const phone  = (document.getElementById('phone')?.value || '').trim() || '';
-          const errDiv = document.getElementById('card-errors-delivery');
-
-          stripeBtn.disabled = true;
-          stripeBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Traitement...';
-
-          // 1. Créer PaymentIntent
-          let clientSecret;
-          try {
-            const resp = await fetch(API_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ amount: amount, restaurantName: 'Livraison libre — Nozay' })
-            });
-            const data = await resp.json();
-            if (!data.clientSecret) throw new Error(data.error || 'Erreur serveur');
-            clientSecret = data.clientSecret;
-          } catch(err) {
-            if (errDiv) errDiv.textContent = 'Erreur : ' + err.message;
-            stripeBtn.disabled = false;
-            stripeBtn.innerHTML = '<i class="fa fa-lock"></i> Payer ma livraison en ligne';
-            return;
-          }
-
-          // 2. Confirmer le paiement
-          const result = await stripeInstance.confirmCardPayment(clientSecret, {
-            payment_method: { card: cardElement, billing_details: { name: name, phone: phone } }
-          });
-
-          if (result.error) {
-            if (errDiv) errDiv.textContent = result.error.message;
-            stripeBtn.disabled = false;
-            stripeBtn.innerHTML = '<i class="fa fa-lock"></i> Payer ma livraison en ligne';
-            return;
-          }
-
-          // 3. Paiement OK
-          deliveryPaid = true;
-          localStorage.setItem(FIRST_ORDER_KEY, '1');
-          document.getElementById('stripe-delivery-wrap').style.display = 'none';
-          document.getElementById('stripe-delivery-success').style.display = 'block';
-        });
-      }
 
       // Validation formulaire
       const form = document.getElementById('delivery-form');
@@ -1175,7 +1073,7 @@
           currentZone = 0;
           shopZone = 0;
           addressValid = false;
-          updatePriceSummary();
+          updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
           showDistanceMsg('', '');
         });
         form.addEventListener('submit', function(e) {
@@ -1245,6 +1143,13 @@
       function updatePriceSummary() {
         var box = document.getElementById('price-summary');
         if (!box) return;
+
+        // Masquer si CB est sélectionnée
+        var onlineRadio = document.getElementById('payOnline');
+        var cashRadio = document.getElementById('payCash');
+        if (onlineRadio && onlineRadio.checked) { box.style.display = 'none'; return; }
+        if (cashRadio && !cashRadio.checked) { box.style.display = 'none'; return; }
+
         var zoneColors = { 1: '#2ecc71', 2: '#2e86de', 3: '#e67e22' };
         var zonePricesNormal     = { 1: 5.80, 2: 7.00, 3: 9.00 };
         var zonePricesFirstOrder = { 1: 2.80, 2: 3.50, 3: 4.50 };
@@ -1298,7 +1203,7 @@
       function checkAddress() {
         var addr = (document.getElementById('address') || {}).value || '';
         addr = addr.trim();
-        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; currentZone = 0; updatePriceSummary(); return; }
+        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; currentZone = 0; updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink(); return; }
         if (addr.toLowerCase().indexOf('nozay') === -1) {
           addr = addr + ', Nozay, 44170, France';
         }
@@ -1331,7 +1236,7 @@
               addressValid = true;
               currentZone = 1;
             }
-            updatePriceSummary();
+            updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
           })
           .catch(function() { showDistanceMsg('', ''); addressValid = true; });
       }
@@ -1365,8 +1270,8 @@
           var diffH = (chosen - now) / 3600000;
           var h = parseInt(timeVal.split(':')[0]);
 
-          if (h < 9 || h >= 18) {
-            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 9h00 et 18h00.';
+          if (h < 9 || h >= 23) {
+            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 9h00 et 23h00.';
             msgEl.style.color = '#e8372a';
             return false;
           }
@@ -1399,8 +1304,8 @@
           var diffH = (chosen - now) / 3600000;
           var h = parseInt(timeVal.split(':')[0]);
 
-          if (h < 9 || h >= 18) {
-            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 9h00 et 18h00.';
+          if (h < 9 || h >= 23) {
+            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 9h00 et 23h00.';
             msgEl.style.color = '#e8372a';
             return false;
           }
@@ -1475,7 +1380,7 @@
                 shopValid = true;
                 shopZone = 1;
               }
-              updatePriceSummary();
+              updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
             })
             .catch(function() { showShopMsg('', ''); shopValid = true; });
         }

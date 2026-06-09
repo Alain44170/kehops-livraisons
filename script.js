@@ -148,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function(){
         if (typeof window.updatePriceSummaryExternal === 'function') {
           window.updatePriceSummaryExternal();
         }
+        // Mettre à jour le lien Stripe
+        if (typeof window.updateStripeLink === 'function') {
+          window.updateStripeLink();
+        }
         // Afficher un badge discret si première commande
         const badge = document.getElementById('first-order-badge');
         if (badge) {

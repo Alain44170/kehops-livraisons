@@ -249,8 +249,8 @@
           <i class="fa fa-map-marker-alt"></i>
           Livraison à domicile — Nozay (44)
         </div>
-        <h1 style="white-space:normal; font-size:1.2rem;">
-          Courses <strong style="color:#f9d05e;">Super U Drive</strong> <br> colis, click &amp; collect <br> pli urgent et bien d'autres livraisons <br> à Nozay et ses communes voisines <br> en quelques clics ! <br> <br>
+        <h1 style="white-space:normal; font-size:1.25rem;">
+          Courses <strong style="color:#f9d05e;">Super U Drive</strong>, colis, click &amp; collect, pli urgent et bien d'autres livraisons à domicile à Nozay — en quelques clics ! <br> <br>
           <span class="accent" style="display:block;font-size:1.15rem;white-space:normal;line-height:2.2;">
             <span style="color:#42ff13;font-size:1.25rem;font-weight:900;">COMMUNES DESSERVIES :</span><br>
             <span style="color:#f9d05e;">Nozay-bourg</span>&nbsp;&nbsp;<span style="color:#2ecc71;font-weight:800;">· Zone 1 · 5,80 €</span><br>
@@ -259,7 +259,7 @@
           </span><br>
         </h1>
         <p class="hero-lead" style="text-align:center;margin-left:auto;margin-right:auto;">
-           <strong style="color:#f1f0efe7; font-size: 1.2rem;">Livraison à domicile de vos courses Super U drive, vos colis en dépot click and collect, je transporte vos colis ou pli urgent, récupère votre linge en laverie ou pressing et bien d'autre possibilités !  <strong style="color:#ffd900e7;">
+           <strong style="color:#f1f0efe7; font-size: 1.2rem;">Livraison à domicile de vos courses Super U drive, vos colis en dépot click and collect, je transporte vos colis ou pli urgent, récupère votre linge en laverie ou pressing et bien d'autre possibilités ! <br> <br> <strong style="color:#ffd900e7;">5,80 € seulement ou 2,80 € pour votre 1ère livraison !
         </strong> </p>
         <h3 class="title3">Bientôt disponible ! </h3> <h4>Composez votre repas et payez en ligne. <br> Commande directe auprès de nos futurs commerces partenaires ! <br><br> 🍽️ Vous aimez un restaurant ou une boulangerie de Nozay ? <strong style="color:#f9d05e;">Parlez-leur de Khéops !</strong> Plus ils reçoivent de demandes de leurs clients, plus vite ils rejoindront notre service.</h4>
           
@@ -553,7 +553,24 @@
             <textarea id="shopping_list" name="shopping_list" rows="4" placeholder="Liste des articles Indiquez les quantités." required></textarea>
             <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau. max.10kg</p>
 
-            <label>Créneau de livraison souhaité</label>
+            <!-- Créneau prise en charge -->
+            <label>📦 Créneau de prise en charge</label>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:8px;">Quand dois-je aller chercher votre commande ?</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px;">
+              <div>
+                <label for="pickup_date" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">📅 Date</label>
+                <input id="pickup_date" name="pickup_date" type="date" required style="width:100%;" />
+              </div>
+              <div>
+                <label for="pickup_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
+                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="08:00" max="23:00" />
+              </div>
+            </div>
+            <p id="pickup-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;margin-bottom:12px;"></p>
+
+            <!-- Créneau livraison -->
+            <label>🛵 Créneau de livraison souhaité</label>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:8px;">Quand souhaitez-vous être livré ?</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px;">
               <div>
                 <label for="delivery_date" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">📅 Date</label>
@@ -576,6 +593,9 @@
                 ✅ J'ai pris connaissance des <a href="#" onclick="ouvrirCGL(event)" style="color:var(--gold);font-weight:700;text-decoration:underline;">conditions générales de livraison</a> et je les accepte.
               </label>
             </div>
+
+            <!-- Encadré récapitulatif montant -->
+            <div id="price-summary" style="display:none;background:rgba(0,0,0,0.3);border:2px solid #2ecc71;border-radius:12px;padding:14px 18px;margin:14px 0;"></div>
 
             <!-- Case 2 : choix paiement livraison -->
             <div style="margin:14px 0 6px;font-weight:700;font-size:0.9rem;color:var(--gold);">
@@ -1152,7 +1172,23 @@
       // Validation formulaire
       const form = document.getElementById('delivery-form');
       if (form) {
+        form.addEventListener('reset', function() {
+          currentZone = 0;
+          shopZone = 0;
+          addressValid = false;
+          updatePriceSummary();
+          showDistanceMsg('', '');
+        });
         form.addEventListener('submit', function(e) {
+          // Vérifier zone de livraison - bloquer si hors 8 km
+          if (typeof addressValid !== 'undefined' && !addressValid) {
+            e.preventDefault();
+            var fmsg = document.getElementById('formMsg');
+            if (fmsg) { fmsg.textContent = '🚫 Adresse de livraison hors zone (maximum 8 km autour de Nozay).'; fmsg.style.color = '#e8372a'; }
+            document.getElementById('address').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
           // Verifier zone du lieu de prise en charge
           var shopVal = document.getElementById('shop_name') ? document.getElementById('shop_name').value.trim() : '';
           if (shopVal.length > 4 && typeof shopValid !== 'undefined' && !shopValid) {
@@ -1163,7 +1199,16 @@
             return;
           }
 
-          // Vérifier créneau date/heure (plage horaire + délai 24h si zone 2/3)
+          // Vérifier créneau prise en charge
+          if (typeof window.checkPickup === 'function' && !window.checkPickup()) {
+            e.preventDefault();
+            var fmsg = document.getElementById('formMsg');
+            if (fmsg) { fmsg.textContent = '⚠️ Veuillez corriger le créneau de prise en charge.'; fmsg.style.color = '#e8372a'; }
+            document.getElementById('pickup_date').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
+          // Vérifier créneau livraison
           if (typeof window.checkDatetime === 'function' && !window.checkDatetime()) {
             e.preventDefault();
             var fmsg = document.getElementById('formMsg');
@@ -1191,6 +1236,36 @@
       var MAIRIE_LNG = -1.626916;
       var MAX_KM = 8;
       var addressValid = false;
+      var currentZone = 0;
+      var shopZone = 0;
+
+      function getEffectiveZone() {
+        return Math.max(currentZone, shopZone);
+      }
+
+      function updatePriceSummary() {
+        var box = document.getElementById('price-summary');
+        if (!box) return;
+        var zoneColors = { 1: '#2ecc71', 2: '#2e86de', 3: '#e67e22' };
+        var zonePrices = { 1: '5,80 €', 2: '7,00 €', 3: '9,00 €' };
+        var zoneLabels = { 1: 'Zone 1 — jusqu\'à 3 km', 2: 'Zone 2 — de 3 à 5 km', 3: 'Zone 3 — de 5 à 8 km' };
+        var effectiveZone = getEffectiveZone();
+        if (effectiveZone === 0) { box.style.display = 'none'; return; }
+        var color = zoneColors[effectiveZone];
+        var price = zonePrices[effectiveZone];
+        var label = zoneLabels[effectiveZone];
+        box.style.display = 'block';
+        box.style.borderColor = color;
+        box.innerHTML =
+          '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">' +
+            '<div>' +
+              '<div style="font-size:0.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:' + color + ';margin-bottom:2px;">Montant à préparer</div>' +
+              '<div style="font-size:0.88rem;color:rgba(255,255,255,0.75);">' + label + '</div>' +
+            '</div>' +
+            '<div style="font-family:\'Playfair Display\',serif;font-size:2rem;font-weight:900;color:' + color + ';">' + price + '</div>' +
+          '</div>' +
+          '<div style="margin-top:8px;font-size:0.75rem;color:rgba(255,255,255,0.5);">💶 À régler en espèces au livreur à la réception. L\'appoint est souhaité.</div>';
+      }
 
       function haversineKm(lat1, lng1, lat2, lng2) {
         var R = 6371;
@@ -1211,7 +1286,7 @@
       function checkAddress() {
         var addr = (document.getElementById('address') || {}).value || '';
         addr = addr.trim();
-        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; return; }
+        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; currentZone = 0; updatePriceSummary(); return; }
         if (addr.toLowerCase().indexOf('nozay') === -1) {
           addr = addr + ', Nozay, 44170, France';
         }
@@ -1228,12 +1303,23 @@
             var loc = data.results[0].geometry.location;
             var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
             if (dist > MAX_KM) {
-              showDistanceMsg('📅 Adresse en zone 2 ou 3 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#e8a020');
+              showDistanceMsg('🚫 Adresse hors zone (' + dist.toFixed(1) + ' km). Livraison limitée à ' + MAX_KM + ' km autour de Nozay.', '#e8372a');
               addressValid = false;
-            } else {
-              showDistanceMsg('✅ Adresse dans la zone 1 (' + dist.toFixed(1) + ' km) — livraison rapide disponible.', '#4caf50');
+              currentZone = 0;
+            } else if (dist > 5) {
+              showDistanceMsg('📅 Adresse en Zone 3 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#e67e22');
               addressValid = true;
+              currentZone = 3;
+            } else if (dist > 3) {
+              showDistanceMsg('📅 Adresse en Zone 2 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#2e86de');
+              addressValid = true;
+              currentZone = 2;
+            } else {
+              showDistanceMsg('✅ Adresse en Zone 1 (' + dist.toFixed(1) + ' km). Livraison rapide disponible.', '#4caf50');
+              addressValid = true;
+              currentZone = 1;
             }
+            updatePriceSummary();
           })
           .catch(function() { showDistanceMsg('', ''); addressValid = true; });
       }
@@ -1241,17 +1327,55 @@
       document.addEventListener('DOMContentLoaded', function() {
 
         // ── Initialisation date minimum (aujourd'hui) ──
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth()+1).padStart(2,'0');
+        var dd = String(today.getDate()).padStart(2,'0');
+        var todayStr = yyyy + '-' + mm + '-' + dd;
+
+        var pickupDateInput = document.getElementById('pickup_date');
+        var pickupTimeInput = document.getElementById('pickup_time');
         var dateInput = document.getElementById('delivery_date');
         var timeInput = document.getElementById('delivery_time');
-        if (dateInput) {
-          var today = new Date();
-          var yyyy = today.getFullYear();
-          var mm = String(today.getMonth()+1).padStart(2,'0');
-          var dd = String(today.getDate()).padStart(2,'0');
-          dateInput.min = yyyy + '-' + mm + '-' + dd;
+
+        if (pickupDateInput) pickupDateInput.min = todayStr;
+        if (dateInput) dateInput.min = todayStr;
+
+        // ── Validation créneau prise en charge ──
+        function checkPickup() {
+          var dateVal = pickupDateInput ? pickupDateInput.value : '';
+          var timeVal = pickupTimeInput ? pickupTimeInput.value : '';
+          var msgEl = document.getElementById('pickup-msg');
+          if (!msgEl || !dateVal || !timeVal) return true;
+
+          var chosen = new Date(dateVal + 'T' + timeVal);
+          var now = new Date();
+          var diffH = (chosen - now) / 3600000;
+          var h = parseInt(timeVal.split(':')[0]);
+
+          if (h < 8 || h >= 23) {
+            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 8h00 et 23h00.';
+            msgEl.style.color = '#e8372a';
+            return false;
+          }
+          if (diffH < 0) {
+            msgEl.textContent = '⚠️ Cette date et heure sont déjà passées. Veuillez choisir un créneau futur.';
+            msgEl.style.color = '#e8372a';
+            return false;
+          }
+          // Zone 2 ou 3 → prise en charge 24h avant obligatoire
+          var effZone = (typeof getEffectiveZone === 'function') ? getEffectiveZone() : 0;
+          if (effZone >= 2 && diffH < 24) {
+            msgEl.textContent = '⚠️ Vous êtes en Zone ' + effZone + '. La prise en charge doit être réservée au minimum 24h à l\'avance. Prochain créneau possible : ' + new Date(now.getTime() + 86400000).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', hour:'2-digit', minute:'2-digit'}) + '.';
+            msgEl.style.color = '#e8372a';
+            return false;
+          }
+          msgEl.textContent = '✅ Créneau de prise en charge valide.';
+          msgEl.style.color = '#4caf50';
+          return true;
         }
 
-        // ── Validation créneau 24h pour zones 2 & 3 ──
+        // ── Validation créneau livraison ──
         function checkDatetime() {
           var dateVal = dateInput ? dateInput.value : '';
           var timeVal = timeInput ? timeInput.value : '';
@@ -1261,41 +1385,29 @@
           var chosen = new Date(dateVal + 'T' + timeVal);
           var now = new Date();
           var diffH = (chosen - now) / 3600000;
-
-          // Heure hors plage 8h-20h
           var h = parseInt(timeVal.split(':')[0]);
+
           if (h < 8 || h >= 23) {
             msgEl.textContent = '⚠️ Les livraisons sont possibles entre 8h00 et 23h00.';
             msgEl.style.color = '#e8372a';
             return false;
           }
-
-          // Zone 2 ou 3 → 24h obligatoire
-          if (typeof addressValid !== 'undefined' && !addressValid) {
-            // adresse hors zone 3km → on vérifie 24h
-            if (diffH < 24) {
-              msgEl.textContent = '⚠️ Votre adresse est en zone 2 ou 3. La livraison doit être réservée au minimum 24h à l\'avance. Veuillez choisir un créneau après le ' + new Date(now.getTime() + 86400000).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', hour:'2-digit', minute:'2-digit'}) + '.';
-              msgEl.style.color = '#e8372a';
-              return false;
-            }
-          }
-
-          // Créneau dans le passé
           if (diffH < 0) {
-            msgEl.textContent = '⚠️ Ce créneau est déjà passé. Veuillez choisir une date et heure future.';
+            msgEl.textContent = '⚠️ Cette date et heure sont déjà passées. Veuillez choisir un créneau futur.';
             msgEl.style.color = '#e8372a';
             return false;
           }
-
-          msgEl.textContent = '✅ Créneau valide.';
+          msgEl.textContent = '✅ Créneau de livraison valide.';
           msgEl.style.color = '#4caf50';
           return true;
         }
 
+        if (pickupDateInput) pickupDateInput.addEventListener('change', checkPickup);
+        if (pickupTimeInput) pickupTimeInput.addEventListener('change', checkPickup);
         if (dateInput) dateInput.addEventListener('change', checkDatetime);
         if (timeInput) timeInput.addEventListener('change', checkDatetime);
 
-        // Exposer pour la validation à la soumission
+        window.checkPickup = checkPickup;
         window.checkDatetime = checkDatetime;
 
         var addrInput = document.getElementById('address');
@@ -1334,13 +1446,24 @@
               }
               var loc = data.results[0].geometry.location;
               var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
-              if (dist > 3) {
-                showShopMsg('⚠️ Ce lieu semble hors de Nozay (' + dist.toFixed(1) + ' km). Vérifiez l\'adresse.', '#e8372a');
+              if (dist > 8) {
+                showShopMsg('🚫 Ce lieu est hors zone (' + dist.toFixed(1) + ' km). Maximum 8 km.', '#e8372a');
                 shopValid = false;
-              } else {
-                showShopMsg('✅ Lieu dans la zone (' + dist.toFixed(1) + ' km)', '#4caf50');
+                shopZone = 0;
+              } else if (dist > 5) {
+                showShopMsg('📅 Lieu en Zone 3 (' + dist.toFixed(1) + ' km). Réservation 24h avant requise.', '#e67e22');
                 shopValid = true;
+                shopZone = 3;
+              } else if (dist > 3) {
+                showShopMsg('📅 Lieu en Zone 2 (' + dist.toFixed(1) + ' km). Réservation 24h avant requise.', '#2e86de');
+                shopValid = true;
+                shopZone = 2;
+              } else {
+                showShopMsg('✅ Lieu en Zone 1 (' + dist.toFixed(1) + ' km).', '#4caf50');
+                shopValid = true;
+                shopZone = 1;
               }
+              updatePriceSummary();
             })
             .catch(function() { showShopMsg('', ''); shopValid = true; });
         }

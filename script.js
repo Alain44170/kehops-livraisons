@@ -139,17 +139,25 @@ document.addEventListener('DOMContentLoaded', function(){
     const shopName = form.shop_name.value.trim();
     const shoppingList = form.shopping_list.value.trim();
     const message = form.message ? form.message.value.trim() : '';
+    const pickupDate = form.pickup_date ? form.pickup_date.value : '';
+    const pickupTime = form.pickup_time ? form.pickup_time.value : '';
     const deliveryDate = form.delivery_date ? form.delivery_date.value : '';
     const deliveryTime = form.delivery_time ? form.delivery_time.value : '';
     const paid = document.getElementById('paidConfirm').checked;
 
-    if(!name || !phone || !address || !shopName || !shoppingList || !deliveryDate || !deliveryTime || !paid){
+    if(!name || !phone || !address || !shopName || !shoppingList || !pickupDate || !pickupTime || !deliveryDate || !deliveryTime || !paid){
       formMsg.textContent = 'Veuillez compléter tous les champs requis.';
       formMsg.style.color = '#c0392b';
       return;
     }
 
-    // Vérification créneau 24h
+    // Vérification créneaux
+    if(typeof window.checkPickup === 'function' && !window.checkPickup()){
+      formMsg.textContent = '⚠️ Veuillez corriger le créneau de prise en charge.';
+      formMsg.style.color = '#c0392b';
+      document.getElementById('pickup_date').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     if(typeof window.checkDatetime === 'function' && !window.checkDatetime()){
       formMsg.textContent = '⚠️ Veuillez corriger le créneau de livraison.';
       formMsg.style.color = '#c0392b';
@@ -157,11 +165,10 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
-    // Formatage de la date pour l'email
-    const dateFormatee = deliveryDate
-      ? new Date(deliveryDate + 'T' + (deliveryTime || '00:00')).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
-      : '';
-    const creneau = dateFormatee + (deliveryTime ? ' à ' + deliveryTime : '');
+    // Formatage des dates pour l'email
+    const formatDate = (d, t) => d ? new Date(d + 'T' + (t || '00:00')).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'}) + (t ? ' à ' + t : '') : '';
+    const creneauPrise = formatDate(pickupDate, pickupTime);
+    const creneauLivraison = formatDate(deliveryDate, deliveryTime);
 
     submitBtn.classList.add('loading');
     submitBtn.setAttribute('disabled', 'disabled');
@@ -180,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function(){
       address,
       shop_name: shopName,
       shopping_list: shoppingList,
-      message: (message ? message + '\n' : '') + 'Créneau souhaité : ' + creneau
+      message: (message ? message + '\n' : '') + 'Prise en charge : ' + creneauPrise + '\nLivraison : ' + creneauLivraison
     };
 
     try{

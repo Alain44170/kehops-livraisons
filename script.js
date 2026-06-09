@@ -156,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   }
+  // Menu mobile toggle
+  const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   toggle && toggle.addEventListener('click', ()=> links.classList.toggle('open'));
 

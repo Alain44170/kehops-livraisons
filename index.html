@@ -567,7 +567,7 @@
               </div>
               <div>
                 <label for="pickup_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="08:00" max="23:00" />
+                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
               </div>
             </div>
             <p id="pickup-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;margin-bottom:12px;"></p>
@@ -582,7 +582,7 @@
               </div>
               <div>
                 <label for="delivery_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="08:00" max="23:00" />
+                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
               </div>
             </div>
             <p id="datetime-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;"></p>
@@ -1365,8 +1365,8 @@
           var diffH = (chosen - now) / 3600000;
           var h = parseInt(timeVal.split(':')[0]);
 
-          if (h < 8 || h >= 23) {
-            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 8h00 et 23h00.';
+          if (h < 9 || h >= 18) {
+            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 9h00 et 18h00.';
             msgEl.style.color = '#e8372a';
             return false;
           }
@@ -1399,8 +1399,8 @@
           var diffH = (chosen - now) / 3600000;
           var h = parseInt(timeVal.split(':')[0]);
 
-          if (h < 8 || h >= 23) {
-            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 8h00 et 23h00.';
+          if (h < 9 || h >= 18) {
+            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 9h00 et 18h00.';
             msgEl.style.color = '#e8372a';
             return false;
           }

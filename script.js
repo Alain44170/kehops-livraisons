@@ -1,50 +1,12 @@
 /* script.js
    Interactions : menu mobile, reveal on scroll, validation du formulaire
    Commentaires en français
+
+   Template EmailJS attendu :
+   Nom du commerce : {{shop_name}}
+   Contenu de la commande : {{shopping_list}}
+   Message : {{message}}
 */
-
-// Tarifs par zone
-const TARIFS = {
-  normal:      { 1: 5.80, 2: 7.00, 3: 9.00 },
-  firstOrder:  { 1: 2.80, 2: 3.50, 3: 4.50 },
-};
-
-// État global première commande
-let isFirstOrder = false;
-
-// Formate un montant en euros
-function formatEur(n) {
-  return n.toFixed(2).replace('.', ',') + ' €';
-}
-
-// Vérifie si le numéro est une première commande via l'API Vercel
-async function checkFirstOrder(phone) {
-  try {
-    const res = await fetch('/api/check-phone', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone }),
-    });
-    const data = await res.json();
-    return data.firstOrder === true;
-  } catch (e) {
-    console.warn('check-phone indisponible', e);
-    return false;
-  }
-}
-
-// Enregistre le client après commande réussie
-async function registerOrder(phone) {
-  try {
-    await fetch('/api/register-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone }),
-    });
-  } catch (e) {
-    console.warn('register-order indisponible', e);
-  }
-}
 
 /* =====================================================
    MODALE DE CONFIRMATION — affichée après envoi réussi
@@ -137,29 +99,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }catch(err){ console.error('Erreur init EmailJS', err); }
 
-  // Vérification première commande au blur du champ téléphone
-  const phoneInput = document.getElementById('phone');
-  if (phoneInput) {
-    phoneInput.addEventListener('blur', async function() {
-      const phone = phoneInput.value.trim();
-      if (phone.length >= 8) {
-        isFirstOrder = await checkFirstOrder(phone);
-        // Mettre à jour l'encadré prix si déjà affiché
-        if (typeof window.updatePriceSummaryExternal === 'function') {
-          window.updatePriceSummaryExternal();
-        }
-        // Mettre à jour le lien Stripe
-        if (typeof window.updateStripeLink === 'function') {
-          window.updateStripeLink();
-        }
-        // Afficher un badge discret si première commande
-        const badge = document.getElementById('first-order-badge');
-        if (badge) {
-          badge.style.display = isFirstOrder ? 'block' : 'none';
-        }
-      }
-    });
-  }
   // Menu mobile toggle
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
@@ -171,9 +110,6 @@ document.addEventListener('DOMContentLoaded', function(){
       setTimeout(() => links && links.classList.remove('open'), 150);
     });
   });
-
-  // Activer les animations reveal uniquement si JS fonctionne
-  document.body.classList.add('js-ready');
 
   // Reveal on scroll
   const observer = new IntersectionObserver((entries)=>{
@@ -203,25 +139,17 @@ document.addEventListener('DOMContentLoaded', function(){
     const shopName = form.shop_name.value.trim();
     const shoppingList = form.shopping_list.value.trim();
     const message = form.message ? form.message.value.trim() : '';
-    const pickupDate = form.pickup_date ? form.pickup_date.value : '';
-    const pickupTime = form.pickup_time ? form.pickup_time.value : '';
     const deliveryDate = form.delivery_date ? form.delivery_date.value : '';
     const deliveryTime = form.delivery_time ? form.delivery_time.value : '';
     const paid = document.getElementById('paidConfirm').checked;
 
-    if(!name || !phone || !address || !shopName || !shoppingList || !pickupDate || !pickupTime || !deliveryDate || !deliveryTime || !paid){
+    if(!name || !phone || !address || !shopName || !shoppingList || !deliveryDate || !deliveryTime || !paid){
       formMsg.textContent = 'Veuillez compléter tous les champs requis.';
       formMsg.style.color = '#c0392b';
       return;
     }
 
-    // Vérification créneaux
-    if(typeof window.checkPickup === 'function' && !window.checkPickup()){
-      formMsg.textContent = '⚠️ Veuillez corriger le créneau de prise en charge.';
-      formMsg.style.color = '#c0392b';
-      document.getElementById('pickup_date').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
+    // Vérification créneau 24h
     if(typeof window.checkDatetime === 'function' && !window.checkDatetime()){
       formMsg.textContent = '⚠️ Veuillez corriger le créneau de livraison.';
       formMsg.style.color = '#c0392b';
@@ -229,10 +157,11 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
-    // Formatage des dates pour l'email
-    const formatDate = (d, t) => d ? new Date(d + 'T' + (t || '00:00')).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'}) + (t ? ' à ' + t : '') : '';
-    const creneauPrise = formatDate(pickupDate, pickupTime);
-    const creneauLivraison = formatDate(deliveryDate, deliveryTime);
+    // Formatage de la date pour l'email
+    const dateFormatee = deliveryDate
+      ? new Date(deliveryDate + 'T' + (deliveryTime || '00:00')).toLocaleString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
+      : '';
+    const creneau = dateFormatee + (deliveryTime ? ' à ' + deliveryTime : '');
 
     submitBtn.classList.add('loading');
     submitBtn.setAttribute('disabled', 'disabled');
@@ -251,17 +180,12 @@ document.addEventListener('DOMContentLoaded', function(){
       address,
       shop_name: shopName,
       shopping_list: shoppingList,
-      message: (message ? message + '\n' : '') + 'Prise en charge : ' + creneauPrise + '\nLivraison : ' + creneauLivraison
+      message: (message ? message + '\n' : '') + 'Créneau souhaité : ' + creneau
     };
 
     try{
       const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
       console.log('EmailJS success', response);
-      // Enregistrer le numéro si première commande
-      if (isFirstOrder) {
-        await registerOrder(phone);
-        isFirstOrder = false;
-      }
       form.reset();
       afficherConfirmation();
     }catch(error){

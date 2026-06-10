@@ -557,6 +557,13 @@
             <textarea id="shopping_list" name="shopping_list" rows="4" placeholder="Liste des articles Indiquez les quantités." required></textarea>
             <p class="field-note">Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau. max.10kg</p>
 
+            <!-- Zone verrouillable si adresse hors zone -->
+            <div id="form-lock-zone" style="position:relative;">
+            <div id="form-lock-overlay" style="display:none;position:absolute;inset:0;z-index:10;background:rgba(10,10,10,0.82);border-radius:12px;backdrop-filter:blur(2px);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;">
+              <div style="font-size:2rem;margin-bottom:10px;">🚫</div>
+              <div id="form-lock-msg" style="color:#fff;font-weight:700;font-size:1rem;line-height:1.5;"></div>
+              <div style="color:rgba(255,255,255,0.6);font-size:0.82rem;margin-top:8px;">Veuillez corriger l'adresse de livraison ci-dessus.</div>
+            </div>
             <!-- Créneau prise en charge -->
             <label>📦 Créneau de prise en charge</label>
             <p style="font-size:0.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:8px;">Quand dois-je aller chercher votre commande ?</p>
@@ -567,7 +574,7 @@
               </div>
               <div>
                 <label for="pickup_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="09:00" max="23:00" />
+                <input id="pickup_time" name="pickup_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
               </div>
             </div>
             <p id="pickup-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;margin-bottom:12px;"></p>
@@ -582,7 +589,7 @@
               </div>
               <div>
                 <label for="delivery_time" style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;display:block;">🕐 Heure</label>
-                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="09:00" max="23:00" />
+                <input id="delivery_time" name="delivery_time" type="time" required style="width:100%;" min="09:00" max="18:00" />
               </div>
             </div>
             <p id="datetime-msg" style="font-size:0.82rem;margin-top:4px;min-height:18px;"></p>
@@ -621,7 +628,7 @@
                 <strong style="color:var(--gold);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;">Montant à régler</strong>
                 <span id="stripe-amount-label" style="font-size:1.5rem;font-weight:900;color:var(--gold);">—</span>
               </div>
-              <a id="stripe-payment-link" href="#" target="_blank" style="
+              <a id="stripe-payment-link" href="#" target="_blank" onclick="if((typeof addressValid!=='undefined'&&!addressValid)||(typeof shopValid!=='undefined'&&!shopValid)){event.preventDefault();event.stopPropagation();if(window.afficherPopupHorsZone)window.afficherPopupHorsZone();var m=document.getElementById('formMsg');if(m){m.textContent='🚫 Vous êtes hors zone de livraison. Veuillez corriger l\'adresse.';m.style.color='#e8372a';}return false;}" style="
                 display:flex;align-items:center;justify-content:center;gap:10px;
                 background:linear-gradient(135deg,var(--gold),#e8c84a);
                 color:#0b3d2e;font-weight:800;font-size:0.95rem;
@@ -649,6 +656,8 @@
               </button>
               <button type="reset" class="btn btn-outline">Réinitialiser</button>
             </div>
+
+            </div><!-- /form-lock-zone -->
 
             <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
           </form>
@@ -1034,6 +1043,31 @@
       firstOrder: { 1: '2,80 €', 2: '3,50 €', 3: '4,50 €' },
     };
 
+    // ── POP-UP HORS ZONE — bloque le paiement CB ──
+    function afficherPopupHorsZone() {
+      var existant = document.getElementById('horszone-modal');
+      if (existant) { existant.style.display = 'flex'; return; }
+      var modal = document.createElement('div');
+      modal.id = 'horszone-modal';
+      modal.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);padding:16px;';
+      modal.innerHTML =
+        '<div style="background:#1a0505;border:2px solid #e8372a;border-radius:18px;padding:32px 26px 26px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
+          '<div style="font-size:3rem;margin-bottom:12px;">🚫</div>' +
+          '<h2 style="color:#ff6b5b;font-family:\'Playfair Display\',serif;font-size:1.35rem;margin:0 0 12px;">Vous êtes hors zone de livraison</h2>' +
+          '<p style="color:rgba(255,255,255,0.88);font-size:0.95rem;line-height:1.6;margin:0 0 22px;">Veuillez corriger l\'adresse.<br>La zone couverte s\'étend sur 8 km autour de la mairie de Nozay (44170).</p>' +
+          '<button id="horszone-close-btn" style="background:linear-gradient(135deg,#e8372a,#c0392b);color:#fff;font-weight:800;font-size:1rem;border:none;border-radius:10px;padding:13px 32px;cursor:pointer;width:100%;">Corriger mon adresse</button>' +
+        '</div>';
+      document.body.appendChild(modal);
+      function fermer() {
+        modal.style.display = 'none';
+        var a = document.getElementById('address');
+        if (a) a.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      document.getElementById('horszone-close-btn').addEventListener('click', fermer);
+      modal.addEventListener('click', function(e) { if (e.target === modal) fermer(); });
+    }
+    window.afficherPopupHorsZone = afficherPopupHorsZone;
+
     function updateStripeLink() {
       const wrap  = document.getElementById('stripe-link-wrap');
       const link  = document.getElementById('stripe-payment-link');
@@ -1046,6 +1080,23 @@
       link.href         = STRIPE_LINKS[type][z];
       label.textContent = STRIPE_LABELS[type][z];
       label.style.color = fo ? '#ff8800' : 'var(--gold)';
+      // Bloquer le clic + pop-up si adresse de livraison OU lieu de prise en charge hors zone
+      var horsZone = (typeof addressValid !== 'undefined' && !addressValid) ||
+                     (typeof shopValid !== 'undefined' && !shopValid);
+      link.style.opacity = horsZone ? '0.45' : '';
+      link.style.filter  = horsZone ? 'grayscale(0.6)' : '';
+      link.onclick = function(e) {
+        var bloque = (typeof addressValid !== 'undefined' && !addressValid) ||
+                     (typeof shopValid !== 'undefined' && !shopValid);
+        if (bloque) {
+          e.preventDefault();
+          e.stopPropagation();
+          afficherPopupHorsZone();
+          var fmsg = document.getElementById('formMsg');
+          if (fmsg) { fmsg.textContent = '\u{1F6AB} Vous êtes hors zone de livraison. Veuillez corriger l\'adresse.'; fmsg.style.color = '#e8372a'; }
+          return false;
+        }
+      };
     }
     window.updateStripeLink = updateStripeLink;
 
@@ -1073,6 +1124,9 @@
           currentZone = 0;
           shopZone = 0;
           addressValid = false;
+          shopValid = true;
+          addressHorsZone = false;
+          shopHorsZone = false;
           updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
           showDistanceMsg('', '');
         });
@@ -1135,6 +1189,28 @@
       var addressValid = false;
       var currentZone = 0;
       var shopZone = 0;
+      var shopValid = true; // pas bloquant si vide ou non reconnu
+      var addressHorsZone = false; // vrai si l'adresse de livraison dépasse les 8 km
+      var shopHorsZone = false;    // vrai si le lieu de prise en charge dépasse les 8 km
+
+      // Cadre géographique 8 km autour de la mairie de Nozay (44170)
+      // → évite que Google confonde avec Nozay (91, Essonne)
+      var GEO_BOUNDS = '47.4929,-1.7455|47.6366,-1.5083';
+
+      // Choisit, parmi les résultats Google, celui le plus proche de la mairie de Nozay (44)
+      function meilleurResultat(results) {
+        var best = null, bestDist = Infinity;
+        for (var i = 0; i < results.length; i++) {
+          var l = results[i].geometry.location;
+          var d = haversineKm(MAIRIE_LAT, MAIRIE_LNG, l.lat, l.lng);
+          if (d < bestDist) { bestDist = d; best = results[i]; }
+        }
+        return { result: best, dist: bestDist };
+      }
+      // Verrouiller le formulaire dès le chargement
+      document.addEventListener('DOMContentLoaded', function() {
+        refreshFormLock();
+      });
 
       function getEffectiveZone() {
         return Math.max(currentZone, shopZone);
@@ -1194,6 +1270,51 @@
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       }
 
+      // ── Verrouillage de la zone date/heure/paiement ──
+      function lockFormZone(msg) {
+        var overlay = document.getElementById('form-lock-overlay');
+        var msgEl   = document.getElementById('form-lock-msg');
+        if (!overlay) return;
+        if (msgEl) msgEl.textContent = msg || 'Adresse hors zone.';
+        overlay.style.display = 'flex';
+        var zone = document.getElementById('form-lock-zone');
+        if (zone) zone.querySelectorAll('input, button, a, textarea, select').forEach(function(el) {
+          el.setAttribute('tabindex', '-1');
+          el.style.pointerEvents = 'none';
+        });
+      }
+      function unlockFormZone() {
+        var overlay = document.getElementById('form-lock-overlay');
+        if (!overlay) return;
+        overlay.style.display = 'none';
+        var zone = document.getElementById('form-lock-zone');
+        if (zone) zone.querySelectorAll('input, button, a, textarea, select').forEach(function(el) {
+          el.removeAttribute('tabindex');
+          el.style.pointerEvents = '';
+        });
+      }
+      // Appelé après chaque vérification d'adresse ou de lieu de prise en charge
+      function refreshFormLock() {
+        if (!addressValid) {
+          lockFormZone(addressHorsZone
+            ? 'Vous avez dépassé la zone de livraison (max 8 km autour de la mairie de Nozay). Corrigez l\'adresse pour continuer.'
+            : 'Adresse de livraison hors zone ou non validée — corrigez-la pour continuer.');
+        } else if (!shopValid) {
+          lockFormZone('Le lieu de prise en charge a dépassé la zone de livraison (max 8 km de la mairie de Nozay).');
+        } else {
+          unlockFormZone();
+        }
+        // Si on est hors zone, un clic sur la zone verrouillée affiche la pop-up
+        var overlay = document.getElementById('form-lock-overlay');
+        if (overlay) {
+          overlay.style.cursor = (addressHorsZone || shopHorsZone) ? 'pointer' : '';
+          overlay.onclick = function() {
+            if (addressHorsZone || shopHorsZone) afficherPopupHorsZone();
+          };
+        }
+        if (typeof updateStripeLink === 'function') updateStripeLink();
+      }
+
       function showDistanceMsg(msg, color) {
         var el = document.getElementById('address-distance-msg');
         if (el) { el.textContent = msg; el.style.color = color; }
@@ -1203,42 +1324,64 @@
       function checkAddress() {
         var addr = (document.getElementById('address') || {}).value || '';
         addr = addr.trim();
-        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; currentZone = 0; updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink(); return; }
-        if (addr.toLowerCase().indexOf('nozay') === -1) {
-          addr = addr + ', Nozay, 44170, France';
+        if (addr.length < 5) { showDistanceMsg('', ''); addressValid = false; addressHorsZone = false; currentZone = 0; refreshFormLock(); updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink(); return; }
+        // Ajoute '44170 Nozay, France' seulement si pas de code postal (5 chiffres) dans l'adresse
+        // → force la commune de Loire-Atlantique (et pas Nozay 91, Essonne)
+        if (!/\b\d{5}\b/.test(addr)) {
+          addr = addr + ', 44170 Nozay, France';
         }
         showDistanceMsg('Verification de la zone...', '#aaa');
-        var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&location=47.564751,-1.626916&radius=5000&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+        var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&region=fr&components=country:FR&bounds=' + encodeURIComponent(GEO_BOUNDS) + '&key=' + GOOGLE_API_KEY;
+        console.log('[GEOCODE] Requête:', addr, '| URL:', geoUrl);
         fetch(geoUrl)
           .then(function(r) { return r.json(); })
           .then(function(data) {
-            if (!data.results || data.results.length === 0) {
-              showDistanceMsg('Adresse non reconnue. Verifiez votre saisie.', '#e8372a');
-              addressValid = false;
+            if (data.status && data.status !== 'OK' && data.status !== 'ZERO_RESULTS') {
+              // Erreur API (clé refusée, quota, etc.) — ne pas bloquer, laisser passer
+              console.warn('[GEOCODE] API status:', data.status, data.error_message || '');
+              showDistanceMsg('', '');
               return;
             }
-            var loc = data.results[0].geometry.location;
-            var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
-            if (dist > MAX_KM) {
-              showDistanceMsg('🚫 Adresse hors zone (' + dist.toFixed(1) + ' km). Livraison limitée à ' + MAX_KM + ' km autour de Nozay.', '#e8372a');
+            if (!data.results || data.results.length === 0) {
+              showDistanceMsg('Adresse non reconnue. Vérifiez votre saisie.', '#e8372a');
               addressValid = false;
+              addressHorsZone = false;
+              refreshFormLock();
+              return;
+            }
+            // On retient le résultat le plus proche de la mairie de Nozay (44)
+            // → si Google propose aussi Nozay (91), il est automatiquement écarté
+            var best = meilleurResultat(data.results);
+            var dist = best.dist;
+            console.log('[GEOCODE] Résultat:', best.result.formatted_address, '| dist:', dist.toFixed(2), 'km');
+            if (dist > MAX_KM) {
+              showDistanceMsg('🚫 Vous avez dépassé la zone de livraison (' + dist.toFixed(1) + ' km). Livraison limitée à ' + MAX_KM + ' km autour de la mairie de Nozay (44170).', '#e8372a');
+              addressValid = false;
+              addressHorsZone = true;
               currentZone = 0;
+              refreshFormLock();
             } else if (dist > 5) {
               showDistanceMsg('📅 Adresse en Zone 3 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#e67e22');
               addressValid = true;
+              addressHorsZone = false;
               currentZone = 3;
+              refreshFormLock();
             } else if (dist > 3) {
               showDistanceMsg('📅 Adresse en Zone 2 (' + dist.toFixed(1) + ' km). Réservation 24h à l\'avance obligatoire.', '#2e86de');
               addressValid = true;
+              addressHorsZone = false;
               currentZone = 2;
+              refreshFormLock();
             } else {
               showDistanceMsg('✅ Adresse en Zone 1 (' + dist.toFixed(1) + ' km). Livraison rapide disponible.', '#4caf50');
               addressValid = true;
+              addressHorsZone = false;
               currentZone = 1;
+              refreshFormLock();
             }
             updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
           })
-          .catch(function() { showDistanceMsg('', ''); addressValid = true; });
+          .catch(function() { showDistanceMsg('', ''); /* Erreur réseau silencieuse */ });
       }
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -1268,10 +1411,12 @@
           var chosen = new Date(dateVal + 'T' + timeVal);
           var now = new Date();
           var diffH = (chosen - now) / 3600000;
-          var h = parseInt(timeVal.split(':')[0]);
+          var h = parseInt(timeVal.split(':')[0], 10);
+          var m = parseInt(timeVal.split(':')[1] || '0', 10);
 
-          if (h < 9 || h >= 23) {
-            msgEl.textContent = '⚠️ Les prises en charge sont possibles entre 9h00 et 23h00.';
+          // Horaires d'ouverture : 9h00 — 18h00
+          if (h < 9 || h > 18 || (h === 18 && m > 0)) {
+            msgEl.textContent = '⚠️ Ce créneau est en dehors des horaires d\'ouverture. Vous pouvez passer commande de 9h00 à 18h00. Veuillez choisir un horaire dans cette plage.';
             msgEl.style.color = '#e8372a';
             return false;
           }
@@ -1302,10 +1447,12 @@
           var chosen = new Date(dateVal + 'T' + timeVal);
           var now = new Date();
           var diffH = (chosen - now) / 3600000;
-          var h = parseInt(timeVal.split(':')[0]);
+          var h = parseInt(timeVal.split(':')[0], 10);
+          var m = parseInt(timeVal.split(':')[1] || '0', 10);
 
-          if (h < 9 || h >= 23) {
-            msgEl.textContent = '⚠️ Les livraisons sont possibles entre 9h00 et 23h00.';
+          // Horaires d'ouverture : 9h00 — 18h00
+          if (h < 9 || h > 18 || (h === 18 && m > 0)) {
+            msgEl.textContent = '⚠️ Ce créneau est en dehors des horaires d\'ouverture. Vous pouvez passer commande de 9h00 à 18h00. Veuillez choisir un horaire dans cette plage.';
             msgEl.style.color = '#e8372a';
             return false;
           }
@@ -1337,7 +1484,7 @@
         }
 
         // Vérification distance pour le lieu de prise en charge
-        var shopValid = true; // pas bloquant si vide ou non reconnu
+        // (shopValid est déclaré plus haut, au même niveau que addressValid)
         var shopTimer = null;
 
         function showShopMsg(msg, color) {
@@ -1349,40 +1496,56 @@
           var shopInput = document.getElementById('shop_name');
           if (!shopInput) return;
           var addr = shopInput.value.trim();
-          if (addr.length < 5) { showShopMsg('', ''); shopValid = true; return; }
-          if (addr.toLowerCase().indexOf('nozay') === -1) {
-            addr = addr + ', Nozay, 44170, France';
+          if (addr.length < 5) { showShopMsg('', ''); shopValid = true; shopHorsZone = false; refreshFormLock(); return; }
+          // Ajoute '44170 Nozay, France' seulement si pas de code postal (5 chiffres) dans l'adresse
+          // → force la commune de Loire-Atlantique (et pas Nozay 91, Essonne)
+          if (!/\b\d{5}\b/.test(addr)) {
+            addr = addr + ', 44170 Nozay, France';
           }
           showShopMsg('Vérification de la zone...', '#aaa');
-          var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&region=fr&components=country:FR&key=' + GOOGLE_API_KEY;
+          var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(addr) + '&region=fr&components=country:FR&bounds=' + encodeURIComponent(GEO_BOUNDS) + '&key=' + GOOGLE_API_KEY;
           fetch(geoUrl)
             .then(function(r) { return r.json(); })
             .then(function(data) {
-              if (!data.results || data.results.length === 0) {
-                showShopMsg('', ''); shopValid = true; return;
+              if (data.status && data.status !== 'OK' && data.status !== 'ZERO_RESULTS') {
+                console.warn('[GEOCODE SHOP] API status:', data.status, data.error_message || '');
+                showShopMsg('', '');
+                return;
               }
-              var loc = data.results[0].geometry.location;
-              var dist = haversineKm(MAIRIE_LAT, MAIRIE_LNG, loc.lat, loc.lng);
+              if (!data.results || data.results.length === 0) {
+                showShopMsg('', ''); shopValid = true; shopHorsZone = false; refreshFormLock(); return;
+              }
+              // Résultat le plus proche de la mairie de Nozay (44)
+              var best = meilleurResultat(data.results);
+              var dist = best.dist;
               if (dist > 8) {
-                showShopMsg('🚫 Ce lieu est hors zone (' + dist.toFixed(1) + ' km). Maximum 8 km.', '#e8372a');
+                showShopMsg('🚫 Vous avez dépassé la zone de livraison (' + dist.toFixed(1) + ' km). Prise en charge limitée à 8 km autour de la mairie de Nozay (44170).', '#e8372a');
                 shopValid = false;
+                shopHorsZone = true;
                 shopZone = 0;
+                refreshFormLock();
               } else if (dist > 5) {
                 showShopMsg('📅 Lieu en Zone 3 (' + dist.toFixed(1) + ' km). Réservation 24h avant requise.', '#e67e22');
                 shopValid = true;
+                shopHorsZone = false;
                 shopZone = 3;
+                refreshFormLock();
               } else if (dist > 3) {
                 showShopMsg('📅 Lieu en Zone 2 (' + dist.toFixed(1) + ' km). Réservation 24h avant requise.', '#2e86de');
                 shopValid = true;
+                shopHorsZone = false;
                 shopZone = 2;
+                refreshFormLock();
               } else {
                 showShopMsg('✅ Lieu en Zone 1 (' + dist.toFixed(1) + ' km).', '#4caf50');
                 shopValid = true;
+                shopHorsZone = false;
                 shopZone = 1;
+                refreshFormLock();
               }
               updatePriceSummary(); if(typeof updateStripeLink==="function") updateStripeLink();
             })
-            .catch(function() { showShopMsg('', ''); shopValid = true; });
+            .catch(function() { showShopMsg('', ''); shopValid = true; shopHorsZone = false; });
         }
 
         var shopInput = document.getElementById('shop_name');

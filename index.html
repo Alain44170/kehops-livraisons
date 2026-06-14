@@ -200,10 +200,24 @@
     .btn-langue{
       background:var(--blanc);border:1.4px solid var(--sable-line);color:var(--encre);
       font-weight:600;font-size:.8rem;border-radius:999px;padding:7px 14px;cursor:pointer;
-      transition:border-color .15s, background .15s;
+      transition:border-color .15s, background .15s, box-shadow .15s;
     }
     .btn-langue:hover{border-color:var(--ocre)}
     .btn-langue.actif{background:var(--encre);color:var(--ocre);border-color:var(--encre)}
+
+    /* Animation en cascade pour attirer l'œil sur le choix de langue */
+    @keyframes langPulse{
+      0%, 100%{ background:var(--blanc); border-color:var(--sable-line); color:var(--encre); box-shadow:none; transform:scale(1); }
+      50%{ background:var(--ocre); border-color:var(--ocre); color:#fff; box-shadow:0 4px 14px rgba(200,144,46,.45); transform:scale(1.12); }
+    }
+    .btn-langue:not(.actif){ animation:langPulse 2.4s ease-in-out infinite; }
+    .btn-langue[data-lang="en"]{ animation-delay:0s; }
+    .btn-langue[data-lang="es"]{ animation-delay:.45s; }
+    .btn-langue[data-lang="de"]{ animation-delay:.9s; }
+    .btn-langue[data-lang="fr"]:not(.actif){ animation-delay:1.35s; }
+    /* L'animation s'arrête au survol et pour qui préfère moins de mouvement */
+    .btn-langue:hover{ animation:none; }
+    @media (prefers-reduced-motion: reduce){ .btn-langue{ animation:none !important; } }
 
     .burger{display:none;background:none;border:none;font-size:1.4rem;color:var(--encre);cursor:pointer}
 

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Pages internes non destinées à l'indexation
+Disallow: /livreur.html
+Disallow: /app.html
+
+Sitemap: https://kheops-livraison.fr/sitemap.xml

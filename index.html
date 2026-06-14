@@ -6,7 +6,7 @@
 
   <!-- ===================================================== SEO LOCAL — Saint-Brévin-les-Pins ===================================================== -->
   <title>Livraison à domicile Saint-Brévin-les-Pins (44) — Courses, colis, linge | Khéops Livraisons</title>
-  <meta name="description" content="Livraison locale à Saint-Brévin-les-Pins (44250) : courses du drive, colis, linge, objets oubliés, récupérés et livrés à domicile, en résidence ou au camping. Tarif unique 7,50 €, paiement 100 % en ligne, 7j/7 en saison." />
+  <meta name="description" content="Livraison locale à Saint-Brévin-les-Pins (44250) : courses du drive, colis, linge, objets oubliés, récupérés et livrés à domicile, en résidence ou au camping. Tarif unique 7,50 €, paiement 100 % en ligne, du lundi au samedi en saison." />
   <meta name="keywords" content="livraison Saint-Brévin-les-Pins, livraison domicile 44250, courses drive livrées Saint-Brévin, livraison camping Saint-Brévin, coursier Saint-Brévin-les-Pins, livraison Mindin, livraison Saint-Brévin-l'Océan, course U Drive Saint-Brévin, livraison linge pressing Saint-Brévin, livraison Loire-Atlantique, Khéops Livraisons" />
   <meta name="author" content="Khéops Livraisons" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -41,7 +41,7 @@
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Livraison à domicile à Saint-Brévin-les-Pins — Khéops Livraisons" />
-  <meta name="twitter:description" content="Courses du drive, colis, linge, objets oubliés livrés à Saint-Brévin-les-Pins. Tarif unique 7,50 €, 100 % en ligne, 7j/7 en saison." />
+  <meta name="twitter:description" content="Courses du drive, colis, linge, objets oubliés livrés à Saint-Brévin-les-Pins. Tarif unique 7,50 €, 100 % en ligne, du lundi au samedi en saison." />
   <meta name="twitter:image" content="https://kheops-livraison.fr/logo.png" />
 
   <!-- ============== DONNÉES STRUCTURÉES (JSON-LD) ============== -->
@@ -76,8 +76,8 @@
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-      "opens": "10:00",
-      "closes": "18:00"
+      "opens": "09:00",
+      "closes": "19:00"
     }],
     "makesOffer": {
       "@type": "Offer",
@@ -109,7 +109,7 @@
       { "@type": "Question", "name": "Qu'est-ce que vous livrez à Saint-Brévin-les-Pins ?", "acceptedAnswer": { "@type": "Answer", "text": "Tout ce que vous avez déjà commandé ou payé : courses du drive, click & collect, colis en point relais, linge au pressing, objets oubliés, courrier. Je transporte, je n'achète pas à votre place." } },
       { "@type": "Question", "name": "Combien coûte une livraison ?", "acceptedAnswer": { "@type": "Answer", "text": "Un tarif unique de 7,50 € par livraison, partout à Saint-Brévin-les-Pins, payé en ligne par carte bancaire." } },
       { "@type": "Question", "name": "Jusqu'où livrez-vous ?", "acceptedAnswer": { "@type": "Answer", "text": "Partout à Saint-Brévin-les-Pins (44250) : maison, résidence secondaire ou emplacement de camping." } },
-      { "@type": "Question", "name": "Quels jours et horaires ?", "acceptedAnswer": { "@type": "Answer", "text": "Du lundi au samedi de 10h à 18h, 7j/7 en saison estivale." } }
+      { "@type": "Question", "name": "Quels jours et horaires ?", "acceptedAnswer": { "@type": "Answer", "text": "Du lundi au samedi de 9h à 19h en saison estivale (fermé le dimanche)." } }
     ]
   }
   </script>
@@ -383,10 +383,14 @@
     .modal-head{background:var(--encre);border-radius:16px 16px 0 0;padding:20px 26px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
     .modal-head h3{color:var(--ocre);font-size:1.15rem}
     .modal-head button{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.4rem;cursor:pointer;line-height:1}
-    .modal-body{padding:24px 26px}
-    .modal-body h4{color:var(--encre);margin:16px 0 6px;font-size:1rem}
-    .modal-body p,.modal-body li{font-size:.9rem;color:var(--encre-soft);margin-bottom:8px}
+    .modal-body{padding:24px 28px}
+    .modal-body h4{color:var(--encre);margin:20px 0 7px;font-size:1.02rem;font-family:var(--font-display)}
+    .modal-body h4:first-child{margin-top:0}
+    .modal-body p,.modal-body li{font-size:.92rem;color:var(--encre-soft);margin-bottom:10px;line-height:1.65}
     .modal-body ul{padding-left:20px}
+    .modal-foot{position:sticky;bottom:0;background:var(--blanc);border-top:1px solid var(--sable-line);padding:16px 28px;border-radius:0 0 16px 16px}
+    .btn-accept-cgl{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--vert);color:#fff;font-family:var(--font-body);font-weight:800;font-size:1rem;border:none;border-radius:999px;padding:14px;cursor:pointer;transition:filter .15s, transform .15s;box-shadow:0 6px 18px rgba(46,125,82,.28)}
+    .btn-accept-cgl:hover{filter:brightness(1.08);transform:translateY(-2px)}
 
     /* ---------- Reveal ---------- */
     .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease}
@@ -620,7 +624,8 @@
           </div>
 
           <form id="delivery-form" novalidate>
-            <label style="font-weight:700;font-size:.88rem;color:var(--encre);margin-bottom:9px;display:block" data-i18n="dl_svc_label"></label>
+            <label style="font-weight:700;font-size:.88rem;color:var(--encre);margin-bottom:4px;display:block" data-i18n="dl_svc_label"></label>
+            <p style="font-size:.8rem;color:var(--ardoise);margin-bottom:11px" data-i18n="dl_svc_hint"></p>
             <div class="svc-pick" id="service-grid">
               <label class="svc-opt" data-value="courses">
                 <input type="radio" name="serviceType" value="Courses / Drive" required>
@@ -637,6 +642,14 @@
               <label class="svc-opt" data-value="oubli">
                 <input type="radio" name="serviceType" value="Objet oublié">
                 <span class="emo">🏖️</span><strong data-i18n="dl_o4t"></strong><span data-i18n="dl_o4p"></span>
+              </label>
+              <label class="svc-opt" data-value="pharmacie">
+                <input type="radio" name="serviceType" value="Pharmacie (click & collect)">
+                <span class="emo">💊</span><strong data-i18n="dl_o5t"></strong><span data-i18n="dl_o5p"></span>
+              </label>
+              <label class="svc-opt" data-value="autre">
+                <input type="radio" name="serviceType" value="Besoin spécifique">
+                <span class="emo">✨</span><strong data-i18n="dl_o6t"></strong><span data-i18n="dl_o6p"></span>
               </label>
             </div>
 
@@ -669,15 +682,17 @@
               <label data-i18n="dl_pickup"></label>
               <div class="grid2">
                 <input id="pickup_date" name="pickup_date" type="date" required>
-                <input id="pickup_time" name="pickup_time" type="time" required min="10:00" max="18:00">
+                <input id="pickup_time" name="pickup_time" type="time" required min="09:00" max="19:00">
               </div>
+              <p id="pickup-time-msg" class="fld-msg"></p>
             </div>
             <div class="fld">
               <label data-i18n="dl_delivery"></label>
               <div class="grid2">
                 <input id="delivery_date" name="delivery_date" type="date" required>
-                <input id="delivery_time" name="delivery_time" type="time" required min="10:00" max="18:00">
+                <input id="delivery_time" name="delivery_time" type="time" required min="09:00" max="19:00">
               </div>
+              <p id="delivery-time-msg" class="fld-msg"></p>
             </div>
             <div class="fld">
               <label for="message" data-i18n="dl_more"></label>
@@ -694,7 +709,7 @@
                 <strong data-i18n="dl_amount"></strong>
                 <span class="amount">7,50&nbsp;€</span>
               </div>
-              <a id="stripe-payment-link" class="pay-link" href="https://buy.stripe.com/28EdRafwpcwSfTc42bfQI0a" target="_blank" rel="noopener">
+              <a id="stripe-payment-link" class="pay-link" href="https://buy.stripe.com/28EdRafwpcwSfTc42bfQI0a" target="_blank" rel="noopener" onclick="return verifierAvantPaiement(event);">
                 <i class="fa fa-lock"></i> <span data-i18n="dl_pay"></span>
               </a>
               <p class="pay-secure"><i class="fa fa-shield-halved" style="color:var(--vert)"></i> <span data-i18n="dl_secure"></span></p>
@@ -806,9 +821,14 @@
     <div class="modal-box">
       <div class="modal-head">
         <h3 data-i18n="cgl_title"></h3>
-        <button onclick="closeCGL()">✕</button>
+        <button onclick="closeCGL()" aria-label="Fermer">✕</button>
       </div>
       <div class="modal-body" id="cgl-content"></div>
+      <div class="modal-foot">
+        <button class="btn-accept-cgl" onclick="accepterCGL()">
+          <i class="fa fa-check"></i> <span data-i18n="cgl_accept"></span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -826,7 +846,7 @@
     hero_lead:"Courses du drive, colis, linge, objets oubliés — récupérés et livrés chez vous, en résidence ou sur votre emplacement de camping à Saint-Brévin-les-Pins.",
     hero_cta1:"Commander une livraison", hero_cta2:"Voir les services",
     hero_trust:"Vous payez vos achats au commerçant — je ne fais que transporter.",
-    card_label:"Tarif unique, partout", card_price_sub:"par livraison · 7j/7 en saison",
+    card_label:"Tarif unique, partout", card_price_sub:"par livraison · lun–sam en saison",
     card_li1:"Tout Saint-Brévin-les-Pins", card_li2:"Maison, résidence ou camping",
     card_li3:"Paiement 100 % en ligne", card_li4:"Prix du magasin, promos & fidélité conservés",
     card_cta:"Commander maintenant",
@@ -845,16 +865,18 @@
     h2t:"Réservez votre livraison", h2p:"Remplissez le formulaire, payez la livraison en ligne, et joignez la capture de votre commande (et le code-barres de votre carte de fidélité pour le drive).",
     h3t:"Je récupère & je livre", h3p:"Je retire votre commande et je vous livre à votre porte, votre résidence ou votre emplacement de camping.",
     how_note:"Je livre en deux-roues : pensez aux packs d'eau et produits volumineux. Si une commande dépasse ma capacité, je vous préviens et vous rembourse intégralement la livraison.",
-    tarif_title:"Un tarif unique, sans surprise", tarif_desc:"7,50 € la livraison, partout à Saint-Brévin-les-Pins, 7j/7 en saison. Paiement 100 % en ligne.",
+    tarif_title:"Un tarif unique, sans surprise", tarif_desc:"7,50 € la livraison, partout à Saint-Brévin-les-Pins, du lundi au samedi en saison. Paiement 100 % en ligne.",
     tarif_cta:"Commander une livraison",
     contact_eyebrow:"Commander & contacter", contact_title:"Faites votre demande en ligne", contact_desc:"Une demande de livraison, ou une simple question — tout passe par ces formulaires.",
     dl_title:"Demande de livraison", dl_sub:"Remplissez ce formulaire après avoir commandé et payé chez le commerçant.",
     dl_drive_t:"Pour un drive, suivez ces étapes :", dl_drive_p:"Commandez et payez d'abord sur le site de votre enseigne (U Drive, Leclerc Drive…). Revenez ensuite ici, réglez la livraison en ligne et envoyez votre demande.",
-    dl_svc_label:"Type de service",
+    dl_svc_label:"Type de service", dl_svc_hint:"Sélectionnez le service qui correspond le mieux à votre demande.",
     dl_o1t:"Courses / Drive", dl_o1p:"2 grands sacs max., 10 kg",
     dl_o2t:"Colis / Courrier", dl_o2p:"Dépôt, retrait, pli urgent",
     dl_o3t:"Linge / Pressing", dl_o3p:"Retrait, déjà réglé",
     dl_o4t:"Objet oublié", dl_o4p:"Plage, location, resto…",
+    dl_o5t:"Pharmacie", dl_o5p:"Click & collect, déjà réglé",
+    dl_o6t:"Besoin spécifique", dl_o6p:"Toute autre demande",
     dl_name:"Votre nom", dl_email:"Votre email",
     dl_address:"Adresse de livraison", dl_shop:"Lieu de prise en charge", dl_shop_hint:"Nom et adresse du commerce, drive ou point relais où je récupère.",
     dl_list:"Articles / commande à récupérer", dl_list_hint:"Volume max transportable : l'équivalent de 2 grands sacs et un pack d'eau (10 kg).",
@@ -872,18 +894,18 @@
     faq_q4:"Quel volume puis-je faire livrer ?", faq_a4:"Je livre en deux-roues : l'équivalent de 2 grands sacs et un pack d'eau, environ 10 kg. Pour le drive, envoyez-moi la capture de votre commande, je vérifie que tout passe.",
     faq_q5:"Et si ma commande est trop volumineuse ?", faq_a5:"Je vous préviens aussitôt et je vous rembourse intégralement la livraison, automatiquement sur votre carte. Vous ne risquez rien.",
     foot_about:"Service de livraison local en deux-roues à Saint-Brévin-les-Pins. Je transporte vos courses, colis et linge — vous ne bougez pas.",
-    foot_nav:"Navigation", foot_info:"Informations", foot_cgl:"Conditions générales", foot_zone:"Zone : Saint-Brévin-les-Pins (44250)", foot_hours:"Lun–Sam, 10h–18h",
+    foot_nav:"Navigation", foot_info:"Informations", foot_cgl:"Conditions générales", foot_zone:"Zone : Saint-Brévin-les-Pins (44250)", foot_hours:"Lun–Sam, 9h–19h",
     foot_legal:"Paiement 100 % en ligne — aucune espèce.",
     banner_msg:"Notre nouveau site est en cours de finalisation. Certaines pages seront bientôt disponibles — merci de revenir dans quelques jours !",
     foot_areas:"Quartiers desservis à Saint-Brévin-les-Pins : centre-bourg, Saint-Brévin-l'Océan, Mindin, l'Ermitage, les Rochelets, la Guérinière — ainsi que tous les campings et résidences de la commune (44250, Loire-Atlantique).",
-    cgl_title:"Conditions Générales de Livraison",
+    cgl_title:"Conditions Générales de Livraison", cgl_accept:"J'accepte les conditions générales",
     cgl_body:`<h4>1. Objet du service</h4><p>Khéops Livraisons est un service de transport de proximité à Saint-Brévin-les-Pins. Je récupère et livre des biens que vous avez déjà commandés et/ou réglés auprès d'un commerçant. Je n'achète aucun produit à votre place et n'avance aucune somme.</p>
     <h4>2. Tarif</h4><p>La livraison est facturée 7,50 € par course, réglée en ligne par carte bancaire avant la prestation. Ce tarif couvre le transport uniquement, à l'exclusion du prix des marchandises.</p>
     <h4>3. Volume & poids</h4><p>Le service est limité aux commandes transportables en deux-roues : l'équivalent de 2 grands sacs et un pack d'eau, soit environ 10 kg. Si votre commande dépasse cette capacité, vous êtes intégralement remboursé de la livraison.</p>
     <h4>4. Justificatifs (drive)</h4><p>Pour les courses en drive, vous vous engagez à fournir la capture de votre commande et, si nécessaire, le code-barres de votre carte de fidélité, afin de permettre le retrait.</p>
     <h4>5. Remboursement</h4><p>En cas d'impossibilité de réaliser la livraison (volume excessif, commerce fermé, commande introuvable), la livraison est remboursée intégralement et automatiquement sur votre moyen de paiement.</p>
     <h4>6. Responsabilité</h4><p>Khéops Livraisons est assuré en responsabilité civile professionnelle. Ma responsabilité se limite au transport des biens confiés, dans la limite de leur valeur déclarée.</p>
-    <h4>7. Zone & horaires</h4><p>Service disponible à Saint-Brévin-les-Pins (44250), du lundi au samedi de 10h à 18h, 7j/7 en saison estivale.</p>`
+    <h4>7. Zone & horaires</h4><p>Service disponible à Saint-Brévin-les-Pins (44250), du lundi au samedi de 9h à 19h en saison estivale (fermé le dimanche).</p>`
   },
   en:{
     nav_services:"Services", nav_how:"How it works", nav_tarif:"Price", nav_faq:"FAQ", nav_contact:"Order",
@@ -891,7 +913,7 @@
     hero_lead:"Supermarket drive orders, parcels, laundry, forgotten items — collected and delivered to your home, residence or campsite pitch in Saint-Brévin-les-Pins.",
     hero_cta1:"Order a delivery", hero_cta2:"See services",
     hero_trust:"You pay the shop directly — I only transport.",
-    card_label:"One flat rate, everywhere", card_price_sub:"per delivery · 7 days a week in season",
+    card_label:"One flat rate, everywhere", card_price_sub:"per delivery · Mon–Sat in season",
     card_li1:"All of Saint-Brévin-les-Pins", card_li2:"Home, residence or campsite",
     card_li3:"100% online payment", card_li4:"Store prices, discounts & loyalty points kept",
     card_cta:"Order now",
@@ -910,16 +932,18 @@
     h2t:"Book your delivery", h2p:"Fill in the form, pay the delivery online, and attach a screenshot of your order (and your loyalty card barcode for drive orders).",
     h3t:"I collect & deliver", h3p:"I pick up your order and deliver to your door, your residence or your campsite pitch.",
     how_note:"I deliver by two-wheeler: keep water packs and bulky items in mind. If an order exceeds my capacity, I let you know and refund the delivery in full.",
-    tarif_title:"One flat rate, no surprises", tarif_desc:"€7.50 per delivery, everywhere in Saint-Brévin-les-Pins, 7 days a week in season. 100% online payment.",
+    tarif_title:"One flat rate, no surprises", tarif_desc:"€7.50 per delivery, everywhere in Saint-Brévin-les-Pins, Monday to Saturday in season. 100% online payment.",
     tarif_cta:"Order a delivery",
     contact_eyebrow:"Order & contact", contact_title:"Make your request online", contact_desc:"A delivery request, or a simple question — it all goes through these forms.",
     dl_title:"Delivery request", dl_sub:"Fill in this form after ordering and paying at the shop.",
     dl_drive_t:"For a drive order, follow these steps:", dl_drive_p:"First order and pay on your store's website (U Drive, Leclerc Drive…). Then come back here, pay the delivery online and send your request.",
-    dl_svc_label:"Type of service",
+    dl_svc_label:"Type of service", dl_svc_hint:"Select the service that best matches your request.",
     dl_o1t:"Groceries / Drive", dl_o1p:"2 large bags max., 10 kg",
     dl_o2t:"Parcel / Mail", dl_o2p:"Drop-off, pickup, urgent",
     dl_o3t:"Laundry / Cleaning", dl_o3p:"Pickup, already paid",
     dl_o4t:"Forgotten item", dl_o4p:"Beach, rental, resto…",
+    dl_o5t:"Pharmacy", dl_o5p:"Click & collect, prepaid",
+    dl_o6t:"Specific need", dl_o6p:"Any other request",
     dl_name:"Your name", dl_email:"Your email",
     dl_address:"Delivery address", dl_shop:"Pickup location", dl_shop_hint:"Name and address of the shop, drive or pickup point where I collect.",
     dl_list:"Items / order to collect", dl_list_hint:"Max transportable volume: about 2 large bags and a water pack (10 kg).",
@@ -937,18 +961,18 @@
     faq_q4:"What volume can I have delivered?", faq_a4:"I deliver by two-wheeler: about 2 large bags and a water pack, roughly 10 kg. For drive orders, send me a screenshot so I can check it fits.",
     faq_q5:"What if my order is too bulky?", faq_a5:"I let you know right away and refund the delivery in full, automatically to your card. You risk nothing.",
     foot_about:"Local two-wheeler delivery service in Saint-Brévin-les-Pins. I carry your groceries, parcels and laundry — you don't move.",
-    foot_nav:"Navigation", foot_info:"Information", foot_cgl:"Terms & conditions", foot_zone:"Area: Saint-Brévin-les-Pins (44250)", foot_hours:"Mon–Sat, 10am–6pm",
+    foot_nav:"Navigation", foot_info:"Information", foot_cgl:"Terms & conditions", foot_zone:"Area: Saint-Brévin-les-Pins (44250)", foot_hours:"Mon–Sat, 9am–7pm",
     foot_legal:"100% online payment — no cash.",
     banner_msg:"Our new website is being finalised. Some pages will be available soon — please come back in a few days!",
     foot_areas:"Areas served in Saint-Brévin-les-Pins: town centre, Saint-Brévin-l'Océan, Mindin, l'Ermitage, les Rochelets, la Guérinière — plus all campsites and residences in the commune (44250, Loire-Atlantique).",
-    cgl_title:"General Delivery Terms",
+    cgl_title:"General Delivery Terms", cgl_accept:"I accept the terms and conditions",
     cgl_body:`<h4>1. Purpose</h4><p>Khéops Livraisons is a local transport service in Saint-Brévin-les-Pins. I collect and deliver goods you have already ordered and/or paid for at a shop. I do not buy any product on your behalf and do not advance any money.</p>
     <h4>2. Price</h4><p>Delivery is charged at €7.50 per trip, paid online by card before the service. This covers transport only, excluding the cost of goods.</p>
     <h4>3. Volume & weight</h4><p>The service is limited to orders transportable by two-wheeler: about 2 large bags and a water pack, roughly 10 kg. If your order exceeds this capacity, you are fully refunded for the delivery.</p>
     <h4>4. Proof (drive)</h4><p>For drive groceries, you agree to provide a screenshot of your order and, if needed, your loyalty card barcode, to allow collection.</p>
     <h4>5. Refund</h4><p>If delivery cannot be completed (excessive volume, shop closed, order not found), the delivery is refunded in full and automatically to your payment method.</p>
     <h4>6. Liability</h4><p>Khéops Livraisons holds professional liability insurance. My liability is limited to the transport of the entrusted goods, up to their declared value.</p>
-    <h4>7. Area & hours</h4><p>Service available in Saint-Brévin-les-Pins (44250), Monday to Saturday from 10am to 6pm, 7 days a week in summer season.</p>`
+    <h4>7. Area & hours</h4><p>Service available in Saint-Brévin-les-Pins (44250), Monday to Saturday from 9am to 7pm in summer season (closed on Sundays).</p>`
   },
   es:{
     nav_services:"Servicios", nav_how:"Cómo funciona", nav_tarif:"Tarifa", nav_faq:"FAQ", nav_contact:"Pedir",
@@ -956,7 +980,7 @@
     hero_lead:"Pedidos del drive, paquetes, ropa, objetos olvidados — recogidos y entregados en su casa, residencia o parcela de camping en Saint-Brévin-les-Pins.",
     hero_cta1:"Pedir una entrega", hero_cta2:"Ver servicios",
     hero_trust:"Usted paga al comercio directamente — yo solo transporto.",
-    card_label:"Tarifa única, en todas partes", card_price_sub:"por entrega · 7 días/semana en temporada",
+    card_label:"Tarifa única, en todas partes", card_price_sub:"por entrega · lun–sáb en temporada",
     card_li1:"Todo Saint-Brévin-les-Pins", card_li2:"Casa, residencia o camping",
     card_li3:"Pago 100 % en línea", card_li4:"Precios de tienda, promociones y puntos conservados",
     card_cta:"Pedir ahora",
@@ -975,16 +999,18 @@
     h2t:"Reserve su entrega", h2p:"Rellene el formulario, pague la entrega en línea y adjunte la captura de su pedido (y el código de barras de su tarjeta de fidelidad para el drive).",
     h3t:"Recojo y entrego", h3p:"Recojo su pedido y se lo entrego en su puerta, su residencia o su parcela de camping.",
     how_note:"Entrego en dos ruedas: tenga en cuenta los packs de agua y productos voluminosos. Si un pedido supera mi capacidad, le aviso y le reembolso íntegramente la entrega.",
-    tarif_title:"Una tarifa única, sin sorpresas", tarif_desc:"7,50 € por entrega, en todo Saint-Brévin-les-Pins, 7 días a la semana en temporada. Pago 100 % en línea.",
+    tarif_title:"Una tarifa única, sin sorpresas", tarif_desc:"7,50 € por entrega, en todo Saint-Brévin-les-Pins, de lunes a sábado en temporada. Pago 100 % en línea.",
     tarif_cta:"Pedir una entrega",
     contact_eyebrow:"Pedir y contactar", contact_title:"Haga su solicitud en línea", contact_desc:"Una solicitud de entrega, o una simple pregunta — todo pasa por estos formularios.",
     dl_title:"Solicitud de entrega", dl_sub:"Rellene este formulario tras pedir y pagar en el comercio.",
     dl_drive_t:"Para un drive, siga estos pasos:", dl_drive_p:"Primero pida y pague en la web de su supermercado (U Drive, Leclerc Drive…). Luego vuelva aquí, pague la entrega en línea y envíe su solicitud.",
-    dl_svc_label:"Tipo de servicio",
+    dl_svc_label:"Tipo de servicio", dl_svc_hint:"Seleccione el servicio que mejor se adapte a su solicitud.",
     dl_o1t:"Compra / Drive", dl_o1p:"2 bolsas grandes máx., 10 kg",
     dl_o2t:"Paquete / Correo", dl_o2p:"Depósito, recogida, urgente",
     dl_o3t:"Ropa / Tintorería", dl_o3p:"Recogida, ya pagada",
     dl_o4t:"Objeto olvidado", dl_o4p:"Playa, alquiler, resto…",
+    dl_o5t:"Farmacia", dl_o5p:"Click & collect, ya pagado",
+    dl_o6t:"Necesidad específica", dl_o6p:"Cualquier otra solicitud",
     dl_name:"Su nombre", dl_email:"Su email",
     dl_address:"Dirección de entrega", dl_shop:"Lugar de recogida", dl_shop_hint:"Nombre y dirección del comercio, drive o punto de recogida donde recojo.",
     dl_list:"Artículos / pedido a recoger", dl_list_hint:"Volumen máx. transportable: unas 2 bolsas grandes y un pack de agua (10 kg).",
@@ -1002,18 +1028,18 @@
     faq_q4:"¿Qué volumen puedo hacer entregar?", faq_a4:"Entrego en dos ruedas: unas 2 bolsas grandes y un pack de agua, unos 10 kg. Para el drive, envíeme la captura para comprobar que cabe.",
     faq_q5:"¿Y si mi pedido es demasiado voluminoso?", faq_a5:"Le aviso enseguida y le reembolso íntegramente la entrega, automáticamente en su tarjeta. Usted no arriesga nada.",
     foot_about:"Servicio de entrega local en dos ruedas en Saint-Brévin-les-Pins. Transporto sus compras, paquetes y ropa — usted no se mueve.",
-    foot_nav:"Navegación", foot_info:"Información", foot_cgl:"Condiciones generales", foot_zone:"Zona: Saint-Brévin-les-Pins (44250)", foot_hours:"Lun–Sáb, 10h–18h",
+    foot_nav:"Navegación", foot_info:"Información", foot_cgl:"Condiciones generales", foot_zone:"Zona: Saint-Brévin-les-Pins (44250)", foot_hours:"Lun–Sáb, 9h–19h",
     foot_legal:"Pago 100 % en línea — sin efectivo.",
     banner_msg:"Nuestro nuevo sitio web se está finalizando. Algunas páginas estarán disponibles pronto — ¡vuelva en unos días!",
     foot_areas:"Barrios atendidos en Saint-Brévin-les-Pins: centro, Saint-Brévin-l'Océan, Mindin, l'Ermitage, les Rochelets, la Guérinière — y todos los campings y residencias del municipio (44250, Loire-Atlantique).",
-    cgl_title:"Condiciones Generales de Entrega",
+    cgl_title:"Condiciones Generales de Entrega", cgl_accept:"Acepto las condiciones generales",
     cgl_body:`<h4>1. Objeto</h4><p>Khéops Livraisons es un servicio de transporte de proximidad en Saint-Brévin-les-Pins. Recojo y entrego bienes que usted ya ha pedido y/o pagado en un comercio. No compro ningún producto en su lugar ni adelanto dinero.</p>
     <h4>2. Tarifa</h4><p>La entrega cuesta 7,50 € por trayecto, pagada en línea con tarjeta antes del servicio. Cubre solo el transporte, excluyendo el precio de las mercancías.</p>
     <h4>3. Volumen y peso</h4><p>El servicio se limita a pedidos transportables en dos ruedas: unas 2 bolsas grandes y un pack de agua, unos 10 kg. Si su pedido supera esta capacidad, se le reembolsa íntegramente la entrega.</p>
     <h4>4. Justificantes (drive)</h4><p>Para la compra en drive, usted se compromete a facilitar la captura de su pedido y, si es necesario, el código de barras de su tarjeta de fidelidad, para permitir la recogida.</p>
     <h4>5. Reembolso</h4><p>Si la entrega no puede realizarse (volumen excesivo, comercio cerrado, pedido no encontrado), la entrega se reembolsa íntegra y automáticamente a su medio de pago.</p>
     <h4>6. Responsabilidad</h4><p>Khéops Livraisons dispone de seguro de responsabilidad civil profesional. Mi responsabilidad se limita al transporte de los bienes confiados, hasta su valor declarado.</p>
-    <h4>7. Zona y horario</h4><p>Servicio disponible en Saint-Brévin-les-Pins (44250), de lunes a sábado de 10h a 18h, 7 días a la semana en temporada de verano.</p>`
+    <h4>7. Zona y horario</h4><p>Servicio disponible en Saint-Brévin-les-Pins (44250), de lunes a sábado de 9h a 19h en temporada de verano (cerrado los domingos).</p>`
   },
   de:{
     nav_services:"Leistungen", nav_how:"So funktioniert's", nav_tarif:"Preis", nav_faq:"FAQ", nav_contact:"Bestellen",
@@ -1021,7 +1047,7 @@
     hero_lead:"Drive-Einkäufe, Pakete, Wäsche, vergessene Dinge — abgeholt und geliefert zu Ihrem Zuhause, Ihrer Unterkunft oder Ihrem Campingplatz in Saint-Brévin-les-Pins.",
     hero_cta1:"Lieferung bestellen", hero_cta2:"Leistungen ansehen",
     hero_trust:"Sie bezahlen direkt im Geschäft — ich transportiere nur.",
-    card_label:"Einheitspreis, überall", card_price_sub:"pro Lieferung · 7 Tage/Woche in der Saison",
+    card_label:"Einheitspreis, überall", card_price_sub:"pro Lieferung · Mo–Sa in der Saison",
     card_li1:"Ganz Saint-Brévin-les-Pins", card_li2:"Zuhause, Unterkunft oder Camping",
     card_li3:"100 % Online-Zahlung", card_li4:"Ladenpreise, Aktionen & Treuepunkte bleiben erhalten",
     card_cta:"Jetzt bestellen",
@@ -1040,16 +1066,18 @@
     h2t:"Lieferung buchen", h2p:"Füllen Sie das Formular aus, bezahlen Sie die Lieferung online und fügen Sie einen Screenshot Ihrer Bestellung bei (und den Barcode Ihrer Treuekarte für Drive-Einkäufe).",
     h3t:"Ich hole ab & liefere", h3p:"Ich hole Ihre Bestellung ab und liefere sie an Ihre Tür, Ihre Unterkunft oder Ihren Campingplatz.",
     how_note:"Ich liefere mit dem Zweirad: denken Sie an Wasserkästen und sperrige Produkte. Übersteigt eine Bestellung meine Kapazität, informiere ich Sie und erstatte die Lieferung vollständig.",
-    tarif_title:"Ein Einheitspreis, ohne Überraschungen", tarif_desc:"7,50 € pro Lieferung, überall in Saint-Brévin-les-Pins, 7 Tage die Woche in der Saison. 100 % Online-Zahlung.",
+    tarif_title:"Ein Einheitspreis, ohne Überraschungen", tarif_desc:"7,50 € pro Lieferung, überall in Saint-Brévin-les-Pins, Montag bis Samstag in der Saison. 100 % Online-Zahlung.",
     tarif_cta:"Lieferung bestellen",
     contact_eyebrow:"Bestellen & Kontakt", contact_title:"Stellen Sie Ihre Anfrage online", contact_desc:"Eine Lieferanfrage oder eine einfache Frage — alles läuft über diese Formulare.",
     dl_title:"Lieferanfrage", dl_sub:"Füllen Sie dieses Formular aus, nachdem Sie im Geschäft bestellt und bezahlt haben.",
     dl_drive_t:"Für einen Drive-Einkauf, folgen Sie diesen Schritten:", dl_drive_p:"Bestellen und bezahlen Sie zuerst auf der Website Ihres Marktes (U Drive, Leclerc Drive…). Kommen Sie dann hierher zurück, bezahlen Sie die Lieferung online und senden Sie Ihre Anfrage.",
-    dl_svc_label:"Art der Leistung",
+    dl_svc_label:"Art der Leistung", dl_svc_hint:"Wählen Sie die Leistung, die am besten zu Ihrer Anfrage passt.",
     dl_o1t:"Einkauf / Drive", dl_o1p:"max. 2 große Taschen, 10 kg",
     dl_o2t:"Paket / Post", dl_o2p:"Abgabe, Abholung, dringend",
     dl_o3t:"Wäsche / Reinigung", dl_o3p:"Abholung, bereits bezahlt",
     dl_o4t:"Vergessenes", dl_o4p:"Strand, Unterkunft, Resto…",
+    dl_o5t:"Apotheke", dl_o5p:"Click & Collect, bezahlt",
+    dl_o6t:"Sonderwunsch", dl_o6p:"Jede andere Anfrage",
     dl_name:"Ihr Name", dl_email:"Ihre E-Mail",
     dl_address:"Lieferadresse", dl_shop:"Abholort", dl_shop_hint:"Name und Adresse des Geschäfts, Drive oder der Abholstation, wo ich abhole.",
     dl_list:"Artikel / abzuholende Bestellung", dl_list_hint:"Max. transportierbares Volumen: etwa 2 große Taschen und ein Wasserkasten (10 kg).",
@@ -1067,18 +1095,18 @@
     faq_q4:"Welches Volumen kann ich liefern lassen?", faq_a4:"Ich liefere mit dem Zweirad: etwa 2 große Taschen und einen Wasserkasten, rund 10 kg. Für Drive-Einkäufe senden Sie mir einen Screenshot, damit ich prüfen kann, ob alles passt.",
     faq_q5:"Und wenn meine Bestellung zu sperrig ist?", faq_a5:"Ich informiere Sie sofort und erstatte die Lieferung vollständig, automatisch auf Ihre Karte. Sie gehen kein Risiko ein.",
     foot_about:"Lokaler Lieferdienst mit dem Zweirad in Saint-Brévin-les-Pins. Ich transportiere Ihre Einkäufe, Pakete und Wäsche — Sie bleiben sitzen.",
-    foot_nav:"Navigation", foot_info:"Informationen", foot_cgl:"AGB", foot_zone:"Gebiet: Saint-Brévin-les-Pins (44250)", foot_hours:"Mo–Sa, 10–18 Uhr",
+    foot_nav:"Navigation", foot_info:"Informationen", foot_cgl:"AGB", foot_zone:"Gebiet: Saint-Brévin-les-Pins (44250)", foot_hours:"Mo–Sa, 9–19 Uhr",
     foot_legal:"100 % Online-Zahlung — kein Bargeld.",
     banner_msg:"Unsere neue Website wird fertiggestellt. Einige Seiten sind bald verfügbar — bitte kommen Sie in ein paar Tagen wieder!",
     foot_areas:"Bediente Viertel in Saint-Brévin-les-Pins: Zentrum, Saint-Brévin-l'Océan, Mindin, l'Ermitage, les Rochelets, la Guérinière — sowie alle Campingplätze und Unterkünfte der Gemeinde (44250, Loire-Atlantique).",
-    cgl_title:"Allgemeine Lieferbedingungen",
+    cgl_title:"Allgemeine Lieferbedingungen", cgl_accept:"Ich akzeptiere die AGB",
     cgl_body:`<h4>1. Gegenstand</h4><p>Khéops Livraisons ist ein lokaler Transportdienst in Saint-Brévin-les-Pins. Ich hole Waren ab und liefere sie, die Sie bereits in einem Geschäft bestellt und/oder bezahlt haben. Ich kaufe kein Produkt für Sie ein und strecke kein Geld vor.</p>
     <h4>2. Preis</h4><p>Die Lieferung kostet 7,50 € pro Fahrt, online per Karte vor der Leistung bezahlt. Dies deckt nur den Transport ab, ohne den Warenpreis.</p>
     <h4>3. Volumen & Gewicht</h4><p>Der Dienst beschränkt sich auf mit dem Zweirad transportierbare Bestellungen: etwa 2 große Taschen und einen Wasserkasten, rund 10 kg. Übersteigt Ihre Bestellung diese Kapazität, wird Ihnen die Lieferung vollständig erstattet.</p>
     <h4>4. Nachweise (Drive)</h4><p>Für Drive-Einkäufe verpflichten Sie sich, einen Screenshot Ihrer Bestellung und ggf. den Barcode Ihrer Treuekarte bereitzustellen, um die Abholung zu ermöglichen.</p>
     <h4>5. Erstattung</h4><p>Kann die Lieferung nicht erfolgen (zu großes Volumen, Geschäft geschlossen, Bestellung nicht auffindbar), wird die Lieferung vollständig und automatisch auf Ihr Zahlungsmittel erstattet.</p>
     <h4>6. Haftung</h4><p>Khéops Livraisons verfügt über eine Berufshaftpflichtversicherung. Meine Haftung beschränkt sich auf den Transport der anvertrauten Waren bis zu deren angegebenem Wert.</p>
-    <h4>7. Gebiet & Zeiten</h4><p>Dienst verfügbar in Saint-Brévin-les-Pins (44250), Montag bis Samstag von 10 bis 18 Uhr, 7 Tage die Woche in der Sommersaison.</p>`
+    <h4>7. Gebiet & Zeiten</h4><p>Dienst verfügbar in Saint-Brévin-les-Pins (44250), Montag bis Samstag von 9 bis 19 Uhr in der Sommersaison (sonntags geschlossen).</p>`
   }
   };
 
@@ -1101,8 +1129,13 @@
   function closeMobile(){ document.getElementById('mobileMenu').classList.remove('open'); }
 
   /* ===================== MODALE CGL ===================== */
-  function openCGL(e){ if(e) e.preventDefault(); document.getElementById('cgl-modal').classList.add('open'); }
-  function closeCGL(){ document.getElementById('cgl-modal').classList.remove('open'); }
+  function openCGL(e){ if(e) e.preventDefault(); document.getElementById('cgl-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeCGL(){ document.getElementById('cgl-modal').classList.remove('open'); document.body.style.overflow=''; }
+  function accepterCGL(){
+    var chk=document.getElementById('paidConfirm');
+    if(chk){ chk.checked=true; }
+    closeCGL();
+  }
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCGL(); });
   document.getElementById('cgl-modal').addEventListener('click', function(e){ if(e.target===this) closeCGL(); });
 
@@ -1133,9 +1166,91 @@
     const form = document.getElementById('delivery-form');
     const formMsg = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
+
+    /* ════════════════════════════════════════════════════════════════════
+       INTERRUPTEUR « SITE EN CONSTRUCTION »
+       Tant que true : paiement ET envoi de commande BLOQUÉS (alerte affichée).
+       👉 Pour OUVRIR le site quand tu es opérationnel : passer à false.
+       ════════════════════════════════════════════════════════════════════ */
+    var SITE_EN_CONSTRUCTION = true;
+
+    function alerteConstruction(){
+      var lang=document.documentElement.lang||'fr';
+      var m={
+        fr:'🚧 Le site est en cours de finalisation : les commandes et paiements ne sont pas encore disponibles. Merci de revenir dans quelques jours !',
+        en:'🚧 The website is being finalised: orders and payments are not available yet. Please come back in a few days!',
+        es:'🚧 El sitio se está finalizando: los pedidos y pagos aún no están disponibles. ¡Vuelva en unos días!',
+        de:'🚧 Die Website wird fertiggestellt: Bestellungen und Zahlungen sind noch nicht verfügbar. Bitte kommen Sie in ein paar Tagen wieder!'
+      }[lang];
+      formMsg.textContent=m; formMsg.style.color='#c8902e'; formMsg.style.fontWeight='700';
+      formMsg.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    /* ========== VALIDATION PARTAGÉE (submit ET paiement Stripe) ==========
+       Retourne true si tout est valide, false sinon (et affiche le message). */
+    window.validerCommande = function(scrollToField){
+      var lang=document.documentElement.lang||'fr';
+      var g=function(id){var el=document.getElementById(id);return el?el.value.trim():'';};
+      var service=(document.querySelector('input[name=serviceType]:checked')||{}).value||'';
+      var name=g('name'),email=g('email'),address=g('address'),shop=g('shop_name'),list=g('shopping_list');
+      var pd=g('pickup_date'),pt=g('pickup_time'),dd=g('delivery_date'),dt=g('delivery_time');
+      var paid=document.getElementById('paidConfirm').checked;
+      var show=function(txt,fieldId){
+        formMsg.textContent=txt; formMsg.style.color='#c0392b';
+        if(scrollToField && fieldId){ var el=document.getElementById(fieldId); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+      };
+
+      // ── PRIORITÉ 1 : horaires saisis mais hors plage (9h–19h) ──
+      // (vérifié en premier pour amener le client directement aux créneaux)
+      var hm=function(h){var p=(h||'').split(':');return p.length===2?parseInt(p[0],10)*60+parseInt(p[1],10):-1;};
+      var OUV=9*60, FERM=19*60, ptM=hm(pt), dtM=hm(dt);
+      var hMsg={fr:'🕘 Créneau hors horaires : je travaille de 9h à 19h, du lundi au samedi. Corrigez les heures surlignées ci-dessous.',en:'🕘 Slot outside hours: I work 9am–7pm, Monday to Saturday. Please fix the highlighted times below.',es:'🕘 Franja fuera de horario: trabajo de 9h a 19h, de lunes a sábado. Corrija las horas señaladas abajo.',de:'🕘 Zeitfenster außerhalb der Zeiten: ich arbeite 9–19 Uhr, Montag bis Samstag. Bitte korrigieren Sie die markierten Zeiten unten.'}[lang];
+      var ptHorsPlage = (pt!=='' && (ptM<OUV||ptM>FERM));
+      var dtHorsPlage = (dt!=='' && (dtM<OUV||dtM>FERM));
+      if(ptHorsPlage || dtHorsPlage){
+        if(typeof verifierHeure==='function'){
+          if(ptHorsPlage) verifierHeure('pickup_time','pickup-time-msg');
+          if(dtHorsPlage) verifierHeure('delivery_time','delivery-time-msg');
+        }
+        show(hMsg, ptHorsPlage?'pickup_time':'delivery_time');
+        return false;
+      }
+
+      // ── PRIORITÉ 2 : champs requis — scroll vers le PREMIER champ vide ──
+      var fillMsg={fr:'Veuillez compléter tous les champs requis avant de payer.',en:'Please complete all required fields before paying.',es:'Complete todos los campos obligatorios antes de pagar.',de:'Bitte füllen Sie alle Pflichtfelder aus, bevor Sie bezahlen.'}[lang];
+      var requis=[['serviceType_check',!service,'service-grid'],['name',!name,'name'],['email',!email,'email'],['address',!address,'address'],['shop_name',!shop,'shop_name'],['shopping_list',!list,'shopping_list'],['pickup_date',!pd,'pickup_date'],['pickup_time',!pt,'pickup_time'],['delivery_date',!dd,'delivery_date'],['delivery_time',!dt,'delivery_time'],['paidConfirm',!paid,'paidConfirm']];
+      for(var i=0;i<requis.length;i++){
+        if(requis[i][1]){ show(fillMsg, requis[i][2]); return false; }
+      }
+
+      // ── PRIORITÉ 3 : zone (les 2 adresses à Saint-Brévin) — seulement si Google a répondu ──
+      var googleReady=!!(window.google&&window.google.maps&&window.google.maps.places);
+      var ozLivr={fr:'🚫 Adresse de livraison hors zone : choisissez une adresse à Saint-Brévin-les-Pins (44250) dans la liste.',en:'🚫 Delivery address out of area: pick a Saint-Brévin-les-Pins (44250) address from the list.',es:'🚫 Dirección de entrega fuera de zona: elija una dirección de Saint-Brévin-les-Pins (44250) en la lista.',de:'🚫 Lieferadresse außerhalb der Zone: wählen Sie eine Adresse in Saint-Brévin-les-Pins (44250) aus der Liste.'}[lang];
+      var ozShop={fr:'🚫 Lieu de prise en charge hors zone : choisissez une adresse à Saint-Brévin-les-Pins (44250) dans la liste.',en:'🚫 Pickup location out of area: pick a Saint-Brévin-les-Pins (44250) address from the list.',es:'🚫 Lugar de recogida fuera de zona: elija una dirección de Saint-Brévin-les-Pins (44250) en la lista.',de:'🚫 Abholort außerhalb der Zone: wählen Sie eine Adresse in Saint-Brévin-les-Pins (44250) aus der Liste.'}[lang];
+      if(googleReady && window.addressValid!==true){ show(ozLivr,'address'); return false; }
+      if(googleReady && window.shopValid!==true){ show(ozShop,'shop_name'); return false; }
+
+      return true;
+    };
+
+    /* Garde sur le bouton de paiement Stripe : n'ouvre le paiement que si tout est valide */
+    window.verifierAvantPaiement = function(e){
+      if(SITE_EN_CONSTRUCTION){
+        if(e){ e.preventDefault(); }
+        alerteConstruction();
+        return false;
+      }
+      if(!window.validerCommande(true)){
+        if(e){ e.preventDefault(); }
+        return false;
+      }
+      return true; // laisse le lien Stripe s'ouvrir
+    };
+
     form.addEventListener('submit', async function(e){
       e.preventDefault();
       formMsg.textContent='';
+      if(SITE_EN_CONSTRUCTION){ alerteConstruction(); return; }
       const lang=document.documentElement.lang;
       const t={fr:{fill:'Veuillez compléter tous les champs requis.',ok:'✅ Demande envoyée ! Je vous recontacte par email rapidement.',err:'Erreur lors de l\'envoi. Réessayez ou utilisez le formulaire de contact.'},
                en:{fill:'Please complete all required fields.',ok:'✅ Request sent! I\'ll get back to you by email shortly.',err:'Sending error. Try again or use the contact form.'},
@@ -1146,25 +1261,8 @@
       const name=get('name'),email=get('email'),address=get('address'),shop=get('shop_name'),list=get('shopping_list');
       const pd=get('pickup_date'),pt=get('pickup_time'),dd=get('delivery_date'),dt=get('delivery_time');
       const msg=get('message'),paid=document.getElementById('paidConfirm').checked;
-      if(!service||!name||!email||!address||!shop||!list||!pd||!pt||!dd||!dt||!paid){
-        formMsg.textContent=t.fill; formMsg.style.color='#c0392b'; return;
-      }
-      // Blocage hors zone — les DEUX adresses doivent être à Saint-Brévin (44250)
-      var ozLivr={fr:'🚫 Adresse de livraison hors zone : sélectionnez une adresse à Saint-Brévin-les-Pins (44250) dans la liste.',en:'🚫 Delivery address out of area: pick a Saint-Brévin-les-Pins (44250) address from the list.',es:'🚫 Dirección de entrega fuera de zona: seleccione una dirección de Saint-Brévin-les-Pins (44250) en la lista.',de:'🚫 Lieferadresse außerhalb der Zone: wählen Sie eine Adresse in Saint-Brévin-les-Pins (44250) aus der Liste.'}[lang];
-      var ozShop={fr:'🚫 Lieu de prise en charge hors zone : sélectionnez une adresse à Saint-Brévin-les-Pins (44250) dans la liste.',en:'🚫 Pickup location out of area: pick a Saint-Brévin-les-Pins (44250) address from the list.',es:'🚫 Lugar de recogida fuera de zona: seleccione una dirección de Saint-Brévin-les-Pins (44250) en la lista.',de:'🚫 Abholort außerhalb der Zone: wählen Sie eine Adresse in Saint-Brévin-les-Pins (44250) aus der Liste.'}[lang];
-      // En local (clé Google bridée), window.addressValid peut rester false même pour une bonne adresse :
-      // on ne bloque que si Google a explicitement répondu (présence de la lib Places).
-      var googleReady = !!(window.google && window.google.maps && window.google.maps.places);
-      if(googleReady && window.addressValid!==true){
-        formMsg.textContent=ozLivr; formMsg.style.color='#c0392b';
-        document.getElementById('address').scrollIntoView({behavior:'smooth',block:'center'});
-        return;
-      }
-      if(googleReady && window.shopValid!==true){
-        formMsg.textContent=ozShop; formMsg.style.color='#c0392b';
-        document.getElementById('shop_name').scrollIntoView({behavior:'smooth',block:'center'});
-        return;
-      }
+      // Validation partagée (mêmes règles que le bouton de paiement)
+      if(!window.validerCommande(true)){ return; }
       submitBtn.setAttribute('disabled','disabled');
       const params={ name, email, phone:'(non communiqué)', address, shop_name:shop, shopping_list:list,
         message:`Service : ${service}\nPrise en charge : ${pd} ${pt}\nLivraison souhaitée : ${dd} ${dt}\n${msg?('Détails : '+msg):''}` };
@@ -1202,6 +1300,33 @@
     /* ---------- Dates min = aujourd'hui ---------- */
     const today=new Date().toISOString().split('T')[0];
     ['pickup_date','delivery_date'].forEach(id=>{const el=document.getElementById(id); if(el) el.min=today;});
+
+    /* ---------- Validation horaire en TEMPS RÉEL (9h–19h) ---------- */
+    function verifierHeure(inputId, msgId){
+      var el=document.getElementById(inputId), msgEl=document.getElementById(msgId);
+      if(!el || !msgEl) return;
+      var v=el.value;
+      if(!v){ msgEl.textContent=''; return; }
+      var p=v.split(':'), m=p.length===2 ? parseInt(p[0],10)*60+parseInt(p[1],10) : -1;
+      var lang=document.documentElement.lang||'fr';
+      var OK={fr:'✅ Créneau valide.',en:'✅ Valid slot.',es:'✅ Franja válida.',de:'✅ Gültiges Zeitfenster.'};
+      var KO={fr:'🕘 En dehors des horaires (9h–19h). Merci de choisir entre 9h et 19h.',en:'🕘 Outside hours (9am–7pm). Please choose between 9am and 7pm.',es:'🕘 Fuera de horario (9h–19h). Elija entre las 9h y las 19h.',de:'🕘 Außerhalb der Zeiten (9–19 Uhr). Bitte zwischen 9 und 19 Uhr wählen.'};
+      var ok = (m>=9*60 && m<=19*60);
+      msgEl.textContent = ok ? OK[lang] : KO[lang];
+      msgEl.style.color = ok ? '#2e7d52' : '#c0392b';
+    }
+    var ptEl=document.getElementById('pickup_time');
+    var dtEl=document.getElementById('delivery_time');
+    if(ptEl){ ptEl.addEventListener('change',function(){verifierHeure('pickup_time','pickup-time-msg');});
+              ptEl.addEventListener('blur',function(){verifierHeure('pickup_time','pickup-time-msg');}); }
+    if(dtEl){ dtEl.addEventListener('change',function(){verifierHeure('delivery_time','delivery-time-msg');});
+              dtEl.addEventListener('blur',function(){verifierHeure('delivery_time','delivery-time-msg');}); }
+
+    /* Site en construction : grise visuellement le bouton de paiement */
+    if(SITE_EN_CONSTRUCTION){
+      var payBtn=document.getElementById('stripe-payment-link');
+      if(payBtn){ payBtn.style.opacity='.55'; payBtn.style.filter='grayscale(.4)'; payBtn.style.cursor='not-allowed'; }
+    }
   });
   </script>
 

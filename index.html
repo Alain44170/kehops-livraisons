@@ -373,6 +373,17 @@
     .drive-info strong{color:var(--ocre);display:block;font-size:.98rem;margin-bottom:7px}
     .drive-info p{color:rgba(255,255,255,.86);font-size:.87rem;line-height:1.6}
     .drive-info a{display:inline-flex;align-items:center;gap:7px;background:var(--ocre);color:var(--encre);padding:9px 16px;border-radius:9px;font-weight:700;font-size:.82rem;margin-top:11px}
+    /* Encadrés cliquables vers les enseignes partenaires */
+    .shops-intro{font-size:.9rem;color:var(--encre-soft);line-height:1.6;margin-bottom:14px}
+    .shops-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:22px}
+    .shop-link{display:flex;align-items:center;gap:12px;background:var(--blanc);border:1.5px solid var(--sable-line);border-radius:13px;padding:14px 16px;text-decoration:none;transition:border-color .15s, transform .15s, box-shadow .15s}
+    .shop-link:hover{border-color:var(--ocre);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,144,46,.14)}
+    .shop-link .shop-emo{font-size:1.6rem;flex-shrink:0}
+    .shop-link .shop-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .shop-link .shop-name{font-weight:800;font-size:.92rem;color:var(--encre);display:flex;align-items:center;gap:6px}
+    .shop-link .shop-name i{font-size:.7rem;color:var(--ocre)}
+    .shop-link .shop-sub{font-size:.74rem;color:var(--ardoise);line-height:1.3}
+    @media(max-width:560px){ .shops-grid{grid-template-columns:1fr} }
 
     .form-msg{font-size:.9rem;margin-top:12px;min-height:18px;font-weight:600}
 
@@ -623,6 +634,32 @@
             </div>
           </div>
 
+          <!-- Encadrés cliquables vers les enseignes partenaires de Saint-Brévin -->
+          <p class="shops-intro" data-i18n="shops_intro"></p>
+          <div class="shops-grid">
+            <a class="shop-link" href="https://www.coursesu.com/drive-superu-saintbrevinlespins" target="_blank" rel="noopener">
+              <span class="shop-emo">🛒</span>
+              <span class="shop-txt">
+                <span class="shop-name">U Drive <i class="fa fa-arrow-up-right-from-square"></i></span>
+                <span class="shop-sub">Pl. Henri Basle, Saint-Brévin</span>
+              </span>
+            </a>
+            <a class="shop-link" href="https://www.leclercdrive.fr/region-pays-de-la-loire/saint-nazaire/drive-saint-brevin.aspx" target="_blank" rel="noopener">
+              <span class="shop-emo">🛒</span>
+              <span class="shop-txt">
+                <span class="shop-name">E.Leclerc Drive <i class="fa fa-arrow-up-right-from-square"></i></span>
+                <span class="shop-sub">Parc Les Guerches, Saint-Brévin</span>
+              </span>
+            </a>
+            <a class="shop-link" href="https://pharmaciedespins.apothical.fr/" target="_blank" rel="noopener">
+              <span class="shop-emo">💊</span>
+              <span class="shop-txt">
+                <span class="shop-name">Pharmacie des Pins <i class="fa fa-arrow-up-right-from-square"></i></span>
+                <span class="shop-sub" data-i18n="shops_pharma_sub">Click &amp; collect — C. Cial Leclerc</span>
+              </span>
+            </a>
+          </div>
+
           <form id="delivery-form" novalidate>
             <label style="font-weight:700;font-size:.88rem;color:var(--encre);margin-bottom:4px;display:block" data-i18n="dl_svc_label"></label>
             <p style="font-size:.8rem;color:var(--ardoise);margin-bottom:11px" data-i18n="dl_svc_hint"></p>
@@ -869,13 +906,13 @@
     tarif_cta:"Commander une livraison",
     contact_eyebrow:"Commander & contacter", contact_title:"Faites votre demande en ligne", contact_desc:"Une demande de livraison, ou une simple question — tout passe par ces formulaires.",
     dl_title:"Demande de livraison", dl_sub:"Remplissez ce formulaire après avoir commandé et payé chez le commerçant.",
-    dl_drive_t:"Pour un drive, suivez ces étapes :", dl_drive_p:"Commandez et payez d'abord sur le site de votre enseigne — U Drive ou E.Leclerc Drive de Saint-Brévin-les-Pins. Revenez ensuite ici, réglez la livraison en ligne et envoyez votre demande.",
+    dl_drive_t:"Comment ça marche :", dl_drive_p:"Cliquez sur le magasin de votre choix ci-dessous, faites vos courses en ligne directement sur son site, puis revenez ici pour que je vienne récupérer et vous livrer votre commande.", shops_intro:"👇 Cliquez sur votre commerce pour commander en ligne :", shops_pharma_sub:"Click & collect — C. Cial Leclerc",
     dl_svc_label:"Type de service", dl_svc_hint:"Sélectionnez le service qui correspond le mieux à votre demande.",
     dl_o1t:"Courses / Drive", dl_o1p:"2 grands sacs max., 10 kg",
     dl_o2t:"Colis / Courrier", dl_o2p:"Dépôt, retrait, pli urgent",
     dl_o3t:"Linge / Pressing", dl_o3p:"Retrait, déjà réglé",
     dl_o4t:"Objet oublié", dl_o4p:"Plage, location, resto…",
-    dl_o5t:"Pharmacie", dl_o5p:"Click & collect, déjà réglé",
+    dl_o5t:"Pharmacie", dl_o5p:"Click & collect (Pharmacie des Pins)",
     dl_o6t:"Besoin spécifique", dl_o6p:"Toute autre demande",
     dl_name:"Votre nom", dl_email:"Votre email",
     dl_address:"Adresse de livraison", dl_shop:"Lieu de prise en charge", dl_shop_hint:"Nom et adresse du commerce, drive ou point relais où je récupère.",
@@ -936,13 +973,13 @@
     tarif_cta:"Order a delivery",
     contact_eyebrow:"Order & contact", contact_title:"Make your request online", contact_desc:"A delivery request, or a simple question — it all goes through these forms.",
     dl_title:"Delivery request", dl_sub:"Fill in this form after ordering and paying at the shop.",
-    dl_drive_t:"For a drive order, follow these steps:", dl_drive_p:"First order and pay on your store's website — U Drive or E.Leclerc Drive in Saint-Brévin-les-Pins. Then come back here, pay the delivery online and send your request.",
+    dl_drive_t:"How it works:", dl_drive_p:"Click on your chosen store below, do your shopping online directly on its website, then come back here so I can pick up and deliver your order.", shops_intro:"👇 Click on your store to order online:", shops_pharma_sub:"Click & collect — Leclerc mall",
     dl_svc_label:"Type of service", dl_svc_hint:"Select the service that best matches your request.",
     dl_o1t:"Groceries / Drive", dl_o1p:"2 large bags max., 10 kg",
     dl_o2t:"Parcel / Mail", dl_o2p:"Drop-off, pickup, urgent",
     dl_o3t:"Laundry / Cleaning", dl_o3p:"Pickup, already paid",
     dl_o4t:"Forgotten item", dl_o4p:"Beach, rental, resto…",
-    dl_o5t:"Pharmacy", dl_o5p:"Click & collect, prepaid",
+    dl_o5t:"Pharmacy", dl_o5p:"Click & collect (Pharmacie des Pins)",
     dl_o6t:"Specific need", dl_o6p:"Any other request",
     dl_name:"Your name", dl_email:"Your email",
     dl_address:"Delivery address", dl_shop:"Pickup location", dl_shop_hint:"Name and address of the shop, drive or pickup point where I collect.",
@@ -1003,13 +1040,13 @@
     tarif_cta:"Pedir una entrega",
     contact_eyebrow:"Pedir y contactar", contact_title:"Haga su solicitud en línea", contact_desc:"Una solicitud de entrega, o una simple pregunta — todo pasa por estos formularios.",
     dl_title:"Solicitud de entrega", dl_sub:"Rellene este formulario tras pedir y pagar en el comercio.",
-    dl_drive_t:"Para un drive, siga estos pasos:", dl_drive_p:"Primero pida y pague en la web de su supermercado — U Drive o E.Leclerc Drive de Saint-Brévin-les-Pins. Luego vuelva aquí, pague la entrega en línea y envíe su solicitud.",
+    dl_drive_t:"Cómo funciona:", dl_drive_p:"Haga clic en la tienda de su elección abajo, haga su compra en línea directamente en su web, y luego vuelva aquí para que yo recoja y le entregue su pedido.", shops_intro:"👇 Haga clic en su comercio para pedir en línea:", shops_pharma_sub:"Click & collect — C. Cial Leclerc",
     dl_svc_label:"Tipo de servicio", dl_svc_hint:"Seleccione el servicio que mejor se adapte a su solicitud.",
     dl_o1t:"Compra / Drive", dl_o1p:"2 bolsas grandes máx., 10 kg",
     dl_o2t:"Paquete / Correo", dl_o2p:"Depósito, recogida, urgente",
     dl_o3t:"Ropa / Tintorería", dl_o3p:"Recogida, ya pagada",
     dl_o4t:"Objeto olvidado", dl_o4p:"Playa, alquiler, resto…",
-    dl_o5t:"Farmacia", dl_o5p:"Click & collect, ya pagado",
+    dl_o5t:"Farmacia", dl_o5p:"Click & collect (Pharmacie des Pins)",
     dl_o6t:"Necesidad específica", dl_o6p:"Cualquier otra solicitud",
     dl_name:"Su nombre", dl_email:"Su email",
     dl_address:"Dirección de entrega", dl_shop:"Lugar de recogida", dl_shop_hint:"Nombre y dirección del comercio, drive o punto de recogida donde recojo.",
@@ -1070,13 +1107,13 @@
     tarif_cta:"Lieferung bestellen",
     contact_eyebrow:"Bestellen & Kontakt", contact_title:"Stellen Sie Ihre Anfrage online", contact_desc:"Eine Lieferanfrage oder eine einfache Frage — alles läuft über diese Formulare.",
     dl_title:"Lieferanfrage", dl_sub:"Füllen Sie dieses Formular aus, nachdem Sie im Geschäft bestellt und bezahlt haben.",
-    dl_drive_t:"Für einen Drive-Einkauf, folgen Sie diesen Schritten:", dl_drive_p:"Bestellen und bezahlen Sie zuerst auf der Website Ihres Marktes — U Drive oder E.Leclerc Drive in Saint-Brévin-les-Pins. Kommen Sie dann hierher zurück, bezahlen Sie die Lieferung online und senden Sie Ihre Anfrage.",
+    dl_drive_t:"So funktioniert es:", dl_drive_p:"Klicken Sie unten auf das Geschäft Ihrer Wahl, erledigen Sie Ihren Einkauf online direkt auf dessen Website, und kommen Sie dann hierher zurück, damit ich Ihre Bestellung abhole und liefere.", shops_intro:"👇 Klicken Sie auf Ihr Geschäft, um online zu bestellen:", shops_pharma_sub:"Click & Collect — Leclerc-Center",
     dl_svc_label:"Art der Leistung", dl_svc_hint:"Wählen Sie die Leistung, die am besten zu Ihrer Anfrage passt.",
     dl_o1t:"Einkauf / Drive", dl_o1p:"max. 2 große Taschen, 10 kg",
     dl_o2t:"Paket / Post", dl_o2p:"Abgabe, Abholung, dringend",
     dl_o3t:"Wäsche / Reinigung", dl_o3p:"Abholung, bereits bezahlt",
     dl_o4t:"Vergessenes", dl_o4p:"Strand, Unterkunft, Resto…",
-    dl_o5t:"Apotheke", dl_o5p:"Click & Collect, bezahlt",
+    dl_o5t:"Apotheke", dl_o5p:"Click & Collect (Pharmacie des Pins)",
     dl_o6t:"Sonderwunsch", dl_o6p:"Jede andere Anfrage",
     dl_name:"Ihr Name", dl_email:"Ihre E-Mail",
     dl_address:"Lieferadresse", dl_shop:"Abholort", dl_shop_hint:"Name und Adresse des Geschäfts, Drive oder der Abholstation, wo ich abhole.",
